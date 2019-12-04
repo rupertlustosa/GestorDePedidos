@@ -11,6 +11,8 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/{any}', 'PanelController@index')->where('any', '.*');
+
+Route::get('/', function(){
+    return view('errors.500');
+})->name('login');

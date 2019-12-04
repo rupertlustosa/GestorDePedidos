@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/{any}', 'PanelController@index')->where('any', '.*');
+#Route::get('/{any}', 'PanelController@index')->where('any', '.*');
 
 Route::get('/', function(){
     return view('errors.500');

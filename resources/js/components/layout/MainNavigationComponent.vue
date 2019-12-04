@@ -17,22 +17,22 @@
                     </div>
                 </li>
                 <li class="active">
-                    <router-link to="/">Home</router-link>
-                </li>
-                <li>
-                    <router-link to="/"><i class="fa fa-th-large"></i> <span class="nav-label">Home</span></router-link>
-                </li>
-                <li>
-                    <router-link to="/about"><i class="fa fa-th-large"></i> <span class="nav-label">Sobre</span></router-link>
+                    <router-link to="/">Dashboard</router-link>
                 </li>
                 <li>
                     <router-link to="/users"><i class="fa fa-th-large"></i> <span class="nav-label">Usuários</span></router-link>
                 </li>
                 <li>
+                    <router-link to="/about"><i class="fa fa-th-large"></i> <span class="nav-label">Mesas</span></router-link>
+                </li>
+                <li>
+                    <router-link to="/users"><i class="fa fa-th-large"></i> <span class="nav-label">Pedidos</span></router-link>
+                </li>
+                <!--<li>
                     <a class="right-sidebar-toggle">
                         <i class="fa fa-tasks"></i> Lateral
                     </a>
-                </li>
+                </li>-->
             </ul>
 
         </div>

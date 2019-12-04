@@ -18,7 +18,7 @@ class UserPolicy
      */
     public function viewAny(AuthenticatedUser $authenticatedUser)
     {
-        //
+        return true;
     }
 
     /**
@@ -30,7 +30,7 @@ class UserPolicy
      */
     public function view(AuthenticatedUser $authenticatedUser, User $user)
     {
-        //
+        return true;
     }
 
     /**

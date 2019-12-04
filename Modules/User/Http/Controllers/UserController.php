@@ -28,6 +28,8 @@ class UserController extends BaseModuleController
     public function __construct(UserService $userService)
     {
 
+        Auth::loginUsingId(1);
+        //dd(Auth::user());
         //$this->middleware('jwt.auth');
         $this->userService = $userService;
     }

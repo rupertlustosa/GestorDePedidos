@@ -34,7 +34,7 @@ class UserService
             return $query->where('id', 'LIKE', '%' . $search . '%');
         });
 
-        return $query;
+        return $query->orderByDesc('id');
     }
 
     public function all(): Collection

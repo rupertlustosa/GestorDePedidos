@@ -16,7 +16,8 @@ class UserRule
         'id' => 'required|integer|exists:users,id,deleted_at,NULL',
         'name' => 'required|max:255',
         'email' => 'required|email|max:255',
-        'password' => 'required|string|min:8|confirmed',
+        'password' => 'required|string|min:8',
+        //'password' => 'required|string|min:8|confirmed',
     ];
 
     /**
@@ -28,7 +29,6 @@ class UserRule
     {
 
         return [
-            'id' => self::$rules['id'],
             'name' => self::$rules['name'],
             'email' => self::$rules['email'],
             'password' => self::$rules['password'],

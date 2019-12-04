@@ -41,7 +41,7 @@ class UserPolicy
      */
     public function create(AuthenticatedUser $authenticatedUser)
     {
-        //
+        return true;
     }
 
     /**
@@ -53,7 +53,7 @@ class UserPolicy
      */
     public function update(AuthenticatedUser $authenticatedUser, User $user)
     {
-        //
+        return true;
     }
 
     /**
@@ -65,7 +65,7 @@ class UserPolicy
      */
     public function delete(AuthenticatedUser $authenticatedUser, User $user)
     {
-        //
+        return true;
     }
 
     /**
@@ -89,6 +89,6 @@ class UserPolicy
      */
     public function forceDelete(AuthenticatedUser $authenticatedUser, User $user)
     {
-        //
+        return true;
     }
 }

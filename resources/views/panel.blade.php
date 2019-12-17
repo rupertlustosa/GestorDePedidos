@@ -14,7 +14,11 @@
 
     <link href="/assets/panel/css/animate.css" rel="stylesheet">
     <link href="/assets/panel/css/style.css" rel="stylesheet">
-
+    <style>
+        .loading-screen-inspinia {
+            z-index: 3000 !important;
+        }
+    </style>
 </head>
 
 <body>

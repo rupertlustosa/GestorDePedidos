@@ -29,6 +29,7 @@
         components: {MinorNavigationComponent, MainNavigationComponent, FooterComponent},
         data() {
             return {
+                msg: 'Aguarde...',
                 isAuth: true,
                 optionsPNotify: {
                     defaultStyle: 'success',

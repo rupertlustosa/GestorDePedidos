@@ -7,7 +7,7 @@ import UserFormComponent from "../../Modules/User/Components/user/UserFormCompon
 Vue.use(VueRouter);
 
 const router = new VueRouter({
-    mode: "history",
+    mode: "hash", // hash history abstract
     routes: [
         {
             path: "/",

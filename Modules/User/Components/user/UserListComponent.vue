@@ -33,9 +33,8 @@
                                 <div class="row">
                                     <div class="col-sm-4">
                                         <div class="form-group">
-                                            <label class="col-form-label" for="product_name">Nome do usuário</label>
-                                            <input class="form-control" id="product_name" name="product_name"
-                                                   placeholder="Nome do usuário"
+                                            <label class="col-form-label">Nome do usuário</label>
+                                            <input class="form-control" v-model="form.name" placeholder="Nome do usuário"
                                                    type="text" value="">
                                         </div>
                                     </div>
@@ -136,14 +135,15 @@
                                             </a>
 
                                             <small>
-                                                rupertlustosa@gmail.com
+                                                {{ item.email }}
                                             </small>
                                         </td>
                                         <td>
                                             <span class="label label-warning">Usuário</span>
                                         </td>
                                         <td>
-                                            12.02.2015 10:00 am
+                                            {{ new Date(item.created_at) | dateFormat('DD/MM/YYYY') }}<br>
+                                            {{ '10.10.1989' | dateParse('DD.MM.YYYY') | dateFormat('dd, DD MMM YYYY') }}
                                         </td>
                                         <td class="text-right">
                                             <button class="btn btn-white btn-xs"> Editar</button>
@@ -153,6 +153,16 @@
                                     </tbody>
                                 </table>
                             </div>
+                            <paginate-component
+                                :page-count="10"
+                                :page-range="3"
+                                :margin-pages="2"
+                                :click-handler="getData"
+                                :prev-text="'Prev'"
+                                :next-text="'Next'"
+                                :container-class="'pagination'"
+                                :page-class="'page-item'">
+                            </paginate-component>
                         </div>
 
                     </div>
@@ -171,20 +181,37 @@
         data() {
             return {
                 items: [],
+                form: {}
             }
         },
         methods: {
 
-            getData() {
-                axios.get("/api/users")
+            getData(pageNum = 1) {
+
+                this.$loading(true);
+
+                axios.get("/api/users?page=" + pageNum)
                     .then((response) => {
 
                         let data = response.data.data;
-                        console.log(data);
                         this.items = [...data];
                     })
                     .catch(error => {
-                        console.log(error);
+
+                        if (_.has(error, 'response.data.errors')) {
+
+
+                        } else {
+
+                            this.alertText = '[' + error.response.status + '] Não foi possível realizar essa operação!';
+                        }
+
+                        console.log(error.response.status);
+                        console.log(error.response.data);
+                    })
+                    .then(() => {
+
+                        this.$loading(false);
                     });
             }
         },

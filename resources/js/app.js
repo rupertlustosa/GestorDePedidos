@@ -29,6 +29,51 @@ require('./bootstrap');
 import Vue from "vue";
 import Routes from "./router";
 import App from "./components/App";
+import PaginateComponent from "./components/layout/PaginateComponent";
+
+/*import BootstrapVue from 'bootstrap-vue';
+Vue.use(BootstrapVue);*/
+
+import VueLoading from 'vuejs-loading-plugin'
+// using default options
+//Vue.use(VueLoading);
+
+// overwrite defaults
+Vue.use(VueLoading, {
+    dark: false, // default false
+    text: 'Carregando dados...', // default 'Loading'
+    loading: false, // default false
+    //customLoader: myVueComponent, // replaces the spinner and text with your own
+    //background: 'rgb(47, 64, 80)', // set custom background
+    classes: ['loading-screen-inspinia', 'animated', 'fadeIn'] // array, object or string
+});
+
+import VueFilterDateFormat from 'vue-filter-date-format';
+
+//https://www.npmjs.com/package/vue-filter-date-format
+Vue.use(VueFilterDateFormat, {
+    dayOfWeekNames: [
+        'Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'
+    ],
+    dayOfWeekNamesNamesShort: [
+        'Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'
+    ],
+    monthNames: [
+        'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
+        'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
+    ],
+    monthNamesShort: [
+        'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun',
+        'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'
+    ]
+});
+
+//https://github.com/eduardnikolenko/vue-filter-date-parse
+import VueFilterDateParse from 'vue-filter-date-parse'
+
+Vue.use(VueFilterDateParse);
+
+Vue.component('paginate-component', PaginateComponent);
 
 const app = new Vue({
     el: '#app',

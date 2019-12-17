@@ -13,6 +13,7 @@
 //auth:api
 Route::middleware(['web'])
     ->group(function ($api) {
+        //sleep(2);
         $api->resource('users', 'UserController')->except([
             'create', 'edit'
         ]);

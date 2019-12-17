@@ -49,7 +49,7 @@ class UserController extends BaseModuleController
                 return $this->sendUnauthorized();
             }
 
-            $limit = (int)(request('limit') ?? 20);
+            $limit = (int)(request('limit') ?? 5);
             $data = $this->userService->paginate($limit);
 
             return $this->sendPaginate(new UserCollection($data));

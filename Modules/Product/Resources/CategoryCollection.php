@@ -6,7 +6,7 @@ namespace Modules\Product\Resources;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class ProductCollection extends ResourceCollection
+class CategoryCollection extends ResourceCollection
 {
 
     /**
@@ -14,7 +14,7 @@ class ProductCollection extends ResourceCollection
      *
      * @var string
      */
-    public $collects = 'Modules\Product\Resources\ProductResource';
+    public $collects = 'Modules\Product\Resources\CategoryResource';
 
     /**
      * Transform the resource collection into an array.

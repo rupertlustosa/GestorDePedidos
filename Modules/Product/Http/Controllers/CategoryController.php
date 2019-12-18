@@ -9,28 +9,28 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Modules\Http\Controllers\ApiController;
-use Modules\Product\Models\Product;
-use Modules\Product\Resources\ProductCollection;
-use Modules\Product\Resources\ProductResource;
-use Modules\Product\Services\ProductService;
-use Modules\Product\Validators\ProductStoreRequest;
-use Modules\Product\Validators\ProductUpdateRequest;
+use Modules\Product\Models\Category;
+use Modules\Product\Resources\CategoryCollection;
+use Modules\Product\Resources\CategoryResource;
+use Modules\Product\Services\CategoryService;
+use Modules\Product\Validators\CategoryStoreRequest;
+use Modules\Product\Validators\CategoryUpdateRequest;
 
-class ProductController extends ApiController
+class CategoryController extends ApiController
 {
 
-    private $productService;
+    private $categoryService;
 
     /**
      * Create a new controller instance.
      *
-     * @param ProductService $productService
+     * @param CategoryService $categoryService
      */
-    public function __construct(ProductService $productService)
+    public function __construct(CategoryService $categoryService)
     {
 
         //$this->middleware('api');
-        $this->productService = $productService;
+        $this->categoryService = $categoryService;
     }
 
     /**
@@ -44,9 +44,9 @@ class ProductController extends ApiController
         try {
 
             $limit = (int)(request('limit') ?? 20);
-            $data = $this->productService->paginate($limit);
+            $data = $this->categoryService->paginate($limit);
 
-            return $this->sendPaginate(new ProductCollection($data));
+            return $this->sendPaginate(new CategoryCollection($data));
 
         } catch (Exception $exception) {
 
@@ -65,9 +65,9 @@ class ProductController extends ApiController
 
         try {
 
-            $data = $this->productService->all();
+            $data = $this->categoryService->all();
 
-            return $this->sendResource(ProductResource::collection($data));
+            return $this->sendResource(CategoryResource::collection($data));
 
         } catch (Exception $exception) {
 
@@ -85,7 +85,7 @@ class ProductController extends ApiController
 
         try {
 
-            $storeRequest = new ProductStoreRequest();
+            $storeRequest = new CategoryStoreRequest();
             $validator = Validator::make(request()->all(), $storeRequest->rules());
 
             if ($validator->fails()) {
@@ -93,7 +93,7 @@ class ProductController extends ApiController
                 return $this->sendBadRequest('Validation Error.', $validator->errors()->toArray());
             }
 
-            $item = $this->productService->create(request()->all());
+            $item = $this->categoryService->create(request()->all());
 
             return $this->sendResponse($item->toArray());
 
@@ -107,14 +107,14 @@ class ProductController extends ApiController
     /**
      * Update the specified resource in storage.
      *
-     * @param Product $product
+     * @param Category $category
      * @return JsonResponse
      */
-    public function update(Product $product)
+    public function update(Category $category)
     {
         try {
 
-            $updateRequest = new ProductUpdateRequest();
+            $updateRequest = new CategoryUpdateRequest();
             $validator = Validator::make(request()->all(), $updateRequest->rules());
 
             if ($validator->fails()) {
@@ -122,7 +122,7 @@ class ProductController extends ApiController
                 return $this->sendBadRequest('Validation Error.', $validator->errors()->toArray());
             }
 
-            $item = $this->productService->update(request()->all(), $product);
+            $item = $this->categoryService->update(request()->all(), $category);
 
             return $this->sendResponse($item->toArray());
 
@@ -136,15 +136,15 @@ class ProductController extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param Product $product
+     * @param Category $category
      * @return JsonResponse
      */
-    public function show(Product $product): JsonResponse
+    public function show(Category $category): JsonResponse
     {
 
         try {
 
-            return $this->sendResource(new ProductResource($product));
+            return $this->sendResource(new CategoryResource($category));
 
         } catch (Exception $exception) {
 
@@ -156,17 +156,17 @@ class ProductController extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param Product $product
+     * @param Category $category
      * @return JsonResponse
      */
-    public function delete(Product $product): JsonResponse
+    public function delete(Category $category): JsonResponse
     {
 
         try {
 
-            $item = $this->productService->find($product);
+            $item = $this->categoryService->find($category);
 
-            return $this->sendResource(new ProductResource($item));
+            return $this->sendResource(new CategoryResource($item));
 
         } catch (Exception $exception) {
 

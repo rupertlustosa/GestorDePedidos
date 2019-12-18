@@ -6,7 +6,7 @@ namespace Modules\Product\Validators;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ProductUpdateRequest extends FormRequest
+class CategoryStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,7 +27,7 @@ class ProductUpdateRequest extends FormRequest
     public function rules()
     {
 
-        return ProductRule::rules();
+        return CategoryRule::rules();
     }
 
     /**
@@ -38,6 +38,6 @@ class ProductUpdateRequest extends FormRequest
     public function messages()
     {
 
-        return ProductRule::messages();
+        return CategoryRule::messages();
     }
 }

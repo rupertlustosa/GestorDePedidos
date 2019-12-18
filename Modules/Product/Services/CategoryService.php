@@ -8,15 +8,15 @@ use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
-use Modules\Product\Models\Product;
+use Modules\Product\Models\Category;
 
-class ProductService
+class CategoryService
 {
 
     private function buildQuery(): Builder
     {
 
-        $query = Product::query();
+        $query = Category::query();
 
         $query->when(request('id'), function ($query, $id) {
 
@@ -43,43 +43,43 @@ class ProductService
         return $this->buildQuery()->get();
     }
 
-    public function find(int $id): ?Product
+    public function find(int $id): ?Category
     {
 
-        return Product::find($id);
+        return Category::find($id);
     }
 
-    public function create(array $data): Product
+    public function create(array $data): Category
     {
 
-        $product = new Product();
-        $product->fill($data);
-        $product->save();
+        $category = new Category();
+        $category->fill($data);
+        $category->save();
 
-        return $product;
+        return $category;
         //return DB::transaction(function () use ($data) {
         //});
     }
 
-    public function update(array $data, Product $product): Product
+    public function update(array $data, Category $category): Category
     {
 
-        $product->fill($data);
-        $product->save();
+        $category->fill($data);
+        $category->save();
 
-        return $product;
+        return $category;
     }
 
-    public function delete(Product $product): ?bool
+    public function delete(Category $category): ?bool
     {
 
-        return $product->delete();
+        return $category->delete();
     }
 
     public function lists(): array
     {
 
-        return Product::orderBy('name')
+        return Category::orderBy('name')
             ->pluck('name', 'id')
             ->toArray();
     }

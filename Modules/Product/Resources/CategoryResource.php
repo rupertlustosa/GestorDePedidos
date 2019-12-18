@@ -6,7 +6,7 @@ namespace Modules\Product\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ProductResource extends JsonResource
+class CategoryResource extends JsonResource
 {
 
     /**
@@ -18,14 +18,7 @@ class ProductResource extends JsonResource
     public function toArray($request)
     {
         return [
-
-            'id' => $this->id,
-            'category_id' => $this->category_id,
-            'name' => $this->name,
-            'summary' => $this->summary,
-            'description' => $this->description,
-            'main' => $this->main,
-            'price' => $this->price,
+//DummyResourceToArray
         ];
     }
 }

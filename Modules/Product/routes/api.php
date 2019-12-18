@@ -16,7 +16,7 @@ use Illuminate\Http\Request;
 Route::middleware(['web'])
     ->group(function ($api) {
 
-        $api->resource('products', 'ProductController')->except([
+        $api->resource('categories', 'CategoryController')->except([
             'create', 'edit'
         ]);
     });

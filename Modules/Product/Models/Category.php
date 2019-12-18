@@ -7,7 +7,7 @@ namespace Modules\Product\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Product extends Model
+class Category extends Model
 {
 
     use SoftDeletes;
@@ -17,14 +17,7 @@ class Product extends Model
      *
      * @var array
      */
-    protected $fillable = [
-        "category_id",
-        "name",
-        "summary",
-        "description",
-        "main",
-        "price"
-    ];
+    protected $fillable = [];
 
     # Accessors & Mutators
 

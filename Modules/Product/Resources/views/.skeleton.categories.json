@@ -1,0 +1,48 @@
+{
+    "names": [
+        {
+            "id": "parent_id",
+            "label": "Categoria pai"
+        },
+        {
+            "id": "name",
+            "label": "Nome"
+        },
+        {
+            "id": "imagem",
+            "label": "Imagem"
+        }
+    ],
+    "fill": [
+        "parent_id",
+        "name"
+    ],
+    "rules": {
+        "definition": [
+            "'id' => 'required|integer|exists:categories,id,deleted_at,NULL',",
+            "'parent_id' => 'nullable|integer|exists:categories,id,deleted_at,NULL',",
+            "'name' => 'required|max:255',",
+            "'imagem' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:4096',"
+        ],
+        "this": [
+            "'id' => self::$rules['id'],",
+            "'parent_id' => self::$rules['parent_id'],",
+            "'name' => self::$rules['name'],",
+            "'imagem' => self::$rules['imagem'],"
+        ]
+    },
+    "search": [
+        "parent_id",
+        "name"
+    ],
+    "listing": [
+        "parent_id",
+        "name",
+        "imagem"
+    ],
+    "form": [
+        "parent_id",
+        "name",
+        "imagem"
+    ]
+}

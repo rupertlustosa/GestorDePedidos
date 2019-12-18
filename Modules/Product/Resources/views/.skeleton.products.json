@@ -1,0 +1,73 @@
+{
+    "names": [
+        {
+            "id": "category_id",
+            "label": "Categoria"
+        },
+        {
+            "id": "name",
+            "label": "Nome"
+        },
+        {
+            "id": "summary",
+            "label": "Resumo"
+        },
+        {
+            "id": "description",
+            "label": "DESCRIPTION"
+        },
+        {
+            "id": "main",
+            "label": "MAIN"
+        },
+        {
+            "id": "price",
+            "label": "PRICE"
+        }
+    ],
+    "fill": [
+        "category_id",
+        "name",
+        "summary",
+        "description",
+        "main",
+        "price"
+    ],
+    "rules": {
+        "definition": [
+            "'id' => 'required|integer|exists:products,id,deleted_at,NULL',",
+            "'category_id' => 'required|integer|exists:categories,id,deleted_at,NULL',",
+            "'name' => 'required|max:255',",
+            "'summary' => 'nullable|max:255',",
+            "'description' => 'nullable',",
+            "'main' => 'required|boolean',",
+            "'price' => 'required',"
+        ],
+        "this": [
+            "'id' => self::$rules['id'],",
+            "'category_id' => self::$rules['category_id'],",
+            "'name' => self::$rules['name'],",
+            "'summary' => self::$rules['summary'],",
+            "'description' => self::$rules['description'],",
+            "'main' => self::$rules['main'],",
+            "'price' => self::$rules['price'],"
+        ]
+    },
+    "search": [
+        "name",
+        "summary"
+    ],
+    "listing": [
+        "category_id",
+        "name",
+        "summary"
+    ],
+    "form": [
+        "category_id",
+        "name",
+        "summary",
+        "description",
+        "main",
+        "price"
+    ]
+}

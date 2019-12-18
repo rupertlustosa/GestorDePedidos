@@ -75,19 +75,19 @@
             },
             pageRange: {
                 type: Number,
-                default: 3
+                default: 6
             },
             marginPages: {
                 type: Number,
-                default: 1
+                default: 2
             },
             prevText: {
                 type: String,
-                default: 'Prev'
+                default: '&laquo;'
             },
             nextText: {
                 type: String,
-                default: 'Next'
+                default: '&raquo;'
             },
             breakViewText: {
                 type: String,
@@ -138,11 +138,11 @@
             },
             firstButtonText: {
                 type: String,
-                default: 'First'
+                default: 'Primeiro'
             },
             lastButtonText: {
                 type: String,
-                default: 'Last'
+                default: 'Último'
             },
             hidePrevNext: {
                 type: Boolean,
@@ -150,7 +150,7 @@
             }
         },
         beforeUpdate() {
-            if (this.forcePage === undefined) return
+            if (this.forcePage === undefined) return;
             if (this.forcePage !== this.selected) {
                 this.selected = this.forcePage
             }

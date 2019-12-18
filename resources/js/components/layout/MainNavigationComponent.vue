@@ -23,10 +23,10 @@
                     <router-link to="/users"><i class="fa fa-th-large"></i> <span class="nav-label">Usuários</span></router-link>
                 </li>
                 <li>
-                    <router-link to="/about"><i class="fa fa-th-large"></i> <span class="nav-label">Mesas</span></router-link>
+                    <router-link to="/about"><i class="fa fa-th-large"></i> <span class="nav-label">Não existe</span></router-link>
                 </li>
                 <li>
-                    <router-link to="/users"><i class="fa fa-th-large"></i> <span class="nav-label">Pedidos</span></router-link>
+                    <router-link to="/products"><i class="fa fa-th-large"></i> <span class="nav-label">Produtos</span></router-link>
                 </li>
                 <!--<li>
                     <a class="right-sidebar-toggle">

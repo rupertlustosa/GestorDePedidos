@@ -1,0 +1,71 @@
+https://bitbucket.org/rupertlustosa/inspinia-laravel/src/master/resources/spa/js/router.map.js
+
+    {
+        name: 'students.list',
+        path: '/students',
+        component: require('./components/student/StudentList').default,
+        meta: {
+            auth: true
+        }
+    },
+    {
+        name: 'login',
+        path: '/login',
+        component: require('./components/Login').default
+    },
+    {
+        path: '*',
+        redirect: '/login'
+    }
+
+------------------------------------------------------------------------------------------------------------------------
+https://bitbucket.org/rupertlustosa/inspinia-laravel/src/master/resources/spa/js/filters.js
+------------------------------------------------------------------------------------------------------------------------
+https://bitbucket.org/rupertlustosa/inspinia-laravel/src/master/resources/spa/js/router.js
+
+router.beforeEach((to, from, next) => {
+    if (to.meta.auth && !store.state.auth.check) {
+        return router.push({name: 'login'});
+    }
+    next();
+});
+
+------------------------------------------------------------------------------------------------------------------------
+https://bitbucket.org/rupertlustosa/inspinia-laravel/src/master/resources/spa/js/components/student/StudentList.vue
+$("select[name=students]").select2({
+                ajax: {
+                    url: `${SPA_CONFIG.API_URL}/find-students`,
+                    dataType: 'json',
+                    delay: 250,
+                    language: "es",
+                    data: function (params) {
+                        return {
+                            search: params.term, // search term
+                        };
+                    },
+                    processResults: function (data, params) {
+                        params.page = params.page || 1;
+
+                        return {
+                            results: data.map((item) => {
+                                return {
+                                    id: item.id,
+                                    text: item.name
+                                };
+                            })
+                        };
+                    },
+                    cache: true
+                },
+                placeholder: 'Pesquise um aluno',
+                minimumInputLength: 1,
+            });
+------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------
+
+
+<i class="fa fa-check-circle"></i>
+<i class="fa fa-circle"></i>
+<i class="fa fa-search"></i>
+<i class="fa fa-eye"></i>
+<i class="fa fa-ellipsis-v" aria-hidden="true"></i>

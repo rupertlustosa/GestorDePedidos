@@ -4,8 +4,9 @@ import DashboardComponent from "./components/dashboard/DashboardComponent";
 import UserListComponent from "../../Modules/User/Components/user/UserListComponent";
 import LoginComponent from "../../Modules/User/Components/auth/LoginComponent";
 import UserFormComponent from "../../Modules/User/Components/user/UserFormComponent";
-import ProductRoutes from "../../Modules/Product/Resources/views/js/productRouter";
 import NotFoundComponent from "./components/NotFoundComponent";
+import CategoryRoutes from "../../Modules/Product/Resources/views/js/categoryRouter";
+import ProductRoutes from "../../Modules/Product/Resources/views/js/productRouter";
 
 Vue.use(VueRouter);
 
@@ -36,6 +37,7 @@ const router = new VueRouter({
                 auth: true
             }
         },
+        ...CategoryRoutes,
         ...ProductRoutes,
         {
             name: 'login',

@@ -23,7 +23,7 @@
                     <router-link to="/users"><i class="fa fa-th-large"></i> <span class="nav-label">Usuários</span></router-link>
                 </li>
                 <li>
-                    <router-link to="/about"><i class="fa fa-th-large"></i> <span class="nav-label">Não existe</span></router-link>
+                    <router-link to="/categories"><i class="fa fa-th-large"></i> <span class="nav-label">Categories</span></router-link>
                 </li>
                 <li>
                     <router-link to="/products"><i class="fa fa-th-large"></i> <span class="nav-label">Produtos</span></router-link>

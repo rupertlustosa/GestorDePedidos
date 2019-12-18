@@ -17,8 +17,13 @@ class CategoryResource extends JsonResource
      */
     public function toArray($request)
     {
+
         return [
-//DummyResourceToArray
+
+
+            'parent_id' => $this->category->name,
+            'name' => $this->name,
+            'imagem' => $this->imagem,
         ];
     }
 }

@@ -13,7 +13,11 @@ class CategoryRule
      * @var array
      */
 	protected static $rules = [
-	    //DummyRules
+	    //'id' => 'required|integer|exists:categories,id,deleted_at,NULL',
+	    'parent_id' => 'nullable|integer|exists:categories,id,deleted_at,NULL',
+	    'name' => 'required|max:255',
+	    'imagem' => 'nullable',
+	    //'imagem' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
     ];
 
     /**
@@ -25,7 +29,10 @@ class CategoryRule
     {
 
         return [
-            //DummyStaticRules
+            //'id' => self::$rules['id'],
+            'parent_id' => self::$rules['parent_id'],
+            'name' => self::$rules['name'],
+            'imagem' => self::$rules['imagem'],
         ];
     }
 

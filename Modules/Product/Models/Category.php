@@ -17,9 +17,17 @@ class Category extends Model
      *
      * @var array
      */
-    protected $fillable = [];
+    protected $fillable = [
+        "parent_id",
+        "name"
+    ];
 
     # Accessors & Mutators
 
     # Relationships
+    public function category()
+    {
+
+        return $this->belongsTo(Category::class, 'parent_id')->withDefault();
+    }
 }

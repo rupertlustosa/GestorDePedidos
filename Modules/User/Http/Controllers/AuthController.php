@@ -6,9 +6,10 @@ namespace Modules\User\Http\Controllers;
 
 use Exception;
 use Illuminate\Http\JsonResponse;
+use Modules\Http\Controllers\ApiController;
 use Rlustosa\LaravelGenerator\BaseModule\BaseModuleController;
 
-class AuthController extends BaseModuleController
+class AuthController extends ApiController
 {
 
     /**

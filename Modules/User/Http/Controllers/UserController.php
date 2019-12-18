@@ -8,6 +8,7 @@ use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Modules\Http\Controllers\ApiController;
 use Modules\User\Models\User;
 use Modules\User\Resources\UserCollection;
 use Modules\User\Resources\UserResource;
@@ -16,7 +17,7 @@ use Modules\User\Validators\UserStoreRequest;
 use Modules\User\Validators\UserUpdateRequest;
 use Rlustosa\LaravelGenerator\BaseModule\BaseModuleController;
 
-class UserController extends BaseModuleController
+class UserController extends ApiController
 {
     private $userService;
 

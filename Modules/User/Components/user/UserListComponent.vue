@@ -154,12 +154,8 @@
                                 </table>
                             </div>
                             <paginate-component
-                                :page-count="10"
-                                :page-range="3"
-                                :margin-pages="2"
+                                :page-count="pageCount"
                                 :click-handler="getData"
-                                :prev-text="'Prev'"
-                                :next-text="'Next'"
                                 :container-class="'pagination'"
                                 :page-class="'page-item'">
                             </paginate-component>
@@ -180,6 +176,7 @@
         components: {UserNavBarComponent},
         data() {
             return {
+                pageCount: 1,
                 items: [],
                 form: {}
             }
@@ -189,12 +186,14 @@
             getData(pageNum = 1) {
 
                 this.$loading(true);
+                this.pageCount = 1;
 
                 axios.get("/api/users?page=" + pageNum)
                     .then((response) => {
 
                         let data = response.data.data;
                         this.items = [...data];
+                        this.pageCount = response.data.last_page;
                     })
                     .catch(error => {
 

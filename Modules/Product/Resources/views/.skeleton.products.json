@@ -1,0 +1,79 @@
+{
+    "names": [
+        {
+            "id": "id",
+            "label": "ID"
+        },
+        {
+            "id": "category_id",
+            "label": "Categoria"
+        },
+        {
+            "id": "name",
+            "label": "Nome"
+        },
+        {
+            "id": "image",
+            "label": "Imagem"
+        },
+        {
+            "id": "summary",
+            "label": "Resumo"
+        },
+        {
+            "id": "available",
+            "label": "Disponível?"
+        },
+        {
+            "id": "price",
+            "label": "PRICE"
+        }
+    ],
+    "fill": [
+        "category_id",
+        "name",
+        "summary",
+        "available",
+        "price"
+    ],
+    "rules": {
+        "definition": [
+            "'id' => 'required|integer|exists:products,id,deleted_at,NULL',",
+            "'category_id' => 'required|integer|exists:categories,id,deleted_at,NULL',",
+            "'name' => 'required|max:255',",
+            "'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:4096',",
+            "'summary' => 'nullable|max:255',",
+            "'available' => 'required|boolean',",
+            "'price' => 'required',"
+        ],
+        "this": [
+            "'id' => self::$rules['id'],",
+            "'category_id' => self::$rules['category_id'],",
+            "'name' => self::$rules['name'],",
+            "'image' => self::$rules['image'],",
+            "'summary' => self::$rules['summary'],",
+            "'available' => self::$rules['available'],",
+            "'price' => self::$rules['price'],"
+        ]
+    },
+    "search": [
+        "category_id",
+        "name"
+    ],
+    "listing": [
+        "category_id",
+        "name",
+        "image",
+        "summary",
+        "available",
+        "price"
+    ],
+    "form": [
+        "category_id",
+        "name",
+        "image",
+        "summary",
+        "available",
+        "price"
+    ]
+}

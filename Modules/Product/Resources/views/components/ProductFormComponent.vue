@@ -8,6 +8,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="ibox">
+
                         <div class="ibox-title">
                             <h5>{{ typeof(this.$route.params.id) === "undefined" ? 'Cadastro' : 'Edição' }}</h5>
                         </div>
@@ -21,10 +22,10 @@
                                     <form-error-component v-if="errors.category_id" :errors="errors">
                                         {{ errors.category_id[0] }}
                                     </form-error-component>
-                                </div>
-
-                            </div>
-
+                                </div>            
+            
+                            </div>        
+        
 
                             <div class="form-row">
                                 <div class="form-group col-md-12 col-lg-12">
@@ -33,10 +34,10 @@
                                     <form-error-component v-if="errors.name" :errors="errors">
                                         {{ errors.name[0] }}
                                     </form-error-component>
-                                </div>
-
-                            </div>
-
+                                </div>            
+            
+                            </div>        
+        
 
                             <div class="form-row">
                                 <div class="form-group col-md-12 col-lg-12">
@@ -45,10 +46,10 @@
                                     <form-error-component v-if="errors.image" :errors="errors">
                                         {{ errors.image[0] }}
                                     </form-error-component>
-                                </div>
-
-                            </div>
-
+                                </div>            
+            
+                            </div>        
+        
 
                             <div class="form-row">
                                 <div class="form-group col-md-12 col-lg-12">
@@ -57,10 +58,10 @@
                                     <form-error-component v-if="errors.summary" :errors="errors">
                                         {{ errors.summary[0] }}
                                     </form-error-component>
-                                </div>
-
-                            </div>
-
+                                </div>            
+            
+                            </div>        
+        
 
                             <div class="form-row">
                                 <div class="form-group col-md-12 col-lg-6">
@@ -69,18 +70,18 @@
                                     <form-error-component v-if="errors.available" :errors="errors">
                                         {{ errors.available[0] }}
                                     </form-error-component>
-                                </div>
-
+                                </div>            
+            
                                 <div class="form-group col-md-12 col-lg-6">
                                     <label>Preço</label>
                                     <input type="text" v-model="form.price" class="form-control">
                                     <form-error-component v-if="errors.price" :errors="errors">
                                         {{ errors.price[0] }}
                                     </form-error-component>
-                                </div>
-
-                            </div>
-
+                                </div>            
+            
+                            </div>        
+        
 
                             <div class="form-row">
                                 <div class="form-group col-12">
@@ -100,7 +101,7 @@
                                             </a>
                                         </div>
                                     </div>
-                                    <router-link class="btn btn-white" :to="{ name: 'categories.list' }">
+                                    <router-link class="btn btn-white" :to="{ name: 'products.list' }">
                                         <i class="fa fa-ban"></i> Cancelar
                                     </router-link>
 

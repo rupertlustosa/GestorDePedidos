@@ -28,6 +28,19 @@
                 <li>
                     <router-link to="/products"><i class="fa fa-th-large"></i> <span class="nav-label">Produtos</span></router-link>
                 </li>
+                <li>
+                    <a href="#">
+                        <i class="fa fa-picture-o"></i>
+                        <span class="nav-label">Gallery</span>
+                        <span class="fa arrow"></span>
+                    </a>
+                    <ul class="nav nav-second-level collapse">
+                        <li><a href="basic_gallery.html">Lightbox Gallery</a></li>
+                        <li><a href="slick_carousel.html">Slick Carousel</a></li>
+                        <li><a href="carousel.html">Bootstrap Carousel</a></li>
+
+                    </ul>
+                </li>
                 <!--<li>
                     <a class="right-sidebar-toggle">
                         <i class="fa fa-tasks"></i> Lateral

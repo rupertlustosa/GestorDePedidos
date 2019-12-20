@@ -22,7 +22,7 @@ class CreateCategoriesTable extends Migration
                 ->onDelete('restrict');
 
             $table->string('name');
-            $table->string('imagem')->nullable();
+            //$table->string('imagem')->nullable();
 
             $table->timestamps();
             $table->softDeletes();

@@ -53,7 +53,8 @@
                             </div>
 
                             <div class="table-responsive">
-                                <table class="table table-hover issue-tracker">
+
+                                <table class="table table-striped table-hover table-bordered">
                                     <thead>
                                     <tr>
                                         <th>Nome</th>
@@ -85,7 +86,7 @@
                                                     <router-link
                                                         class="dropdown-item"
                                                         :to="{ name: 'products.edit', params: { id: item.id }}">
-                                                        <i class="fa fa-pencil fa-fw"></i> Editar {{ item.id }}
+                                                        <i class="fa fa-pencil fa-fw"></i> Editar
                                                     </router-link>
                                                     <router-link
                                                         class="dropdown-item"
@@ -101,6 +102,7 @@
                                 </table>
                             </div>
                             <paginate-component
+                                v-if="this.items.length"
                                 :page-count="pageCount"
                                 :click-handler="getData"
                                 :container-class="'pagination'"

@@ -30,11 +30,15 @@ import Vue from "vue";
 import Routes from "./router";
 import App from "./components/App";
 import PaginateComponent from "./components/layout/PaginateComponent";
+import VueLoading from 'vuejs-loading-plugin'
+import VueFilterDateFormat from 'vue-filter-date-format';
+//https://github.com/eduardnikolenko/vue-filter-date-parse
+import VueFilterDateParse from 'vue-filter-date-parse'
+//https://f3oall.github.io/awesome-notifications/docs/customization/
+import VueAWN from "vue-awesome-notifications"
 
 /*import BootstrapVue from 'bootstrap-vue';
 Vue.use(BootstrapVue);*/
-
-import VueLoading from 'vuejs-loading-plugin'
 // using default options
 //Vue.use(VueLoading);
 
@@ -47,8 +51,6 @@ Vue.use(VueLoading, {
     //background: 'rgb(47, 64, 80)', // set custom background
     classes: ['loading-screen-inspinia', 'animated', 'fadeIn'] // array, object or string
 });
-
-import VueFilterDateFormat from 'vue-filter-date-format';
 
 //https://www.npmjs.com/package/vue-filter-date-format
 Vue.use(VueFilterDateFormat, {
@@ -68,15 +70,56 @@ Vue.use(VueFilterDateFormat, {
     ]
 });
 
-//https://github.com/eduardnikolenko/vue-filter-date-parse
-import VueFilterDateParse from 'vue-filter-date-parse'
-
 Vue.use(VueFilterDateParse);
 
 Vue.component('paginate-component', PaginateComponent);
 
+// Your custom options
+let options = {
+    position: "top-right",
+    clean: true,
+    labels: {
+        tip: 'Dica',
+        info: '',
+        success: 'Sucesso',
+        warning: 'Alerta',
+        alert: 'Erro',
+        async: 'Loading',
+        confirm: 'Confirmation required',
+    },
+    icons: {
+        enabled: false,
+    }
+    //durations: {success: 0}
+};
+
+Vue.use(VueAWN, options);
+
+Vue.filter('capitalize', function (value) {
+    if (!value) return '';
+    value = value.toString();
+    return value.charAt(0).toUpperCase() + value.slice(1) + '.....';
+});
+Vue.filter('currencydecimal', function (value) {
+    if (!value) return '-';
+    return value.toFixed(2)
+});
+Vue.filter('fromBoolean', function (value) {
+    if (!value) return '-';
+    return value == 1 ? 'Sim' : 'Não';
+});
+
 const app = new Vue({
     el: '#app',
     router: Routes,
+    /*filters: {
+        currencydecimal(value) {
+            return value.toFixed(2)
+        },
+        fromBoolean(value) {
+
+            return value == 1 ? 'Sim' : 'Não';
+        }
+    },*/
     render: h => h(App)
 });

@@ -39,7 +39,7 @@ class ProductService
     public function paginate(int $limit): LengthAwarePaginator
     {
 
-        return $this->buildQuery()->paginate(3);
+        return $this->buildQuery()->paginate($limit);
     }
 
     public function all(): Collection

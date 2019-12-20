@@ -1,7 +1,7 @@
 <template>
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-sm-8">
-            <h2>products</h2>
+            <h2>Produtos</h2>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
                     <router-link to="/">Painel</router-link>

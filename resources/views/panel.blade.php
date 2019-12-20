@@ -114,7 +114,7 @@
 {{--<script src="/assets/panel/js/jquery-3.1.1.min.js"></script>
 <script src="/assets/panel/js/popper.min.js"></script>
 <script src="/assets/panel/js/bootstrap.min.js"></script>--}}
-<script src="/js/app.js"></script>
+<script src="{{ mix('/js/app.js') }}"></script>
 <script src="/assets/panel/js/plugins/metisMenu/jquery.metisMenu.js"></script>
 <script src="/assets/panel/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 

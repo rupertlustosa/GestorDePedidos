@@ -1,4 +1,4 @@
-import CategoryListComponent from "../components/CategoryListComponent";
+import ProductListComponent from "../components/CategoryListComponent";
 import CategoryFormComponent from "../components/CategoryFormComponent";
 
 const categoryRoutes = [

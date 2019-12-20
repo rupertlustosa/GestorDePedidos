@@ -8,6 +8,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="ibox">
+
                         <div class="ibox-title">
                             <h5>{{ typeof(this.$route.params.id) === "undefined" ? 'Cadastro' : 'Edição' }}</h5>
                         </div>
@@ -15,46 +16,28 @@
 
 
                             <div class="form-row">
-                                <div class="form-group col-md-12 col-lg-6">
-                                    <label for="name">Categoria pai</label>
-                                    <input type="text" v-model="form.parent_id" class="form-control"
-                                           placeholder="Categoria pai">
-                                    <div v-if="errors && errors.parent_id" class="text-danger">
+                                <div class="form-group col-md-12 col-lg-12">
+                                    <label>Categoria</label>
+                                    <input type="text" v-model="form.parent_id" class="form-control">
+                                    <form-error-component v-if="errors.parent_id" :errors="errors">
                                         {{ errors.parent_id[0] }}
-                                    </div>
-                                </div>
-
-                            </div>
-
+                                    </form-error-component>
+                                </div>            
+            
+                            </div>        
+        
 
                             <div class="form-row">
-                                <div class="form-group col-md-12 col-lg-6">
-                                    <label for="name">Nome</label>
-                                    <input type="text" v-model="form.name" class="form-control" autofocus="autofocus"
-                                           placeholder="Nome">
-                                    <div v-if="errors.name" class="text-warning">
-                                        {{ errors.name[0] }}
-                                    </div>
+                                <div class="form-group col-md-12 col-lg-12">
+                                    <label>Nome</label>
+                                    <input type="text" v-model="form.name" class="form-control">
                                     <form-error-component v-if="errors.name" :errors="errors">
                                         {{ errors.name[0] }}
                                     </form-error-component>
-                                </div>
-
-                            </div>
-
-
-                            <div class="form-row">
-                                <div class="form-group col-sm-12 col-6">
-                                    <label for="name">Imagem</label>
-                                    <input type="text" v-model="form.imagem" class="form-control"
-                                           placeholder="Imagem">
-                                    <div v-if="errors && errors.imagem" class="text-danger">
-                                        {{ errors.imagem[0] }}
-                                    </div>
-                                </div>
-
-                            </div>
-
+                                </div>            
+            
+                            </div>        
+        
 
                             <div class="form-row">
                                 <div class="form-group col-12">
@@ -99,7 +82,6 @@
         components: {FormErrorComponent, CategoryNavBarComponent},
         data() {
             return {
-                showDismissibleAlert: true,
                 routeToSave: "/api/categories",
                 routeNameToRedirect: "categories.list",
                 method: 'post',
@@ -108,6 +90,36 @@
             }
         },
         methods: {
+            getData() {
+
+                this.$loading(true);
+
+                axios.request(this.routeToSave, {
+                    method: 'get',
+                    params: this.form,
+                })
+                    .then((response) => {
+
+                        this.form = response.data.data;
+                    })
+                    .catch(error => {
+
+                        if (_.has(error, 'error.response.status')) {
+
+                            const message = '[' + error.response.status + '] Não foi possível realizar essa operação!';
+                            this.$awn.alert(message);
+
+                        } else {
+
+                            this.$awn.alert(error.message);
+                        }
+
+                    })
+                    .then(() => {
+
+                        this.$loading(false);
+                    });
+            },
             saveAndNew() {
 
                 this.routeNameToRedirect = 'categories.create';
@@ -133,15 +145,13 @@
                                 this.form = {};
                             });
 
-                        let message = 'Salvo com sucesso!';
-                        this.$awn.success(message);
+                        this.$awn.success('Salvo com sucesso!');
                     })
                     .catch(error => {
 
                         if (_.has(error, 'response.data.errors')) {
 
-                            let message = 'Corrija os erros antes de salvar';
-                            this.$awn.warning(message);
+                            this.$awn.warning('Corrija os erros antes de salvar');
                             this.errors = error.response.data.errors;
                         } else {
 
@@ -163,6 +173,7 @@
 
                 this.routeToSave = "/api/categories/" + this.$route.params.id;
                 this.method = 'put';
+                this.getData();
             }
         }
     }

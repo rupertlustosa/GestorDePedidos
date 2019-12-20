@@ -18,7 +18,8 @@ class Category extends Model
      * @var array
      */
     protected $fillable = [
-//DummyFillable
+        'parent_id',
+        'name',
     ];
 
     # Accessors & Mutators

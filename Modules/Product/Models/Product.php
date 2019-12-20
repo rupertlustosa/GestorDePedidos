@@ -18,11 +18,12 @@ class Product extends Model
      * @var array
      */
     protected $fillable = [
-        "category_id",
-        "name",
-        "summary",
-        "available",
-        "price"
+        'category_id',
+        'name',
+        'image',
+        'summary',
+        'available',
+        'price',
     ];
 
     # Accessors & Mutators

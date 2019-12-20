@@ -20,93 +20,95 @@
 
 
                             <div class="form-row">
-                                <div class="form-group col-sm-12 col-6">
-                                    <label for="name">Categoria</label>
-                                    <input type="text" v-model="form.category_id" class="form-control" 
-                                           placeholder="Categoria">
-                                    <div v-if="errors && errors.category_id" class="text-danger">
+                                <div class="form-group col-md-12 col-lg-12">
+                                    <label>Categoria</label>
+                                    <input type="text" v-model="form.category_id" class="form-control">
+                                    <form-error-component v-if="errors.category_id" :errors="errors">
                                         {{ errors.category_id[0] }}
-                                    </div>
+                                    </form-error-component>
                                 </div>            
             
                             </div>        
         
 
                             <div class="form-row">
-                                <div class="form-group col-sm-12 col-6">
-                                    <label for="name">Nome</label>
-                                    <input type="text" v-model="form.name" class="form-control" 
-                                           placeholder="Nome">
-                                    <div v-if="errors && errors.name" class="text-danger">
+                                <div class="form-group col-md-12 col-lg-12">
+                                    <label>Nome</label>
+                                    <input type="text" v-model="form.name" class="form-control">
+                                    <form-error-component v-if="errors.name" :errors="errors">
                                         {{ errors.name[0] }}
-                                    </div>
+                                    </form-error-component>
                                 </div>            
             
                             </div>        
         
 
                             <div class="form-row">
-                                <div class="form-group col-sm-12 col-6">
-                                    <label for="name">Imagem</label>
-                                    <input type="text" v-model="form.image" class="form-control" 
-                                           placeholder="Imagem">
-                                    <div v-if="errors && errors.image" class="text-danger">
+                                <div class="form-group col-md-12 col-lg-12">
+                                    <label>Imagem</label>
+                                    <input type="text" v-model="form.image" class="form-control">
+                                    <form-error-component v-if="errors.image" :errors="errors">
                                         {{ errors.image[0] }}
-                                    </div>
+                                    </form-error-component>
                                 </div>            
             
                             </div>        
         
 
                             <div class="form-row">
-                                <div class="form-group col-sm-12 col-6">
-                                    <label for="name">Resumo</label>
-                                    <input type="text" v-model="form.summary" class="form-control" 
-                                           placeholder="Resumo">
-                                    <div v-if="errors && errors.summary" class="text-danger">
+                                <div class="form-group col-md-12 col-lg-12">
+                                    <label>Resumo</label>
+                                    <input type="text" v-model="form.summary" class="form-control">
+                                    <form-error-component v-if="errors.summary" :errors="errors">
                                         {{ errors.summary[0] }}
-                                    </div>
+                                    </form-error-component>
                                 </div>            
             
                             </div>        
         
 
                             <div class="form-row">
-                                <div class="form-group col-sm-12 col-6">
-                                    <label for="name">Está Disponível?</label>
-                                    <input type="text" v-model="form.available" class="form-control" 
-                                           placeholder="Está Disponível?">
-                                    <div v-if="errors && errors.available" class="text-danger">
+                                <div class="form-group col-md-12 col-lg-6">
+                                    <label>Disponível?</label>
+                                    <input type="text" v-model="form.available" class="form-control">
+                                    <form-error-component v-if="errors.available" :errors="errors">
                                         {{ errors.available[0] }}
-                                    </div>
+                                    </form-error-component>
                                 </div>            
             
-                            </div>        
-        
-
-                            <div class="form-row">
-                                <div class="form-group col-sm-12 col-6">
-                                    <label for="name">Preço</label>
-                                    <input type="text" v-model="form.price" class="form-control" 
-                                           placeholder="Preço">
-                                    <div v-if="errors && errors.price" class="text-danger">
+                                <div class="form-group col-md-12 col-lg-6">
+                                    <label>Preço</label>
+                                    <input type="text" v-model="form.price" class="form-control">
+                                    <form-error-component v-if="errors.price" :errors="errors">
                                         {{ errors.price[0] }}
-                                    </div>
+                                    </form-error-component>
                                 </div>            
             
                             </div>        
         
 
                             <div class="form-row">
-                                <div class="form-group">
-                                    <div class="col-12">
+                                <div class="form-group col-12">
+
+                                    <div class="btn-group">
                                         <button class="btn btn-primary" type="button" @click.prevent="save">
-                                            <i class="fa fa-check"></i> Salvar
+                                            <i class="fa fa-check"></i> Salvar e voltar
                                         </button>
-                                        <router-link class="btn btn-white" to="/">
-                                            <i class="fa fa-times-circle"></i> Cancelar
-                                        </router-link>
+                                        <button type="button"
+                                                class="btn btn-primary dropdown-toggle dropdown-toggle-split"
+                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <span class="sr-only">Toggle Dropdown</span>
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="javascript:" v-on:click="saveAndNew">
+                                                Salvar e adicionar novo
+                                            </a>
+                                        </div>
                                     </div>
+                                    <router-link class="btn btn-white" :to="{ name: 'categories.list' }">
+                                        <i class="fa fa-ban"></i> Cancelar
+                                    </router-link>
+
                                 </div>
                             </div>
 
@@ -121,57 +123,75 @@
 
 <script>
     import ProductNavBarComponent from "./ProductNavBarComponent";
-    import BootstrapAlertComponent from "../../../../../resources/js/components/layout/bootstrap/BootstrapAlertComponent";
+    import FormErrorComponent from "../../../../../resources/js/components/layout/bootstrap/FormErrorComponent";
 
     export default {
         name: "ProductFormComponent",
-        components: {BootstrapAlertComponent, ProductNavBarComponent},
+        components: {FormErrorComponent, ProductNavBarComponent},
         data() {
             return {
                 showDismissibleAlert: true,
+                routeToSave: "/api/products",
+                routeNameToRedirect: "products.list",
+                method: 'post',
                 form: {},
                 errors: {},
-                alertShow: false,
-                alertClass: 'warning',
-                alertText: '',
             }
         },
         methods: {
+            saveAndNew() {
+
+                this.routeNameToRedirect = 'products.create';
+                this.save();
+            },
             save() {
+
                 this.$loading(true);
 
                 this.errors = {};
 
-                let route = typeof (this.$route.params.id) === "undefined" ? "/api/products" : "/api/products/" + this.$route.params.id;
-
-                axios.post(route, this.form)
+                axios.request(this.routeToSave, {
+                    method: this.method,
+                    params: this.form,
+                })
                     .then(response => {
-                        this.$router.push({name: 'products.list'});
+
+                        this.$router.push({name: this.routeNameToRedirect})
+                            .catch(err => {
+                            })
+                            .then(() => {
+
+                                this.form = {};
+                            });
+
+                        this.$awn.success('Salvo com sucesso!');
                     })
                     .catch(error => {
 
-                        this.alertShow = true;
-
                         if (_.has(error, 'response.data.errors')) {
 
-                            this.alertText = 'Verifique os erros abaixo:';
+                            this.$awn.warning('Corrija os erros antes de salvar');
                             this.errors = error.response.data.errors;
                         } else {
 
-                            this.alertText = '[' + error.response.status + '] Não foi possível realizar essa operação!';
+                            let message = '[' + error.response.status + '] Não foi possível realizar essa operação!';
+                            this.$awn.alert(message);
                         }
 
-                        console.log(error.response.status);
-                        console.log(error.response.data);
+                        //console.log(error.response.data);
                     })
                     .then(() => {
 
                         this.$loading(false);
-                        let app = this;
-                        setTimeout(function () {
-                            app.alertShow = false;
-                        }, 8000);
                     });
+            }
+        },
+        mounted() {
+
+            if (typeof (this.$route.params.id) !== "undefined") {
+
+                this.routeToSave = "/api/products/" + this.$route.params.id;
+                this.method = 'put';
             }
         }
     }

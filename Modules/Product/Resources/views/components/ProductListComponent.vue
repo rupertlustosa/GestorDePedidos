@@ -13,28 +13,40 @@
                             <div class="ibox-content m-b-sm border-bottom">
                                 <div class="row">
 
-                                    <div class="col-sm-4">
+                                    <div class="col-md-4">
                                         <div class="form-group">
-                                            <label class="col-form-label">Categoria</label>
-                                            <input type="text" value="" class="form-control"
-                                                    v-model="form.category_id" placeholder="Categoria">
+                                            <label class="col-form-label">Nome</label>
+                                            <input type="text" class="form-control" v-model="form.name">
                                         </div>
                                     </div>
 
-                                    <div class="col-sm-4">
+                                    <div class="col-md-4">
                                         <div class="form-group">
-                                            <label class="col-form-label">Nome</label>
-                                            <input type="text" value="" class="form-control"
-                                                    v-model="form.name" placeholder="Nome">
+                                            <label class="col-form-label">Resumo</label>
+                                            <input type="text" class="form-control" v-model="form.summary">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="col-form-label">Disponível?</label>
+                                            <input type="text" class="form-control" v-model="form.available">
                                         </div>
                                     </div>
 
                                 </div>
                                 <div class="row">
                                     <div class="col-12">
-                                        <a class="btn btn-white btn-xs float-right" href="javascript:">
-                                            Pesquisar
-                                        </a>
+                                        <div class="title-action">
+                                            <a class="btn btn-white" href="javascript:"
+                                               v-on:click="clearSearch">
+                                                <i class="fa fa-home"></i> Limpar
+                                            </a>&nbsp;
+                                            <a class="btn btn-primary" href="javascript:"
+                                               v-on:click="search">
+                                                <i class="fa fa-search"></i> Pesquisar
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -44,11 +56,10 @@
                                 <table class="table table-hover issue-tracker">
                                     <thead>
                                     <tr>
-                                        <th>Categoria</th>
                                         <th>Nome</th>
+                                        <th>Categoria</th>
                                         <th>Imagem</th>
-                                        <th>Resumo</th>
-                                        <th>Está Disponível?</th>
+                                        <th>Disponível?</th>
                                         <th>Preço</th>
                                         <th class="text-right">
                                             Ações
@@ -57,12 +68,11 @@
                                     </thead>
                                     <tbody>
                                     <tr v-for="item in items">
+                                        <td>{{ item.name | capitalize }}</td>
                                         <td>{{ item.category_id }}</td>
-                                        <td>{{ item.name }}</td>
                                         <td>{{ item.image }}</td>
-                                        <td>{{ item.summary }}</td>
-                                        <td>{{ item.available }}</td>
-                                        <td>{{ item.price }}</td>
+                                        <td>{{ item.available | fromBoolean }}</td>
+                                        <td>{{ item.price | currencydecimal }}</td>
                                         <td class="text-right">
 
                                             <div class="dropdown">
@@ -75,12 +85,12 @@
                                                     <router-link
                                                         class="dropdown-item"
                                                         :to="{ name: 'products.edit', params: { id: item.id }}">
-                                                        <i class="fa fa-edit"></i> Editar
+                                                        <i class="fa fa-pencil fa-fw"></i> Editar {{ item.id }}
                                                     </router-link>
                                                     <router-link
                                                         class="dropdown-item"
                                                         :to="{ name: 'products.edit', params: { id: item.id }}">
-                                                        <i class="fa fa-trash"></i> Remover
+                                                        <i class="fa fa-trash-o fa-fw"></i> Remover
                                                     </router-link>
                                                 </div>
                                             </div>
@@ -114,36 +124,50 @@
         data() {
             return {
                 items: [],
-                form: {},
+                form: {
+                    page: 0
+                },
                 pageCount: 1
             }
         },
         methods: {
 
-            getData(pageNum = 1) {
+            search() {
+
+                this.form.page = 0;
+                this.getData();
+            },
+            clearSearch() {
+
+                this.form = {
+                    page: 0
+                };
+                this.getData();
+            },
+            getData() {
 
                 this.$loading(true);
-                this.pageCount = 1;
+                this.form.page++;
 
-                axios.get("/api/products?page=" + pageNum)
+                axios.request("/api/products", {
+                    method: 'get',
+                    params: this.form,
+                })
                     .then((response) => {
 
                         let data = response.data.data;
                         this.items = [...data];
                         this.pageCount = response.data.last_page;
+
+                        if (response.data.total === 0) {
+
+                            this.$awn.info('Nenhum resultado encontrado');
+                        }
                     })
                     .catch(error => {
 
-                        if (_.has(error, 'response.data.errors')) {
-
-
-                        } else {
-
-                            this.alertText = '[' + error.response.status + '] Não foi possível realizar essa operação!';
-                        }
-
-                        console.log(error.response.status);
-                        console.log(error.response.data);
+                        let message = '[' + error.response.status + '] Não foi possível realizar essa operação!';
+                        this.$awn.alert(message);
                     })
                     .then(() => {
 
@@ -152,6 +176,7 @@
             }
         },
         mounted() {
+
             this.getData();
         }
     }

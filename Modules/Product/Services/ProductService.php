@@ -23,9 +23,14 @@ class ProductService
             return $query->whereId($id);
         });
 
-        $query->when(request('search'), function ($query, $search) {
+        $query->when(request('name'), function ($query, $search) {
 
-            return $query->where('id', 'LIKE', '%' . $search . '%');
+            return $query->where('name', 'LIKE', '%' . $search . '%');
+        });
+
+        $query->when(request('summary'), function ($query, $search) {
+
+            return $query->where('summary', 'LIKE', '%' . $search . '%');
         });
 
         return $query;
@@ -34,7 +39,7 @@ class ProductService
     public function paginate(int $limit): LengthAwarePaginator
     {
 
-        return $this->buildQuery()->paginate($limit);
+        return $this->buildQuery()->paginate(3);
     }
 
     public function all(): Collection

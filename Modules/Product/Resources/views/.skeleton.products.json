@@ -2,7 +2,7 @@
     "names": [
         {
             "id": "id",
-            "label": "ID"
+            "label": "Id"
         },
         {
             "id": "category_id",
@@ -26,12 +26,13 @@
         },
         {
             "id": "price",
-            "label": "PRICE"
+            "label": "Preço"
         }
     ],
     "fill": [
         "category_id",
         "name",
+        "image",
         "summary",
         "available",
         "price"
@@ -57,14 +58,14 @@
         ]
     },
     "search": [
-        "category_id",
-        "name"
+        "name",
+        "summary",
+        "available"
     ],
     "listing": [
-        "category_id",
         "name",
+        "category_id",
         "image",
-        "summary",
         "available",
         "price"
     ],
@@ -73,7 +74,9 @@
         "name",
         "image",
         "summary",
-        "available",
-        "price"
+        [
+            "available",
+            "price"
+        ]
     ]
 }

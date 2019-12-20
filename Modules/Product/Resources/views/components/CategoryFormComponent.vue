@@ -15,7 +15,7 @@
 
 
                             <div class="form-row">
-                                <div class="form-group col-sm-12 col-6">
+                                <div class="form-group col-md-12 col-lg-6">
                                     <label for="name">Categoria pai</label>
                                     <input type="text" v-model="form.parent_id" class="form-control"
                                            placeholder="Categoria pai">
@@ -28,7 +28,7 @@
 
 
                             <div class="form-row">
-                                <div class="form-group col-sm-12 col-6">
+                                <div class="form-group col-md-12 col-lg-6">
                                     <label for="name">Nome</label>
                                     <input type="text" v-model="form.name" class="form-control" autofocus="autofocus"
                                            placeholder="Nome">

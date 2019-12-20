@@ -18,14 +18,22 @@
                             <div class="form-row">
                                 <div class="form-group col-md-12 col-lg-12">
                                     <label>Categoria</label>
-                                    <input type="text" v-model="form.parent_id" class="form-control">
+
+                                    <v-select :options="categoryOptions"
+                                              label="label"
+                                              id="id"
+                                              placeholder="Escolha uma categoria"
+                                              v-model="form.parent_id"
+                                              :reduce="option => option.id">
+                                    </v-select>
+
                                     <form-error-component v-if="errors.parent_id" :errors="errors">
                                         {{ errors.parent_id[0] }}
                                     </form-error-component>
-                                </div>            
-            
-                            </div>        
-        
+                                </div>
+
+                            </div>
+
 
                             <div class="form-row">
                                 <div class="form-group col-md-12 col-lg-12">
@@ -34,10 +42,10 @@
                                     <form-error-component v-if="errors.name" :errors="errors">
                                         {{ errors.name[0] }}
                                     </form-error-component>
-                                </div>            
-            
-                            </div>        
-        
+                                </div>
+
+                            </div>
+
 
                             <div class="form-row">
                                 <div class="form-group col-12">
@@ -76,10 +84,12 @@
 <script>
     import CategoryNavBarComponent from "./CategoryNavBarComponent";
     import FormErrorComponent from "../../../../../resources/js/components/layout/bootstrap/FormErrorComponent";
+    import vSelect from 'vue-select';
+    import 'vue-select/dist/vue-select.css';
 
     export default {
         name: "CategoryFormComponent",
-        components: {FormErrorComponent, CategoryNavBarComponent},
+        components: {FormErrorComponent, CategoryNavBarComponent, vSelect},
         data() {
             return {
                 routeToSave: "/api/categories",
@@ -87,6 +97,12 @@
                 method: 'post',
                 form: {},
                 errors: {},
+                categoryOptions: [
+                    {id: 1, label: 'Canada'},
+                    {id: 2, label: 'Brasil'},
+                    {id: 3, label: 'México'},
+                    {id: 4, label: 'Alemanha'},
+                ],
             }
         },
         methods: {

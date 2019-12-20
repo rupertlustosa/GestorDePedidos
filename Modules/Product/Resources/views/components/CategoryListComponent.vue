@@ -19,14 +19,14 @@
                                             <input type="text" class="form-control" v-model="form.parent_id">
                                         </div>
                                     </div>
-        
+
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="col-form-label">Nome</label>
                                             <input type="text" class="form-control" v-model="form.name">
                                         </div>
                                     </div>
-        
+
                                 </div>
                                 <div class="row">
                                     <div class="col-12">
@@ -134,7 +134,7 @@
                 this.$loading(true);
                 this.form.page = page;
 
-                axios.request("/api/products", {
+                axios.request("/api/categories", {
                     method: 'get',
                     params: this.form,
                 })

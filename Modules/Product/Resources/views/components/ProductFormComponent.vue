@@ -73,9 +73,9 @@
 
                             <div class="form-row">
                                 <div class="form-group col-sm-12 col-6">
-                                    <label for="name">Disponível?</label>
+                                    <label for="name">Está Disponível?</label>
                                     <input type="text" v-model="form.available" class="form-control" 
-                                           placeholder="Disponível?">
+                                           placeholder="Está Disponível?">
                                     <div v-if="errors && errors.available" class="text-danger">
                                         {{ errors.available[0] }}
                                     </div>
@@ -86,9 +86,9 @@
 
                             <div class="form-row">
                                 <div class="form-group col-sm-12 col-6">
-                                    <label for="name">PRICE</label>
+                                    <label for="name">Preço</label>
                                     <input type="text" v-model="form.price" class="form-control" 
-                                           placeholder="PRICE">
+                                           placeholder="Preço">
                                     <div v-if="errors && errors.price" class="text-danger">
                                         {{ errors.price[0] }}
                                     </div>

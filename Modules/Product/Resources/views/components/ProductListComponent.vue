@@ -20,7 +20,7 @@
                                                     v-model="form.category_id" placeholder="Categoria">
                                         </div>
                                     </div>
-        
+
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label class="col-form-label">Nome</label>
@@ -28,7 +28,7 @@
                                                     v-model="form.name" placeholder="Nome">
                                         </div>
                                     </div>
-        
+
                                 </div>
                                 <div class="row">
                                     <div class="col-12">
@@ -48,8 +48,8 @@
                                         <th>Nome</th>
                                         <th>Imagem</th>
                                         <th>Resumo</th>
-                                        <th>Disponível?</th>
-                                        <th>PRICE</th>
+                                        <th>Está Disponível?</th>
+                                        <th>Preço</th>
                                         <th class="text-right">
                                             Ações
                                         </th>
@@ -114,7 +114,8 @@
         data() {
             return {
                 items: [],
-                form: {}
+                form: {},
+                pageCount: 1
             }
         },
         methods: {

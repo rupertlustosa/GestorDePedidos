@@ -55,6 +55,7 @@
 </template>
 
 <script>
+    //https://github.com/lokyoung/vuejs-paginate
     export default {
         name: "PaginateComponent",
         props: {

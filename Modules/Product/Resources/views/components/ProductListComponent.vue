@@ -125,7 +125,7 @@
             return {
                 items: [],
                 form: {
-                    page: 0
+                    page: null
                 },
                 pageCount: 1
             }
@@ -134,20 +134,17 @@
 
             search() {
 
-                this.form.page = 0;
-                this.getData();
+                this.getData(1);
             },
             clearSearch() {
 
-                this.form = {
-                    page: 0
-                };
-                this.getData();
+                this.form = {};
+                this.getData(1);
             },
-            getData() {
+            getData(page) {
 
                 this.$loading(true);
-                this.form.page++;
+                this.form.page = page;
 
                 axios.request("/api/products", {
                     method: 'get',
@@ -177,7 +174,7 @@
         },
         mounted() {
 
-            this.getData();
+            this.getData(1);
         }
     }
 </script>

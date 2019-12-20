@@ -34,11 +34,11 @@
                                     <div class="col-12">
                                         <div class="title-action">
                                             <a class="btn btn-white" href="javascript:"
-                                               v-on:click="clearSearch()">
+                                               v-on:click="clearSearch">
                                                 <i class="fa fa-home"></i> Limpar
                                             </a>&nbsp;
                                             <a class="btn btn-primary" href="javascript:"
-                                               v-on:click="getData()">
+                                               v-on:click="search">
                                                 <i class="fa fa-search"></i> Pesquisar
                                             </a>
                                         </div>
@@ -122,6 +122,11 @@
         },
         methods: {
 
+            search() {
+
+                this.form.page = 1;
+                this.getData();
+            },
             clearSearch() {
 
                 this.form = {
@@ -133,30 +138,25 @@
 
                 this.$loading(true);
 
-                console.log(this.form);
                 axios.request("/api/categories", {
                     method: 'get',
                     params: this.form,
                 })
-                    //axios.get("/api/categories?page=" + pageNum)
                     .then((response) => {
 
                         let data = response.data.data;
                         this.items = [...data];
                         this.form.page = response.data.last_page;
+
+                        if (response.data.total === 0) {
+
+                            this.$awn.info('Nenhum resultado encontrado');
+                        }
                     })
                     .catch(error => {
 
-                        if (_.has(error, 'response.data.errors')) {
-
-
-                        } else {
-
-                            this.alertText = '[' + error.response.status + '] Não foi possível realizar essa operação!';
-                        }
-
-                        console.log(error.response.status);
-                        console.log(error.response.data);
+                        let message = '[' + error.response.status + '] Não foi possível realizar essa operação!';
+                        this.$awn.alert(message);
                     })
                     .then(() => {
 
@@ -165,11 +165,8 @@
             }
         },
         mounted() {
-            this.pageCount = 1;
-            this.getData();
 
-            console.info('App this router:', this.$router);
-            console.info('App currentRoute:', this.$router.currentRoute.name);
+            this.getData();
         }
     }
 </script>

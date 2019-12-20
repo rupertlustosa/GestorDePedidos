@@ -8,11 +8,6 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="ibox">
-                        <bootstrap-alert-component
-                            v-bind:text="alertText"
-                            v-bind:show="alertShow"
-                            v-bind:css-class="alertClass">
-                        </bootstrap-alert-component>
                         <div class="ibox-title">
                             <h5>{{ typeof(this.$route.params.id) === "undefined" ? 'Cadastro' : 'Edição' }}</h5>
                         </div>
@@ -37,11 +32,11 @@
                                     <label for="name">Nome</label>
                                     <input type="text" v-model="form.name" class="form-control" autofocus="autofocus"
                                            placeholder="Nome">
-                                    <div v-if="errors && errors.name" class="form-control-feedback">
+                                    <div v-if="errors.name" class="text-warning">
                                         {{ errors.name[0] }}
                                     </div>
                                     <form-error-component v-if="errors.name" :errors="errors">
-                                        {{ errors.name }}
+                                        {{ errors.name[0] }}
                                     </form-error-component>
                                 </div>
 
@@ -62,31 +57,27 @@
 
 
                             <div class="form-row">
-                                <div class="form-group">
-                                    <div class="col-12">
+                                <div class="form-group col-12">
 
-                                        <div class="btn-group">
-                                            <button class="btn btn-primary" type="button" @click.prevent="save">
-                                                <i class="fa fa-check"></i> Salvar e voltar
-                                            </button>
-                                            <button type="button"
-                                                    class="btn btn-primary dropdown-toggle dropdown-toggle-split"
-                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <span class="sr-only">Toggle Dropdown</span>
-                                            </button>
-                                            <div class="dropdown-menu">
-                                                <a class="dropdown-item" href="javascript:;" v-on:click="saveAndNew">Salvar
-                                                    e adicionar novo</a>
-                                            </div>
+                                    <div class="btn-group">
+                                        <button class="btn btn-primary" type="button" @click.prevent="save">
+                                            <i class="fa fa-check"></i> Salvar e voltar
+                                        </button>
+                                        <button type="button"
+                                                class="btn btn-primary dropdown-toggle dropdown-toggle-split"
+                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <span class="sr-only">Toggle Dropdown</span>
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="javascript:" v-on:click="saveAndNew">
+                                                Salvar e adicionar novo
+                                            </a>
                                         </div>
-
-                                        <!--<button class="btn btn-primary" type="button" @click.prevent="save">
-                                            <i class="fa fa-check"></i> Salvar
-                                        </button>-->
-                                        <router-link class="btn btn-white" :to="{ name: 'categories.list' }">
-                                            <i class="fa fa-ban"></i> Cancelar
-                                        </router-link>
                                     </div>
+                                    <router-link class="btn btn-white" :to="{ name: 'categories.list' }">
+                                        <i class="fa fa-ban"></i> Cancelar
+                                    </router-link>
+
                                 </div>
                             </div>
 
@@ -101,13 +92,11 @@
 
 <script>
     import CategoryNavBarComponent from "./CategoryNavBarComponent";
-    import BootstrapAlertComponent
-        from "../../../../../resources/js/components/layout/bootstrap/BootstrapAlertComponent";
     import FormErrorComponent from "../../../../../resources/js/components/layout/bootstrap/FormErrorComponent";
 
     export default {
         name: "CategoryFormComponent",
-        components: {FormErrorComponent, BootstrapAlertComponent, CategoryNavBarComponent},
+        components: {FormErrorComponent, CategoryNavBarComponent},
         data() {
             return {
                 showDismissibleAlert: true,
@@ -116,9 +105,6 @@
                 method: 'post',
                 form: {},
                 errors: {},
-                alertShow: false,
-                alertClass: 'warning',
-                alertText: '',
             }
         },
         methods: {
@@ -146,19 +132,21 @@
 
                                 this.form = {};
                             });
+
+                        let message = 'Salvo com sucesso!';
+                        this.$awn.success(message);
                     })
                     .catch(error => {
 
-                        this.alertShow = true;
-
                         if (_.has(error, 'response.data.errors')) {
 
-                            this.$awn.success('Verifique os erros abaixo');
-                            this.alertText = 'Verifique os erros abaixo:';
+                            let message = 'Corrija os erros antes de salvar';
+                            this.$awn.warning(message);
                             this.errors = error.response.data.errors;
                         } else {
 
-                            this.alertText = '[' + error.response.status + '] Não foi possível realizar essa operação!';
+                            let message = '[' + error.response.status + '] Não foi possível realizar essa operação!';
+                            this.$awn.alert(message);
                         }
 
                         //console.log(error.response.data);
@@ -166,10 +154,6 @@
                     .then(() => {
 
                         this.$loading(false);
-                        let app = this;
-                        setTimeout(function () {
-                            app.alertShow = false;
-                        }, 8000);
                     });
             }
         },

@@ -7,11 +7,16 @@ namespace Modules\Product\Services;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Facades\DB;
 use Modules\Product\Models\Category;
 
 class CategoryService
 {
+
+    public function paginate(int $limit): LengthAwarePaginator
+    {
+
+        return $this->buildQuery()->paginate($limit);
+    }
 
     private function buildQuery(): Builder
     {
@@ -29,12 +34,6 @@ class CategoryService
         });
 
         return $query;
-    }
-
-    public function paginate(int $limit): LengthAwarePaginator
-    {
-
-        return $this->buildQuery()->paginate($limit);
     }
 
     public function all(): Collection
@@ -76,11 +75,13 @@ class CategoryService
         return $category->delete();
     }
 
-    public function lists(): array
+    public function listOfChoices(): array
     {
 
-        return Category::orderBy('name')
-            ->pluck('name', 'id')
+        return Category::select('id', 'name as label')
+            ->orderBy('name')
+            //->pluck('name', 'id')
+            ->get()
             ->toArray();
     }
 }

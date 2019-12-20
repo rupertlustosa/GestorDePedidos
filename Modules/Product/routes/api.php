@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -16,11 +14,10 @@ use Illuminate\Http\Request;
 Route::middleware(['web'])
     ->group(function ($api) {
 
-        $api->resource('categories', 'CategoryController')->except([
-            'create', 'edit'
-        ]);
+        $api->get('categories/list-of-choices', 'CategoryController@listOfChoices');
 
-        $api->resource('products', 'ProductController')->except([
-            'create', 'edit'
+        $api->apiResources([
+            'categories' => 'CategoryController',
+            'products' => 'ProductController'
         ]);
     });

@@ -59,7 +59,7 @@
                                     <tbody>
                                     <tr v-for="item in items">
                                         <td>{{ item.name }}</td>
-                                        <td>{{ item.parent_id }}</td>
+                                        <td>{{ item.parent }}</td>
                                         <td class="text-right">
 
                                             <div class="dropdown">

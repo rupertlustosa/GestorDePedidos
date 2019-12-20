@@ -136,6 +136,21 @@
                         this.$loading(false);
                     });
             },
+            getCategoryOptions() {
+
+                axios.get('/api/categories/list-of-choices')
+                    .then(response => {
+
+                        this.categoryOptions = response.data;
+                        console.log(this.categoryOptions);
+                    })
+                    .catch(error => {
+
+                        let message = 'Erro ao carregar categorias!';
+                        this.$awn.alert(message);
+                        console.log(error);
+                    });
+            },
             saveAndNew() {
 
                 this.routeNameToRedirect = 'categories.create';
@@ -191,6 +206,8 @@
                 this.method = 'put';
                 this.getData();
             }
+
+            this.getCategoryOptions();
         }
     }
 </script>

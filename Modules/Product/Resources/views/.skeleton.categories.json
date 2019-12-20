@@ -1,6 +1,10 @@
 {
     "names": [
         {
+            "id": "id",
+            "label": "ID"
+        },
+        {
             "id": "parent_id",
             "label": "Categoria pai"
         },
@@ -36,8 +40,8 @@
         "name"
     ],
     "listing": [
-        "parent_id",
         "name",
+        "parent_id",
         "imagem"
     ],
     "form": [

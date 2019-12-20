@@ -15,20 +15,4 @@ use Illuminate\Http\Request;
 //auth:api
 Route::middleware(['web'])
     ->group(function ($api) {
-
-        $api->resource('order_statuses', 'OrderStatusController')->except([
-            'create', 'edit'
-        ]);
-
-        $api->resource('order_statuses', 'OrderStatusController')->except([
-            'create', 'edit'
-        ]);
-
-        $api->resource('order_items', 'OrderItemController')->except([
-            'create', 'edit'
-        ]);
-
-        $api->resource('orders', 'OrderController')->except([
-            'create', 'edit'
-        ]);
     });

@@ -1,4 +1,4 @@
-import ProductListComponent from "../components/CategoryListComponent";
+import CategoryListComponent from "../components/CategoryListComponent";
 import CategoryFormComponent from "../components/CategoryFormComponent";
 
 const categoryRoutes = [
@@ -35,7 +35,7 @@ export default categoryRoutes
 
 /**
 * Adicione na seção de imports do seu arquivo de rotas:
-* import ProductRoutes from "../../Modules/Category/Resources/views/js/categoryRouter";
+* import categoryRoutes from "../../Modules/Category/Resources/views/js/categoryRouter";
 *
 * Dentro das rotas do VueRouter adicione:
 * ...categoryRoutes,

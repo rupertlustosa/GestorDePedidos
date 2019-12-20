@@ -16,7 +16,11 @@ use Illuminate\Http\Request;
 Route::middleware(['web'])
     ->group(function ($api) {
 
-        $api->resource('order_types', 'OrderTypeController')->except([
+        $api->resource('order_statuses', 'OrderStatusController')->except([
+            'create', 'edit'
+        ]);
+
+        $api->resource('order_statuses', 'OrderStatusController')->except([
             'create', 'edit'
         ]);
     });

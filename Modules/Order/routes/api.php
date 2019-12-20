@@ -23,4 +23,8 @@ Route::middleware(['web'])
         $api->resource('order_statuses', 'OrderStatusController')->except([
             'create', 'edit'
         ]);
+
+        $api->resource('order_items', 'OrderItemController')->except([
+            'create', 'edit'
+        ]);
     });

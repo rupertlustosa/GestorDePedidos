@@ -23,9 +23,9 @@ class CategoryService
             return $query->whereId($id);
         });
 
-        $query->when(request('search'), function ($query, $search) {
+        $query->when(request('name'), function ($query, $search) {
 
-            return $query->where('id', 'LIKE', '%' . $search . '%');
+            return $query->where('name', 'LIKE', '%' . $search . '%');
         });
 
         return $query;

@@ -21,12 +21,12 @@ class CreateProductVariationsTable extends Migration
                 ->on('product_variations')
                 ->onDelete('restrict');
 
-            $table->string('name')->nullable();
             $table->string('code')->nullable();
-
-            $table->boolean('available')->default(1);
+            $table->string('name')->nullable();
+            $table->string('notes')->nullable();
 
             $table->float('price', 8, 2);
+            $table->boolean('available')->default(1);
 
             $table->timestamps();
             $table->softDeletes();

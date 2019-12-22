@@ -14,7 +14,12 @@ class CreateOrderTypesTable extends Migration
     public function up()
     {
         Schema::create('order_types', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
+            /*$table->biginteger('parent_id')->unsigned();
+            $table->foreign('parent_id')
+                ->references('id')
+                ->on('order_types')
+                ->onDelete('restrict');*/
 
             $table->string('name');
 

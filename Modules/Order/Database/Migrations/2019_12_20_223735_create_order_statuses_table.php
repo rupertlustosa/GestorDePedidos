@@ -14,12 +14,7 @@ class CreateOrderStatusesTable extends Migration
     public function up()
     {
         Schema::create('order_statuses', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            /*$table->biginteger('parent_id')->unsigned();
-            $table->foreign('parent_id')
-                ->references('id')
-                ->on('order_statuses')
-                ->onDelete('restrict');*/
+            $table->increments('id');
 
             $table->string('name');
 

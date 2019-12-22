@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Modules\Order\Validators;
 
-class OrderTypeRule
+class OrderPointRule
 {
 
     /**
@@ -13,8 +13,7 @@ class OrderTypeRule
      * @var array
      */
 	protected static $rules = [
-	    //'id' => 'required|integer|exists:order_types,id,deleted_at,NULL',
-	    'name' => 'required|max:255',
+	    //DummyRules
     ];
 
     /**
@@ -26,8 +25,7 @@ class OrderTypeRule
     {
 
         return [
-            //'id' => self::$rules['id'],
-            'name' => self::$rules['name'],
+            //DummyStaticRules
         ];
     }
 

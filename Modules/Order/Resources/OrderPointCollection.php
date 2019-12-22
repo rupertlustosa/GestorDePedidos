@@ -2,12 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Modules\User\Resources;
+namespace Modules\Order\Resources;
 
-use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class UserCollection extends ResourceCollection
+class OrderPointCollection extends ResourceCollection
 {
 
     /**
@@ -15,12 +14,12 @@ class UserCollection extends ResourceCollection
      *
      * @var string
      */
-    public $collects = 'Modules\User\Resources\UserResource';
+    public $collects = 'Modules\Order\Resources\OrderPointResource';
 
     /**
      * Transform the resource collection into an array.
      *
-     * @param Request $request
+     * @param \Illuminate\Http\Request $request
      * @return array
      */
     public function toArray($request)

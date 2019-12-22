@@ -7,7 +7,7 @@ namespace Modules\Order\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class OrderType extends Model
+class OrderPoint extends Model
 {
 
     use SoftDeletes;
@@ -18,7 +18,7 @@ class OrderType extends Model
      * @var array
      */
     protected $fillable = [
-'name',
+//DummyFillable
     ];
 
     # Accessors & Mutators

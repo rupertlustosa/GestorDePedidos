@@ -6,7 +6,7 @@ namespace Modules\Order\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class OrderTypeResource extends JsonResource
+class OrderPointResource extends JsonResource
 {
 
     /**
@@ -18,9 +18,7 @@ class OrderTypeResource extends JsonResource
     public function toArray($request)
     {
         return [
-            
-            'id' => $this->id,
-            'name' => $this->name,
+//DummyResourceToArray
         ];
     }
 }

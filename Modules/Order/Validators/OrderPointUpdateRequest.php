@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Modules\User\Validators;
+namespace Modules\Order\Validators;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserStoreRequest extends FormRequest
+class OrderPointUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,7 +27,7 @@ class UserStoreRequest extends FormRequest
     public function rules()
     {
 
-        return UserRule::rules();
+        return OrderPointRule::rules();
     }
 
     /**
@@ -38,6 +38,6 @@ class UserStoreRequest extends FormRequest
     public function messages()
     {
 
-        return UserRule::messages();
+        return OrderPointRule::messages();
     }
 }

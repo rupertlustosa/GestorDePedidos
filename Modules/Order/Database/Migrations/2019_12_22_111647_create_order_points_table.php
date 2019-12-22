@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateOrdersTable extends Migration
+class CreateOrderPointsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,8 @@ class CreateOrdersTable extends Migration
      */
     public function up()
     {
-        Schema::create('orders', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            /*$table->biginteger('parent_id')->unsigned();
-            $table->foreign('parent_id')
-                ->references('id')
-                ->on('orders')
-                ->onDelete('restrict');*/
+        Schema::create('order_points', function (Blueprint $table) {
+            $table->increments('id');
 
             $table->string('name');
 
@@ -35,6 +30,6 @@ class CreateOrdersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('orders');
+        Schema::dropIfExists('order_points');
     }
 }

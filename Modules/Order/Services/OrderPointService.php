@@ -8,24 +8,24 @@ use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
-use Modules\Order\Models\OrderType;
+use Modules\Order\Models\OrderPoint;
 
-class OrderTypeService
+class OrderPointService
 {
 
     private function buildQuery(): Builder
     {
 
-        $query = OrderType::query();
+        $query = OrderPoint::query();
 
         $query->when(request('id'), function ($query, $id) {
 
             return $query->whereId($id);
         });
 
-        $query->when(request('name'), function ($query, $search) {
+        $query->when(request('search'), function ($query, $search) {
 
-            return $query->where('name', 'LIKE', '%' . $search . '%');
+            return $query->where('id', 'LIKE', '%' . $search . '%');
         });
 
         return $query;
@@ -43,43 +43,43 @@ class OrderTypeService
         return $this->buildQuery()->get();
     }
 
-    public function find(int $id): ?OrderType
+    public function find(int $id): ?OrderPoint
     {
 
-        return OrderType::find($id);
+        return OrderPoint::find($id);
     }
 
-    public function create(array $data): OrderType
+    public function create(array $data): OrderPoint
     {
 
-        $orderType = new OrderType();
-        $orderType->fill($data);
-        $orderType->save();
+        $orderPoint = new OrderPoint();
+        $orderPoint->fill($data);
+        $orderPoint->save();
 
-        return $orderType;
+        return $orderPoint;
         //return DB::transaction(function () use ($data) {
         //});
     }
 
-    public function update(array $data, OrderType $orderType): OrderType
+    public function update(array $data, OrderPoint $orderPoint): OrderPoint
     {
 
-        $orderType->fill($data);
-        $orderType->save();
+        $orderPoint->fill($data);
+        $orderPoint->save();
 
-        return $orderType;
+        return $orderPoint;
     }
 
-    public function delete(OrderType $orderType): ?bool
+    public function delete(OrderPoint $orderPoint): ?bool
     {
 
-        return $orderType->delete();
+        return $orderPoint->delete();
     }
 
     public function listOfChoices(): array
     {
 
-        return OrderType::orderBy('name')
+        return OrderPoint::orderBy('name')
             ->pluck('name', 'id')
             ->toArray();
     }

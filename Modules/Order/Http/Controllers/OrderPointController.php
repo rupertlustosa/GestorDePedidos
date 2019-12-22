@@ -2,37 +2,35 @@
 
 declare(strict_types=1);
 
-namespace Modules\User\Http\Controllers;
+namespace Modules\Order\Http\Controllers;
 
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Modules\Http\Controllers\ApiController;
-use Modules\User\Models\User;
-use Modules\User\Resources\UserCollection;
-use Modules\User\Resources\UserResource;
-use Modules\User\Services\UserService;
-use Modules\User\Validators\UserStoreRequest;
-use Modules\User\Validators\UserUpdateRequest;
-use Rlustosa\LaravelGenerator\BaseModule\BaseModuleController;
+use Modules\Order\Models\OrderPoint;
+use Modules\Order\Resources\OrderPointCollection;
+use Modules\Order\Resources\OrderPointResource;
+use Modules\Order\Services\OrderPointService;
+use Modules\Order\Validators\OrderPointStoreRequest;
+use Modules\Order\Validators\OrderPointUpdateRequest;
 
-class UserController extends ApiController
+class OrderPointController extends ApiController
 {
-    private $userService;
+
+    private $orderPointService;
 
     /**
      * Create a new controller instance.
      *
-     * @param UserService $userService
+     * @param OrderPointService $orderPointService
      */
-    public function __construct(UserService $userService)
+    public function __construct(OrderPointService $orderPointService)
     {
 
-        Auth::loginUsingId(1);
-        //dd(Auth::user());
-        //$this->middleware('jwt.auth');
-        $this->userService = $userService;
+        //$this->middleware('api');
+        $this->orderPointService = $orderPointService;
     }
 
     /**
@@ -45,15 +43,10 @@ class UserController extends ApiController
 
         try {
 
-            if (!Auth::user()->can('viewAny', User::class)) {
+            $limit = (int)(request('limit') ?? 20);
+            $data = $this->orderPointService->paginate($limit);
 
-                return $this->sendUnauthorized();
-            }
-
-            $limit = (int)(request('limit') ?? 5);
-            $data = $this->userService->paginate($limit);
-
-            return $this->sendPaginate(new UserCollection($data));
+            return $this->sendPaginate(new OrderPointCollection($data));
 
         } catch (Exception $exception) {
 
@@ -72,14 +65,29 @@ class UserController extends ApiController
 
         try {
 
-            if (!Auth::user()->can('viewAny', User::class)) {
+            $data = $this->orderPointService->all();
 
-                return $this->sendUnauthorized();
-            }
+            return $this->sendResource(OrderPointResource::collection($data));
 
-            $data = $this->userService->all();
+        } catch (Exception $exception) {
 
-            return $this->sendResource(UserResource::collection($data));
+            return $this->sendError('Server Error.', $exception);
+        }
+    }
+
+    /**
+     * Display a listing of choices.
+     *
+     * @return JsonResponse
+     */
+    public function listOfChoices(): JsonResponse
+    {
+
+        try {
+
+            $data = $this->categoryService->listOfChoices();
+
+            return $this->sendSimpleJson($data);
 
         } catch (Exception $exception) {
 
@@ -97,12 +105,7 @@ class UserController extends ApiController
 
         try {
 
-            if (!Auth::user()->can('create', User::class)) {
-
-                return $this->sendUnauthorized();
-            }
-
-            $storeRequest = new UserStoreRequest();
+            $storeRequest = new OrderPointStoreRequest();
             $validator = Validator::make(request()->all(), $storeRequest->rules());
 
             if ($validator->fails()) {
@@ -110,7 +113,7 @@ class UserController extends ApiController
                 return $this->sendBadRequest('Validation Error.', $validator->errors()->toArray());
             }
 
-            $item = $this->userService->create(request()->all());
+            $item = $this->orderPointService->create(request()->all());
 
             return $this->sendResponse($item->toArray());
 
@@ -124,19 +127,14 @@ class UserController extends ApiController
     /**
      * Update the specified resource in storage.
      *
-     * @param User $user
+     * @param OrderPoint $orderPoint
      * @return JsonResponse
      */
-    public function update(User $user)
+    public function update(OrderPoint $orderPoint)
     {
         try {
 
-            if (!Auth::user()->can('update', $user)) {
-
-                return $this->sendUnauthorized();
-            }
-
-            $updateRequest = new UserUpdateRequest();
+            $updateRequest = new OrderPointUpdateRequest();
             $validator = Validator::make(request()->all(), $updateRequest->rules());
 
             if ($validator->fails()) {
@@ -144,7 +142,7 @@ class UserController extends ApiController
                 return $this->sendBadRequest('Validation Error.', $validator->errors()->toArray());
             }
 
-            $item = $this->userService->update(request()->all(), $user);
+            $item = $this->orderPointService->update(request()->all(), $orderPoint);
 
             return $this->sendResponse($item->toArray());
 
@@ -158,20 +156,15 @@ class UserController extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param User $user
+     * @param OrderPoint $orderPoint
      * @return JsonResponse
      */
-    public function show(User $user): JsonResponse
+    public function show(OrderPoint $orderPoint): JsonResponse
     {
 
         try {
 
-            if (!Auth::user()->can('show', $user)) {
-
-                return $this->sendUnauthorized();
-            }
-
-            return $this->sendResource(new UserResource($user));
+            return $this->sendResource(new OrderPointResource($orderPoint));
 
         } catch (Exception $exception) {
 
@@ -183,22 +176,17 @@ class UserController extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param User $user
+     * @param OrderPoint $orderPoint
      * @return JsonResponse
      */
-    public function delete(User $user): JsonResponse
+    public function delete(OrderPoint $orderPoint): JsonResponse
     {
 
         try {
 
-            $item = $this->userService->find($id);
+            $item = $this->orderPointService->find($orderPoint);
 
-            if (!Auth::user()->can('delete', $item)) {
-
-                return $this->sendUnauthorized();
-            }
-
-            return $this->sendResource(new UserResource($item));
+            return $this->sendResource(new OrderPointResource($item));
 
         } catch (Exception $exception) {
 

@@ -18,7 +18,7 @@ class CreateProductVariationsTable extends Migration
             $table->bigInteger('product_id')->unsigned();
             $table->foreign('product_id')
                 ->references('id')
-                ->on('product_variations')
+                ->on('products')
                 ->onDelete('restrict');
 
             $table->string('code')->nullable();

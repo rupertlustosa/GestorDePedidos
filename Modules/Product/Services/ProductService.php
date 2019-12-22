@@ -28,14 +28,9 @@ class ProductService
             return $query->whereId($id);
         });
 
-        $query->when(request('name'), function ($query, $search) {
+        $query->when(request('search'), function ($query, $search) {
 
-            return $query->where('name', 'LIKE', '%' . $search . '%');
-        });
-
-        $query->when(request('summary'), function ($query, $search) {
-
-            return $query->where('summary', 'LIKE', '%' . $search . '%');
+            return $query->where('id', 'LIKE', '%' . $search . '%');
         });
 
         return $query;
@@ -80,11 +75,13 @@ class ProductService
         return $product->delete();
     }
 
-    public function lists(): array
+    public function listOfChoices(): array
     {
 
-        return Product::orderBy('name')
-            ->pluck('name', 'id')
+        return Product::select('id', 'name as label')
+            ->orderBy('name')
+            ->get()
             ->toArray();
+
     }
 }

@@ -23,7 +23,7 @@ class CreateProductVariationsTable extends Migration
 
             $table->string('code')->nullable();
             $table->string('name')->nullable();
-            $table->string('notes')->nullable();
+            $table->string('notes', 600)->nullable();
 
             $table->float('price', 8, 2);
             $table->boolean('available')->default(1);

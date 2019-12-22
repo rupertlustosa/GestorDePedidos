@@ -17,9 +17,7 @@ class ProductRule
         'category_id' => 'required|integer|exists:categories,id,deleted_at,NULL',
         'name' => 'required|max:255',
         'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
-        'summary' => 'nullable|max:255',
-        'available' => 'required|boolean',
-        'price' => 'required',
+        'notes' => 'nullable|max:600',
     ];
 
     /**
@@ -35,9 +33,7 @@ class ProductRule
             'category_id' => self::$rules['category_id'],
             'name' => self::$rules['name'],
             'image' => self::$rules['image'],
-            'summary' => self::$rules['summary'],
-            'available' => self::$rules['available'],
-            'price' => self::$rules['price'],
+            'notes' => self::$rules['notes'],
         ];
     }
 

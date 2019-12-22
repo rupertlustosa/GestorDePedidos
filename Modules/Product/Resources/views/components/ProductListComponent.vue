@@ -15,6 +15,13 @@
 
                                     <div class="col-md-4">
                                         <div class="form-group">
+                                            <label class="col-form-label">Categoria</label>
+                                            <input class="form-control" type="text" v-model="form.category_id">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
                                             <label class="col-form-label">Nome</label>
                                             <input class="form-control" type="text" v-model="form.name">
                                         </div>
@@ -22,15 +29,8 @@
 
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label class="col-form-label">Resumo</label>
-                                            <input class="form-control" type="text" v-model="form.summary">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label class="col-form-label">Disponível?</label>
-                                            <input class="form-control" type="text" v-model="form.available">
+                                            <label class="col-form-label">Observações</label>
+                                            <input class="form-control" type="text" v-model="form.notes">
                                         </div>
                                     </div>
 
@@ -53,15 +53,12 @@
                             </div>
 
                             <div class="table-responsive">
-
                                 <table class="table table-striped table-hover table-bordered">
                                     <thead>
                                     <tr>
-                                        <th>Nome</th>
                                         <th>Categoria</th>
+                                        <th>Nome</th>
                                         <th>Imagem</th>
-                                        <th>Disponível?</th>
-                                        <th>Preço</th>
                                         <th class="text-right">
                                             Ações
                                         </th>
@@ -69,11 +66,9 @@
                                     </thead>
                                     <tbody>
                                     <tr v-for="item in items">
-                                        <td>{{ item.name | capitalize }}</td>
                                         <td>{{ item.category_id }}</td>
+                                        <td>{{ item.name }}</td>
                                         <td>{{ item.image }}</td>
-                                        <td>{{ item.available | fromBoolean }}</td>
-                                        <td>{{ item.price | currencydecimal }}</td>
                                         <td class="text-right">
 
                                             <div class="dropdown">

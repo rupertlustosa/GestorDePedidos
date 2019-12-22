@@ -75,6 +75,26 @@ class ProductController extends ApiController
     }
 
     /**
+     * Display a listing of choices.
+     *
+     * @return JsonResponse
+     */
+    public function listOfChoices(): JsonResponse
+    {
+
+        try {
+
+            $data = $this->categoryService->listOfChoices();
+
+            return $this->sendSimpleJson($data);
+
+        } catch (Exception $exception) {
+
+            return $this->sendError('Server Error.', $exception);
+        }
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @return JsonResponse

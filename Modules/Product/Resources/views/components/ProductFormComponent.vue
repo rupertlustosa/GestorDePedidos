@@ -10,7 +10,7 @@
                     <div class="ibox">
 
                         <div class="ibox-title">
-                            <h5>{{ typeof(this.$route.params.id) === "undefined" ? 'Cadastro' : 'Edição' }}</h5>
+                            <h5>{{ isCreateMode ? 'Cadastro' : 'Edição' }}</h5>
                         </div>
                         <div class="ibox-content">
 
@@ -53,30 +53,10 @@
 
                             <div class="form-row">
                                 <div class="form-group col-md-12 col-lg-12">
-                                    <label>Resumo</label>
-                                    <input class="form-control" type="text" v-model="form.summary">
-                                    <form-error-component :errors="errors" v-if="errors.summary">
-                                        {{ errors.summary[0] }}
-                                    </form-error-component>
-                                </div>
-
-                            </div>
-
-
-                            <div class="form-row">
-                                <div class="form-group col-md-12 col-lg-6">
-                                    <label>Disponível?</label>
-                                    <input class="form-control" type="text" v-model="form.available">
-                                    <form-error-component :errors="errors" v-if="errors.available">
-                                        {{ errors.available[0] }}
-                                    </form-error-component>
-                                </div>
-
-                                <div class="form-group col-md-12 col-lg-6">
-                                    <label>Preço</label>
-                                    <input class="form-control" type="text" v-model="form.price">
-                                    <form-error-component :errors="errors" v-if="errors.price">
-                                        {{ errors.price[0] }}
+                                    <label>Observações</label>
+                                    <input class="form-control" type="text" v-model="form.notes">
+                                    <form-error-component :errors="errors" v-if="errors.notes">
+                                        {{ errors.notes[0] }}
                                     </form-error-component>
                                 </div>
 
@@ -131,6 +111,7 @@
                 method: 'post',
                 form: {},
                 errors: {},
+                isCreateMode: true,
             }
         },
         methods: {
@@ -187,6 +168,7 @@
                             .then(() => {
 
                                 this.form = {};
+                                this.routeNameToRedirect = "products.list";
                             });
 
                         this.$awn.success('Salvo com sucesso!');
@@ -215,6 +197,7 @@
 
             if (typeof (this.$route.params.id) !== "undefined") {
 
+                this.isCreateMode = false;
                 this.routeToSave = "/api/products/" + this.$route.params.id;
                 this.method = 'put';
                 this.getData();

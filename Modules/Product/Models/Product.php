@@ -21,12 +21,15 @@ class Product extends Model
         'category_id',
         'name',
         'image',
-        'summary',
-        'available',
-        'price',
+        'notes',
     ];
 
     # Accessors & Mutators
 
     # Relationships
+    public function category()
+    {
+
+        return $this->belongsTo(Category::class)->withDefault();
+    }
 }

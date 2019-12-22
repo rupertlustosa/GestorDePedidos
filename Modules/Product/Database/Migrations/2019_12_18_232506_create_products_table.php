@@ -23,7 +23,7 @@ class CreateProductsTable extends Migration
 
             $table->string('name');
             $table->string('image')->nullable();
-            $table->string('notes')->nullable();
+            $table->string('notes', 600)->nullable();
 
             $table->timestamps();
             $table->softDeletes();

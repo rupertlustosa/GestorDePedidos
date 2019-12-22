@@ -56,7 +56,8 @@
                                         </button>
                                         <button aria-expanded="false"
                                                 aria-haspopup="true"
-                                                class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" type="button">
+                                                class="btn btn-primary dropdown-toggle dropdown-toggle-split"
+                                                data-toggle="dropdown" type="button">
                                             <span class="sr-only">Toggle Dropdown</span>
                                         </button>
                                         <div class="dropdown-menu">

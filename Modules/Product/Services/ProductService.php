@@ -51,6 +51,7 @@ class ProductService
     public function create(array $data): Product
     {
 
+        dd($data);
         $product = new Product();
         $product->fill($data);
         $product->save();

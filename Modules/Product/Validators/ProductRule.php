@@ -18,6 +18,12 @@ class ProductRule
         'name' => 'required|max:255',
         'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
         'notes' => 'nullable|max:600',
+
+        'variations' => 'required|array',
+        'variations_code' => 'nullable|max:255',
+        'variations_name' => 'required|max:255',
+        'variations_price' => 'required|regex:/\d+\.\d+,\d+/i',
+        'variations_available' => 'boolean',
     ];
 
     /**
@@ -34,6 +40,11 @@ class ProductRule
             'name' => self::$rules['name'],
             'image' => self::$rules['image'],
             'notes' => self::$rules['notes'],
+            'variations' => self::$rules['variations'],
+            'variations.*.code' => self::$rules['variations_code'],
+            'variations.*.name' => self::$rules['variations_name'],
+            'variations.*.price' => self::$rules['variations_price'],
+            'variations.*.available' => self::$rules['variations_available'],
         ];
     }
 

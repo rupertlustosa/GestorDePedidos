@@ -23,15 +23,15 @@
         <div class="col-sm-4">
             <div class="title-action">
                 <router-link
-                    :to="{ name: 'products.list'}" class="btn btn-white"
+                    :to="{ name: 'products.list'}" class="btn btn-outline btn-info btn-rounded"
                     v-if="this.$router.currentRoute.name !== 'products.list'">
                     <i class="fa fa-pencil"></i> Listar
                 </router-link>&nbsp;
                 <router-link
                     :to="{ name: 'products.create'}"
-                    class="btn btn-primary">
+                    class="btn btn-outline btn-primary btn-rounded">
                     <i class="fa fa-plus"></i> Novo
-                </router-link>
+                </router-link>&nbsp;
             </div>
         </div>
     </div>

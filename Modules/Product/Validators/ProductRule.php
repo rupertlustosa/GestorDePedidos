@@ -22,7 +22,8 @@ class ProductRule
         'variations' => 'required|array',
         'variations_code' => 'nullable|max:255',
         'variations_name' => 'required|max:255',
-        'variations_price' => 'required|regex:/\d+\.\d+,\d+/i',
+        'variations_price' => 'required|numeric',
+        //'variations_price' => 'required|regex:/\d{1,3}(?:\.\d{3})*?,\d{2}/i',
         'variations_available' => 'boolean',
     ];
 

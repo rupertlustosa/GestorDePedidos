@@ -45,7 +45,7 @@
                             </div>
 
 
-                            <div class="form-row">
+                            <div class="form-row" v-show="false">
                                 <div class="form-group col-md-12 col-lg-12">
                                     <label>Imagem</label>
                                     <input class="form-control" type="text" v-model="form.image">
@@ -78,8 +78,7 @@
                                     </p>
 
                                     <form-error-component :errors="errors"
-                                                          v-if="errors.variations &&
-                                                                      errors.variations[0]">
+                                                          v-if="errors.variations">
                                         {{ errors.variations[0] }}
                                     </form-error-component>
 
@@ -93,41 +92,35 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-addon">
                                                             <input type="checkbox"
-                                                                   v-model="form.variations[index].available">
+                                                                   v-model="form.variations[index]['available']">
                                                         </span>
                                                     </div>
                                                     <input type="text" class="form-control"
-                                                           v-model="form.variations[index].name">
+                                                           v-model="form.variations[index]['name']">
                                                 </div>
                                                 <form-error-component :errors="errors"
-                                                                      v-if="errors.variations &&
-                                                                      errors.variations[index] &&
-                                                                      errors.variations[index].name">
-                                                    {{ errors.variations[index].name[0] }}
+                                                                      v-if="errors['variations.'+index+'.name']">
+                                                    {{ errors['variations.'+index+'.name'] }}
                                                 </form-error-component>
                                             </div>
 
                                             <div class="form-group col-md-12 col-lg-3">
                                                 <label>Código</label>
                                                 <input class="form-control" type="text"
-                                                       v-model="form.variations[index].code">
+                                                       v-model="form.variations[index]['code']">
                                                 <form-error-component :errors="errors"
-                                                                      v-if="errors.variations &&
-                                                                      errors.variations[index] &&
-                                                                      errors.variations[index].code">
-                                                    {{ errors.variations[index].code[0] }}
+                                                                      v-if="errors['variations.'+index+'.code']">
+                                                    {{ errors['variations.'+index+'.code'] }}
                                                 </form-error-component>
                                             </div>
 
                                             <div class="form-group col-md-12 col-lg-2">
                                                 <label>Valor</label>
-                                                <input class="form-control" type="text"
-                                                       v-model="form.variations[index].value">
+                                                <money v-model="form.variations[index]['price']" v-bind="money"
+                                                       class="form-control"></money>
                                                 <form-error-component :errors="errors"
-                                                                      v-if="errors.variations &&
-                                                                      errors.variations[index] &&
-                                                                      errors.variations[index].value">
-                                                    {{ errors.variations[index].value[0] }}
+                                                                      v-if="errors['variations.'+index+'.price']">
+                                                    {{ errors['variations.'+index+'.price'] }}
                                                 </form-error-component>
 
                                             </div>
@@ -138,6 +131,7 @@
                                                         v-on:click="removeVariation(product_variation)">
                                                     <i class="fa fa-times"></i>
                                                 </button>
+                                                <input type="hidden" v-model="form.variations[index]['id']">
                                             </div>
 
                                         </div>
@@ -194,17 +188,17 @@
     import FormErrorComponent from "../../../../../resources/js/components/layout/bootstrap/FormErrorComponent";
     import vSelect from 'vue-select';
     import 'vue-select/dist/vue-select.css';
+    import {Money} from 'v-money';
 
     export default {
         name: "ProductFormComponent",
-        components: {FormErrorComponent, ProductNavBarComponent, vSelect},
+        components: {FormErrorComponent, ProductNavBarComponent, vSelect, Money},
         data() {
             return {
                 routeToSave: "/api/products",
                 routeNameToRedirect: "products.list",
                 method: 'post',
                 form: {
-                    id: null,
                     category_id: null,
                     name: null,
                     image: null,
@@ -214,6 +208,14 @@
                 errors: {},
                 isCreateMode: true,
                 categoryOptions: [],
+                money: {
+                    decimal: ',',
+                    thousands: '.',
+                    prefix: '',
+                    suffix: '',
+                    precision: 2,
+                    masked: false
+                }
             }
         },
         methods: {
@@ -228,6 +230,10 @@
                     .then((response) => {
 
                         this.form = response.data.data;
+                        for (const [key, value] of Object.entries(this.form.variations)) {
+
+                            this.form.variations[key] = new Variation(value.id, value.code, value.name, value.price, value.available);
+                        }
                     })
                     .catch(error => {
 
@@ -272,7 +278,7 @@
                 this.$loading(true);
 
                 this.errors = {};
-
+                console.log(this.form.variations);
                 axios.request(this.routeToSave, {
                     method: this.method,
                     params: this.form,
@@ -316,9 +322,9 @@
                 }
             },
             addVariation() {
-
-                this.form.variations.push(new Variation());
-                console.log(this.form.variations);
+                let variation = new Variation();
+                variation.available = true;
+                this.form.variations.push(variation);
             }
         },
         mounted() {
@@ -329,6 +335,9 @@
                 this.routeToSave = "/api/products/" + this.$route.params.id;
                 this.method = 'put';
                 this.getData();
+            } else {
+
+                this.addVariation();
             }
 
             this.getCategoryOptions();
@@ -349,12 +358,13 @@
 
     class Variation {
 
-        constructor(id, product_id, code, name, price) {
+        constructor(id, code, name, price, available) {
             this.id = id;
-            this.product_id = product_id;
+            //this.product_id = product_id;
             this.code = code;
             this.name = name;
             this.price = price;
+            this.available = available;
         }
     }
 </script>

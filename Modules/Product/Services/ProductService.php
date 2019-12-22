@@ -7,7 +7,9 @@ namespace Modules\Product\Services;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\DB;
 use Modules\Product\Models\Product;
+use Modules\Product\Models\ProductVariation;
 
 class ProductService
 {
@@ -51,21 +53,49 @@ class ProductService
     public function create(array $data): Product
     {
 
-        dd($data);
-        $product = new Product();
-        $product->fill($data);
-        $product->save();
+        return DB::transaction(function () use ($data) {
 
-        return $product;
-        //return DB::transaction(function () use ($data) {
-        //});
+            $product = new Product();
+            $product->fill($data);
+            $product->save();
+
+            foreach ($data['variations'] as $variation) {
+
+                $variation['product_id'] = $product->id;
+
+                ProductVariation::create($variation);
+            }
+
+            return $product;
+        });
     }
 
     public function update(array $data, Product $product): Product
     {
 
+        $formVariations = collect($data['variations']);
+        $oldIdVariations = $product->variations()->pluck('id')->toArray();
+        $newIdVariations = $formVariations->pluck('id')->toArray();
+
         $product->fill($data);
         $product->save();
+
+        $exclude = array_diff($oldIdVariations, $newIdVariations);
+
+        ProductVariation::whereIn('id', $exclude)->delete();
+
+        foreach ($data['variations'] as $variation) {
+
+            if (empty($variation['id'])) {
+
+                $variation['product_id'] = $product->id;
+                ProductVariation::create($variation);
+            } else {
+
+                ProductVariation::find($variation['id'])
+                    ->update($variation);
+            }
+        }
 
         return $product;
     }

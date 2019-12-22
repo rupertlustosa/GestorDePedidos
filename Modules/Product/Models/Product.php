@@ -32,4 +32,10 @@ class Product extends Model
 
         return $this->belongsTo(Category::class)->withDefault();
     }
+
+    public function variations()
+    {
+
+        return $this->hasMany(ProductVariation::class);
+    }
 }

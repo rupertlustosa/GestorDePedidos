@@ -18,7 +18,12 @@ class ProductVariation extends Model
      * @var array
      */
     protected $fillable = [
-//DummyFillable
+        'product_id',
+        'code',
+        'name',
+        'notes',
+        'price',
+        'available',
     ];
 
     # Accessors & Mutators

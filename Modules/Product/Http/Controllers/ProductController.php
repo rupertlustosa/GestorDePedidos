@@ -105,14 +105,26 @@ class ProductController extends ApiController
         try {
 
             $storeRequest = new ProductStoreRequest();
-            $validator = Validator::make(request()->all(), $storeRequest->rules());
+
+            $data = request()->all();
+            if (array_key_exists('variations', $data)) {
+
+                $variations = $data['variations'];
+                unset($data['variations']);
+                foreach ($variations as $variation) {
+
+                    $data['variations'][] = (array)json_decode($variation);
+                }
+            }
+
+            $validator = Validator::make($data, $storeRequest->rules());
 
             if ($validator->fails()) {
 
                 return $this->sendBadRequest('Validation Error.', $validator->errors()->toArray());
             }
 
-            $item = $this->productService->create(request()->all());
+            $item = $this->productService->create($data);
 
             return $this->sendResponse($item->toArray());
 
@@ -129,19 +141,32 @@ class ProductController extends ApiController
      * @param Product $product
      * @return JsonResponse
      */
-    public function update(Product $product)
+    public
+    function update(Product $product)
     {
         try {
 
             $updateRequest = new ProductUpdateRequest();
-            $validator = Validator::make(request()->all(), $updateRequest->rules());
+
+            $data = request()->all();
+            if (array_key_exists('variations', $data)) {
+
+                $variations = $data['variations'];
+                unset($data['variations']);
+                foreach ($variations as $variation) {
+
+                    $data['variations'][] = (array)json_decode($variation);
+                }
+            }
+
+            $validator = Validator::make($data, $updateRequest->rules());
 
             if ($validator->fails()) {
 
                 return $this->sendBadRequest('Validation Error.', $validator->errors()->toArray());
             }
 
-            $item = $this->productService->update(request()->all(), $product);
+            $item = $this->productService->update($data, $product);
 
             return $this->sendResponse($item->toArray());
 
@@ -158,7 +183,8 @@ class ProductController extends ApiController
      * @param Product $product
      * @return JsonResponse
      */
-    public function show(Product $product): JsonResponse
+    public
+    function show(Product $product): JsonResponse
     {
 
         try {
@@ -178,7 +204,8 @@ class ProductController extends ApiController
      * @param Product $product
      * @return JsonResponse
      */
-    public function delete(Product $product): JsonResponse
+    public
+    function delete(Product $product): JsonResponse
     {
 
         try {

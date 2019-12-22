@@ -13,7 +13,8 @@ class OrderStatusRule
      * @var array
      */
 	protected static $rules = [
-	    //DummyRules
+	    //'id' => 'required|integer|exists:order_statuses,id,deleted_at,NULL',
+	    'name' => 'required|max:255',
     ];
 
     /**
@@ -25,7 +26,8 @@ class OrderStatusRule
     {
 
         return [
-            //DummyStaticRules
+            //'id' => self::$rules['id'],
+            'name' => self::$rules['name'],
         ];
     }
 

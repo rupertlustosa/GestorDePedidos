@@ -18,7 +18,9 @@ class OrderStatusResource extends JsonResource
     public function toArray($request)
     {
         return [
-//DummyResourceToArray
+            
+            'id' => $this->id,
+            'name' => $this->name,
         ];
     }
 }

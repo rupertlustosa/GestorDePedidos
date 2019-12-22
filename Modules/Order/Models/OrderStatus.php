@@ -18,7 +18,7 @@ class OrderStatus extends Model
      * @var array
      */
     protected $fillable = [
-//DummyFillable
+'name',
     ];
 
     # Accessors & Mutators

@@ -39,7 +39,7 @@ class OrderStatusesTableSeeder extends Seeder
         );
 
 
-        foreach ($order_types as $item) {
+        foreach ($order_statuses as $item) {
 
             OrderStatus::create($item);
 

@@ -19,7 +19,7 @@
     import FooterComponent from "./layout/FooterComponent";
     import MainNavigationComponent from "./layout/MainNavigationComponent";
     import MinorNavigationComponent from "./layout/MinorNavigationComponent";
-    import AuthMixin from "../../../Modules/User/Vue/mixins/auth.mixin";
+    import AuthMixin from "../../../Modules/Authentication/Resources/views/js/auth.mixin";
 
     export default {
         name: "App",

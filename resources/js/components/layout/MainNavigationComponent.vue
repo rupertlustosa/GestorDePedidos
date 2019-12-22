@@ -19,7 +19,7 @@
                 <li class="active">
                     <router-link to="/">Dashboard</router-link>
                 </li>
-                <li>
+                <!--<li>
                     <router-link to="/users"><i class="fa fa-th-large"></i> <span class="nav-label">Usuários</span></router-link>
                 </li>
                 <li>
@@ -27,18 +27,34 @@
                 </li>
                 <li>
                     <router-link to="/products"><i class="fa fa-th-large"></i> <span class="nav-label">Produtos</span></router-link>
-                </li>
+                </li>-->
                 <li>
                     <a href="#">
                         <i class="fa fa-picture-o"></i>
-                        <span class="nav-label">Gallery</span>
+                        <span class="nav-label">Configurações</span>
                         <span class="fa arrow"></span>
                     </a>
                     <ul class="nav nav-second-level collapse">
-                        <li><a href="basic_gallery.html">Lightbox Gallery</a></li>
-                        <li><a href="slick_carousel.html">Slick Carousel</a></li>
-                        <li><a href="carousel.html">Bootstrap Carousel</a></li>
-
+                        <li>
+                            <router-link :to="{ name: 'order_types.list'}">
+                                <i class="fa fa-th-large"></i> <span class="nav-label">Tipos de pedidos</span>
+                            </router-link>
+                        </li>
+                        <li>
+                            <router-link :to="{ name: 'order_statuses.list'}">
+                                <i class="fa fa-th-large"></i> <span class="nav-label">Status dos pedidos</span>
+                            </router-link>
+                        </li>
+                        <li>
+                            <router-link :to="{ name: 'categories.list'}">
+                                <i class="fa fa-th-large"></i> <span class="nav-label">Categories</span>
+                            </router-link>
+                        </li>
+                        <li>
+                            <router-link :to="{ name: 'products.list'}">
+                                <i class="fa fa-th-large"></i> <span class="nav-label">Produtos</span>
+                            </router-link>
+                        </li>
                     </ul>
                 </li>
                 <!--<li>

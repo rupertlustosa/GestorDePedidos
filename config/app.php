@@ -174,9 +174,10 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        Modules\User\Providers\UserServiceProvider::class,
-        Modules\User\Providers\UserServiceProvider::class,
+        Modules\Authentication\Providers\AuthenticationServiceProvider::class,
+        //Modules\User\Providers\UserServiceProvider::class,
         Modules\Product\Providers\ProductServiceProvider::class,
+        Modules\Order\Providers\OrderServiceProvider::class,
 
     ],
 

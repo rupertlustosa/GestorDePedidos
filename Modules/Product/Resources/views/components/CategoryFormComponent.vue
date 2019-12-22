@@ -10,7 +10,7 @@
                     <div class="ibox">
 
                         <div class="ibox-title">
-                            <h5>{{ typeof(this.$route.params.id) === "undefined" ? 'Cadastro' : 'Edição' }}</h5>
+                            <h5>{{ isCreateMode ? 'Cadastro' : 'Edição' }}</h5>
                         </div>
                         <div class="ibox-content">
 
@@ -20,14 +20,14 @@
                                     <label>Categoria</label>
 
                                     <v-select :options="categoryOptions"
-                                              label="label"
+                                              :reduce="option => option.id"
                                               id="id"
+                                              label="label"
                                               placeholder="Escolha uma categoria"
-                                              v-model="form.parent_id"
-                                              :reduce="option => option.id">
+                                              v-model="form.parent_id">
                                     </v-select>
 
-                                    <form-error-component v-if="errors.parent_id" :errors="errors">
+                                    <form-error-component :errors="errors" v-if="errors.parent_id">
                                         {{ errors.parent_id[0] }}
                                     </form-error-component>
                                 </div>
@@ -38,8 +38,8 @@
                             <div class="form-row">
                                 <div class="form-group col-md-12 col-lg-12">
                                     <label>Nome</label>
-                                    <input type="text" v-model="form.name" class="form-control">
-                                    <form-error-component v-if="errors.name" :errors="errors">
+                                    <input autofocus class="form-control" type="text" v-model="form.name">
+                                    <form-error-component :errors="errors" v-if="errors.name">
                                         {{ errors.name[0] }}
                                     </form-error-component>
                                 </div>
@@ -51,12 +51,12 @@
                                 <div class="form-group col-12">
 
                                     <div class="btn-group">
-                                        <button class="btn btn-primary" type="button" @click.prevent="save">
+                                        <button @click.prevent="save" class="btn btn-primary" type="button">
                                             <i class="fa fa-check"></i> Salvar e voltar
                                         </button>
-                                        <button type="button"
-                                                class="btn btn-primary dropdown-toggle dropdown-toggle-split"
-                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <button aria-expanded="false"
+                                                aria-haspopup="true"
+                                                class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" type="button">
                                             <span class="sr-only">Toggle Dropdown</span>
                                         </button>
                                         <div class="dropdown-menu">
@@ -65,7 +65,7 @@
                                             </a>
                                         </div>
                                     </div>
-                                    <router-link class="btn btn-white" :to="{ name: 'categories.list' }">
+                                    <router-link :to="{ name: 'categories.list' }" class="btn btn-white">
                                         <i class="fa fa-ban"></i> Cancelar
                                     </router-link>
 
@@ -97,12 +97,8 @@
                 method: 'post',
                 form: {},
                 errors: {},
-                categoryOptions: [
-                    {id: 1, label: 'Canada'},
-                    {id: 2, label: 'Brasil'},
-                    {id: 3, label: 'México'},
-                    {id: 4, label: 'Alemanha'},
-                ],
+                isCreateMode: true,
+                categoryOptions: [],
             }
         },
         methods: {
@@ -174,6 +170,7 @@
                             .then(() => {
 
                                 this.form = {};
+                                this.routeNameToRedirect = "categories.list";
                             });
 
                         this.$awn.success('Salvo com sucesso!');
@@ -202,6 +199,7 @@
 
             if (typeof (this.$route.params.id) !== "undefined") {
 
+                this.isCreateMode = false;
                 this.routeToSave = "/api/categories/" + this.$route.params.id;
                 this.method = 'put';
                 this.getData();

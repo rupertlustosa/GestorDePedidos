@@ -7,11 +7,16 @@ namespace Modules\Order\Services;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Facades\DB;
 use Modules\Order\Models\OrderType;
 
 class OrderTypeService
 {
+
+    public function paginate(int $limit): LengthAwarePaginator
+    {
+
+        return $this->buildQuery()->paginate($limit);
+    }
 
     private function buildQuery(): Builder
     {
@@ -29,12 +34,6 @@ class OrderTypeService
         });
 
         return $query;
-    }
-
-    public function paginate(int $limit): LengthAwarePaginator
-    {
-
-        return $this->buildQuery()->paginate($limit);
     }
 
     public function all(): Collection

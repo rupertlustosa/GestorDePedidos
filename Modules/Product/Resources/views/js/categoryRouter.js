@@ -9,9 +9,7 @@ const categoryRoutes = [
         meta: {
             auth: true
         },
-        children: [
-
-        ]
+        children: []
     },
     {
         path: '/categories/create',
@@ -29,14 +27,14 @@ const categoryRoutes = [
             auth: true
         }
     }
-]
+];
 
 export default categoryRoutes
 
 /**
-* Adicione na seção de imports do seu arquivo de rotas:
-* import categoryRoutes from "../../Modules/Category/Resources/views/js/categoryRouter";
-*
-* Dentro das rotas do VueRouter adicione:
-* ...categoryRoutes,
-*/
+ * Adicione na seção de imports do seu arquivo de rotas:
+ * import categoryRoutes from "../../Modules/Product/Resources/views/js/categoryRouter";
+ *
+ * Dentro das rotas do VueRouter adicione:
+ * ...categoryRoutes,
+ */

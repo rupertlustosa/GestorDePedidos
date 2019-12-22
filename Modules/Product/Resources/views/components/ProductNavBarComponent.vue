@@ -6,16 +6,16 @@
                 <li class="breadcrumb-item">
                     <router-link to="/">Painel</router-link>
                 </li>
-                <li v-if="this.$router.currentRoute.name == 'products.list'" class="breadcrumb-item active">
+                <li class="breadcrumb-item active" v-if="this.$router.currentRoute.name == 'products.list'">
                     <strong>Listagem</strong>
                 </li>
-                <li v-if="this.$router.currentRoute.name !== 'products.list'" class="breadcrumb-item">
+                <li class="breadcrumb-item" v-if="this.$router.currentRoute.name !== 'products.list'">
                     <router-link :to="{ name: 'products.list' }">Listagem</router-link>
                 </li>
-                <li v-if="this.$router.currentRoute.name === 'products.create'" class="breadcrumb-item active">
+                <li class="breadcrumb-item active" v-if="this.$router.currentRoute.name === 'products.create'">
                     <strong>Novo</strong>
                 </li>
-                <li v-if="this.$router.currentRoute.name === 'products.edit'" class="breadcrumb-item active">
+                <li class="breadcrumb-item active" v-if="this.$router.currentRoute.name === 'products.edit'">
                     <strong>Edição</strong>
                 </li>
             </ol>
@@ -23,8 +23,8 @@
         <div class="col-sm-4">
             <div class="title-action">
                 <router-link
-                    v-if="this.$router.currentRoute.name !== 'products.list'" class="btn btn-white"
-                    :to="{ name: 'products.list'}">
+                    :to="{ name: 'products.list'}" class="btn btn-white"
+                    v-if="this.$router.currentRoute.name !== 'products.list'">
                     <i class="fa fa-pencil"></i> Listar
                 </router-link>&nbsp;
                 <router-link

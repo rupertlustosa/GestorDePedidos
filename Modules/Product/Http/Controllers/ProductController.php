@@ -6,7 +6,6 @@ namespace Modules\Product\Http\Controllers;
 
 use Exception;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Modules\Http\Controllers\ApiController;
 use Modules\Product\Models\Product;

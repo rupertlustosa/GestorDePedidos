@@ -9,9 +9,7 @@ const productRoutes = [
         meta: {
             auth: true
         },
-        children: [
-
-        ]
+        children: []
     },
     {
         path: '/products/create',
@@ -29,14 +27,14 @@ const productRoutes = [
             auth: true
         }
     }
-]
+];
 
 export default productRoutes
 
 /**
-* Adicione na seção de imports do seu arquivo de rotas:
-* import ProductRoutes from "../../Modules/Product/Resources/views/js/productRouter";
-*
-* Dentro das rotas do VueRouter adicione:
-* ...productRoutes,
-*/
+ * Adicione na seção de imports do seu arquivo de rotas:
+ * import ProductRoutes from "../../Modules/Product/Resources/views/js/productRouter";
+ *
+ * Dentro das rotas do VueRouter adicione:
+ * ...productRoutes,
+ */

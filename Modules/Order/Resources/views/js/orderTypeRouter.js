@@ -9,9 +9,7 @@ const orderTypeRoutes = [
         meta: {
             auth: true
         },
-        children: [
-
-        ]
+        children: []
     },
     {
         path: '/order_types/create',
@@ -34,9 +32,9 @@ const orderTypeRoutes = [
 export default orderTypeRoutes
 
 /**
-* Adicione na seção de imports do seu arquivo de rotas:
-* import orderTypeRoutes from "../../Modules/Order/Resources/views/js/orderTypeRouter";
-*
-* Dentro das rotas do VueRouter adicione:
-* ...orderTypeRoutes,
-*/
+ * Adicione na seção de imports do seu arquivo de rotas:
+ * import orderTypeRoutes from "../../Modules/Order/Resources/views/js/orderTypeRouter";
+ *
+ * Dentro das rotas do VueRouter adicione:
+ * ...orderTypeRoutes,
+ */

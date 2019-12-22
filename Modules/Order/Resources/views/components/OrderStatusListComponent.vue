@@ -16,10 +16,10 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="col-form-label">Nome</label>
-                                            <input type="text" class="form-control" v-model="form.name">
+                                            <input class="form-control" type="text" v-model="form.name">
                                         </div>
                                     </div>
-        
+
                                 </div>
                                 <div class="row">
                                     <div class="col-12">
@@ -54,20 +54,20 @@
                                         <td class="text-right">
 
                                             <div class="dropdown">
-                                                <button class="btn btn-white dropdown-toggle" type="button"
-                                                        data-toggle="dropdown"
-                                                        aria-haspopup="true" aria-expanded="false">
+                                                <button aria-expanded="false" aria-haspopup="true"
+                                                        class="btn btn-white dropdown-toggle"
+                                                        data-toggle="dropdown" type="button">
                                                     Ações
                                                 </button>
-                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                <div aria-labelledby="dropdownMenuButton" class="dropdown-menu">
                                                     <router-link
-                                                        class="dropdown-item"
-                                                        :to="{ name: 'order_statuses.edit', params: { id: item.id }}">
+                                                        :to="{ name: 'order_statuses.edit', params: { id: item.id }}"
+                                                        class="dropdown-item">
                                                         <i class="fa fa-pencil fa-fw"></i> Editar
                                                     </router-link>
                                                     <router-link
-                                                        class="dropdown-item"
-                                                        :to="{ name: 'order_statuses.edit', params: { id: item.id }}">
+                                                        :to="{ name: 'order_statuses.edit', params: { id: item.id }}"
+                                                        class="dropdown-item">
                                                         <i class="fa fa-trash-o fa-fw"></i> Remover
                                                     </router-link>
                                                 </div>
@@ -79,11 +79,11 @@
                                 </table>
                             </div>
                             <paginate-component
-                                v-if="this.items.length"
-                                :page-count="pageCount"
                                 :click-handler="getData"
                                 :container-class="'pagination'"
-                                :page-class="'page-item'">
+                                :page-class="'page-item'"
+                                :page-count="pageCount"
+                                v-if="this.items.length">
                             </paginate-component>
                         </div>
 

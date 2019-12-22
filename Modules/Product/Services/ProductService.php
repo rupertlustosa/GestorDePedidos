@@ -7,11 +7,16 @@ namespace Modules\Product\Services;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Facades\DB;
 use Modules\Product\Models\Product;
 
 class ProductService
 {
+
+    public function paginate(int $limit): LengthAwarePaginator
+    {
+
+        return $this->buildQuery()->paginate($limit);
+    }
 
     private function buildQuery(): Builder
     {
@@ -34,12 +39,6 @@ class ProductService
         });
 
         return $query;
-    }
-
-    public function paginate(int $limit): LengthAwarePaginator
-    {
-
-        return $this->buildQuery()->paginate($limit);
     }
 
     public function all(): Collection

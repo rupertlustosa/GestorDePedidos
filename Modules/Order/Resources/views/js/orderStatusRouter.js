@@ -9,9 +9,7 @@ const orderStatusRoutes = [
         meta: {
             auth: true
         },
-        children: [
-
-        ]
+        children: []
     },
     {
         path: '/order_statuses/create',
@@ -34,9 +32,9 @@ const orderStatusRoutes = [
 export default orderStatusRoutes
 
 /**
-* Adicione na seção de imports do seu arquivo de rotas:
-* import orderStatusRoutes from "../../Modules/Order/Resources/views/js/orderStatusRouter";
-*
-* Dentro das rotas do VueRouter adicione:
-* ...orderStatusRoutes,
-*/
+ * Adicione na seção de imports do seu arquivo de rotas:
+ * import orderStatusRoutes from "../../Modules/Order/Resources/views/js/orderStatusRouter";
+ *
+ * Dentro das rotas do VueRouter adicione:
+ * ...orderStatusRoutes,
+ */

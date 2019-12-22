@@ -2,13 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Modules\User\Services;
+namespace Modules\Authentication\Services;
 
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Facades\DB;
-use Modules\User\Models\User;
+use Modules\Authentication\Models\User;
 
 class UserService
 {
@@ -34,7 +33,7 @@ class UserService
             return $query->where('id', 'LIKE', '%' . $search . '%');
         });
 
-        return $query->orderByDesc('id');
+        return $query;
     }
 
     public function all(): Collection
@@ -46,22 +45,19 @@ class UserService
     public function find(int $id): ?User
     {
 
-        //return Cache::remember('User_find_' . $id, config('cache.cache_time'), function () use ($id) {
         return User::find($id);
-        //});
     }
 
     public function create(array $data): User
     {
 
-        return DB::transaction(function () use ($data) {
+        $user = new User();
+        $user->fill($data);
+        $user->save();
 
-            $user = new User();
-            $user->fill($data);
-            $user->save();
-
-            return $user;
-        });
+        return $user;
+        //return DB::transaction(function () use ($data) {
+        //});
     }
 
     public function update(array $data, User $user): User
@@ -75,19 +71,15 @@ class UserService
 
     public function delete(User $user): ?bool
     {
-        //$user->user_eraser_id = \Auth::id();
-        //$user->save();
 
         return $user->delete();
     }
 
-    public function lists(): array
+    public function listOfChoices(): array
     {
-        //return Cache::remember('User_lists', config('cache.cache_time'), function () {
 
         return User::orderBy('name')
             ->pluck('name', 'id')
             ->toArray();
-        //});
     }
 }

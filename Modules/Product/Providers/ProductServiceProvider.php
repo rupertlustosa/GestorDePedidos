@@ -2,8 +2,9 @@
 
 namespace Modules\Product\Providers;
 
-use Illuminate\Support\ServiceProvider;
+use Config;
 use Illuminate\Database\Eloquent\Factory;
+use Illuminate\Support\ServiceProvider;
 
 class ProductServiceProvider extends ServiceProvider
 {
@@ -24,13 +25,19 @@ class ProductServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register the service provider.
+     * Register translations.
      *
      * @return void
      */
-    public function register()
+    public function registerTranslations()
     {
-        $this->app->register(RouteServiceProvider::class);
+        $langPath = resource_path('lang/modules/product');
+
+        if (is_dir($langPath)) {
+            $this->loadTranslationsFrom($langPath, 'product');
+        } else {
+            $this->loadTranslationsFrom(base_path() . '/Modules/Product/Resources/lang', 'product');
+        }
     }
 
     /**
@@ -61,27 +68,11 @@ class ProductServiceProvider extends ServiceProvider
 
         $this->publishes([
             $sourcePath => $viewPath
-        ],'views');
+        ], 'views');
 
         $this->loadViewsFrom(array_merge(array_map(function ($path) {
             return $path . '/modules/product';
-        }, \Config::get('view.paths')), [$sourcePath]), 'product');
-    }
-
-    /**
-     * Register translations.
-     *
-     * @return void
-     */
-    public function registerTranslations()
-    {
-        $langPath = resource_path('lang/modules/product');
-
-        if (is_dir($langPath)) {
-            $this->loadTranslationsFrom($langPath, 'product');
-        } else {
-            $this->loadTranslationsFrom(base_path() . '/Modules/Product/Resources/lang', 'product');
-        }
+        }, Config::get('view.paths')), [$sourcePath]), 'product');
     }
 
     /**
@@ -91,9 +82,19 @@ class ProductServiceProvider extends ServiceProvider
      */
     public function registerFactories()
     {
-        if (! app()->environment('production') && $this->app->runningInConsole()) {
+        if (!app()->environment('production') && $this->app->runningInConsole()) {
             app(Factory::class)->load(base_path() . '/Modules/Product/Database/factories');
         }
+    }
+
+    /**
+     * Register the service provider.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        $this->app->register(RouteServiceProvider::class);
     }
 
     /**

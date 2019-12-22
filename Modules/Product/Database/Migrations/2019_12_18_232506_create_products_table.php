@@ -25,10 +25,6 @@ class CreateProductsTable extends Migration
             $table->string('image')->nullable();
             $table->string('summary')->nullable();
 
-            $table->boolean('available')->default(1);
-
-            $table->float('price', 8, 2);
-
             $table->timestamps();
             $table->softDeletes();
         });

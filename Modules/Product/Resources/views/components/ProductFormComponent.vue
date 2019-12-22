@@ -18,81 +18,81 @@
                             <div class="form-row">
                                 <div class="form-group col-md-12 col-lg-12">
                                     <label>Categoria</label>
-                                    <input type="text" v-model="form.category_id" class="form-control">
-                                    <form-error-component v-if="errors.category_id" :errors="errors">
+                                    <input class="form-control" type="text" v-model="form.category_id">
+                                    <form-error-component :errors="errors" v-if="errors.category_id">
                                         {{ errors.category_id[0] }}
                                     </form-error-component>
-                                </div>            
-            
-                            </div>        
-        
+                                </div>
+
+                            </div>
+
 
                             <div class="form-row">
                                 <div class="form-group col-md-12 col-lg-12">
                                     <label>Nome</label>
-                                    <input type="text" v-model="form.name" class="form-control">
-                                    <form-error-component v-if="errors.name" :errors="errors">
+                                    <input class="form-control" type="text" v-model="form.name">
+                                    <form-error-component :errors="errors" v-if="errors.name">
                                         {{ errors.name[0] }}
                                     </form-error-component>
-                                </div>            
-            
-                            </div>        
-        
+                                </div>
+
+                            </div>
+
 
                             <div class="form-row">
                                 <div class="form-group col-md-12 col-lg-12">
                                     <label>Imagem</label>
-                                    <input type="text" v-model="form.image" class="form-control">
-                                    <form-error-component v-if="errors.image" :errors="errors">
+                                    <input class="form-control" type="text" v-model="form.image">
+                                    <form-error-component :errors="errors" v-if="errors.image">
                                         {{ errors.image[0] }}
                                     </form-error-component>
-                                </div>            
-            
-                            </div>        
-        
+                                </div>
+
+                            </div>
+
 
                             <div class="form-row">
                                 <div class="form-group col-md-12 col-lg-12">
                                     <label>Resumo</label>
-                                    <input type="text" v-model="form.summary" class="form-control">
-                                    <form-error-component v-if="errors.summary" :errors="errors">
+                                    <input class="form-control" type="text" v-model="form.summary">
+                                    <form-error-component :errors="errors" v-if="errors.summary">
                                         {{ errors.summary[0] }}
                                     </form-error-component>
-                                </div>            
-            
-                            </div>        
-        
+                                </div>
+
+                            </div>
+
 
                             <div class="form-row">
                                 <div class="form-group col-md-12 col-lg-6">
                                     <label>Disponível?</label>
-                                    <input type="text" v-model="form.available" class="form-control">
-                                    <form-error-component v-if="errors.available" :errors="errors">
+                                    <input class="form-control" type="text" v-model="form.available">
+                                    <form-error-component :errors="errors" v-if="errors.available">
                                         {{ errors.available[0] }}
                                     </form-error-component>
-                                </div>            
-            
+                                </div>
+
                                 <div class="form-group col-md-12 col-lg-6">
                                     <label>Preço</label>
-                                    <input type="text" v-model="form.price" class="form-control">
-                                    <form-error-component v-if="errors.price" :errors="errors">
+                                    <input class="form-control" type="text" v-model="form.price">
+                                    <form-error-component :errors="errors" v-if="errors.price">
                                         {{ errors.price[0] }}
                                     </form-error-component>
-                                </div>            
-            
-                            </div>        
-        
+                                </div>
+
+                            </div>
+
 
                             <div class="form-row">
                                 <div class="form-group col-12">
 
                                     <div class="btn-group">
-                                        <button class="btn btn-primary" type="button" @click.prevent="save">
+                                        <button @click.prevent="save" class="btn btn-primary" type="button">
                                             <i class="fa fa-check"></i> Salvar e voltar
                                         </button>
-                                        <button type="button"
-                                                class="btn btn-primary dropdown-toggle dropdown-toggle-split"
-                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <button aria-expanded="false"
+                                                aria-haspopup="true"
+                                                class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" type="button">
                                             <span class="sr-only">Toggle Dropdown</span>
                                         </button>
                                         <div class="dropdown-menu">
@@ -101,7 +101,7 @@
                                             </a>
                                         </div>
                                     </div>
-                                    <router-link class="btn btn-white" :to="{ name: 'products.list' }">
+                                    <router-link :to="{ name: 'products.list' }" class="btn btn-white">
                                         <i class="fa fa-ban"></i> Cancelar
                                     </router-link>
 

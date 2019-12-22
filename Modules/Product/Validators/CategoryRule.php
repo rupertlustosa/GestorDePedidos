@@ -12,10 +12,10 @@ class CategoryRule
      *
      * @var array
      */
-	protected static $rules = [
-	    //'id' => 'required|integer|exists:categories,id,deleted_at,NULL',
-	    'parent_id' => 'nullable|integer|exists:categories,id,deleted_at,NULL',
-	    'name' => 'required|max:255',
+    protected static $rules = [
+        //'id' => 'required|integer|exists:categories,id,deleted_at,NULL',
+        'parent_id' => 'nullable|integer|exists:categories,id,deleted_at,NULL',
+        'name' => 'required|max:255',
     ];
 
     /**

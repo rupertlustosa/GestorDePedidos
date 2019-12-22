@@ -12,8 +12,8 @@ class OrderRule
      *
      * @var array
      */
-	protected static $rules = [
-	    //DummyRules
+    protected static $rules = [
+        //DummyRules
     ];
 
     /**

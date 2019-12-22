@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Modules\User\Validators;
+namespace Modules\Authentication\Validators;
 
 class UserRule
 {
@@ -13,11 +13,7 @@ class UserRule
      * @var array
      */
     protected static $rules = [
-        'id' => 'required|integer|exists:users,id,deleted_at,NULL',
-        'name' => 'required|max:255',
-        'email' => 'required|email|max:255',
-        'password' => 'required|string|min:8',
-        //'password' => 'required|string|min:8|confirmed',
+        //DummyRules
     ];
 
     /**
@@ -29,11 +25,8 @@ class UserRule
     {
 
         return [
-            'name' => self::$rules['name'],
-            'email' => self::$rules['email'],
-            'password' => self::$rules['password'],
+            //DummyStaticRules
         ];
-
     }
 
     /**

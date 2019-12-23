@@ -46,6 +46,11 @@
                             </router-link>
                         </li>
                         <li>
+                            <router-link :to="{ name: 'order_points.list'}">
+                                <i class="fa fa-th-large"></i> <span class="nav-label">Mesas</span>
+                            </router-link>
+                        </li>
+                        <li>
                             <router-link :to="{ name: 'categories.list'}">
                                 <i class="fa fa-th-large"></i> <span class="nav-label">Categories</span>
                             </router-link>
@@ -57,11 +62,16 @@
                         </li>
                     </ul>
                 </li>
-                <!--<li>
-                    <a class="right-sidebar-toggle">
-                        <i class="fa fa-tasks"></i> Lateral
-                    </a>
-                </li>-->
+                <li>
+                    <router-link :to="{ name: 'orders.list'}">
+                        <i class="fa fa-th-large"></i> <span class="nav-label">Pedidos</span>
+                    </router-link>
+                </li>
+                <li>
+                    <router-link :to="{ name: 'orders.dashboard'}">
+                        <i class="fa fa-th-large"></i> <span class="nav-label">Dashboard</span>
+                    </router-link>
+                </li>
             </ul>
 
         </div>

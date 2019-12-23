@@ -1,4 +1,18 @@
 {
-    "/js/app.js": "/js/app.js",
-    "/css/app.css": "/css/app.css"
+    "/js/app.js": "/js/app.js?id=2f8bb270e8f970c2805e",
+    "/css/app.css": "/css/app.css?id=2a2a9f6215d344c1d452",
+    "/js/async/category-form-component.js": "/js/async/category-form-component.js?id=6eccf4570ad4abda19f2",
+    "/js/async/category-list-component.js": "/js/async/category-list-component.js?id=cf43e522822cbcf727bc",
+    "/js/async/order-dashboard-component.js": "/js/async/order-dashboard-component.js?id=09b4b58df490f7c4b6e7",
+    "/js/async/order-form-component.js": "/js/async/order-form-component.js?id=ee62a5c3bab423e76f88",
+    "/js/async/order-list-component.js": "/js/async/order-list-component.js?id=c6ab39937ab947d79776",
+    "/js/async/order-point-form-component.js": "/js/async/order-point-form-component.js?id=5dd4f799dc3625c5f413",
+    "/js/async/order-point-list-component.js": "/js/async/order-point-list-component.js?id=a3df407fca9beca2b065",
+    "/js/async/order-status-form-component.js": "/js/async/order-status-form-component.js?id=9afff446aa833465922e",
+    "/js/async/order-status-list-component.js": "/js/async/order-status-list-component.js?id=dcbedd243506b7fba294",
+    "/js/async/order-type-form-component.js": "/js/async/order-type-form-component.js?id=a7043dc0e242e9f79a75",
+    "/js/async/order-type-list-component.js": "/js/async/order-type-list-component.js?id=b859b4ef11a06e2551c4",
+    "/js/async/product-form-component.js": "/js/async/product-form-component.js?id=9e580aced689935fcf27",
+    "/js/async/product-list-component.js": "/js/async/product-list-component.js?id=6c71b305eb82fd73f694",
+    "/vendors~js/async/product-form-component.js": "/vendors~js/async/product-form-component.js?id=276a25169577d3e20984"
 }

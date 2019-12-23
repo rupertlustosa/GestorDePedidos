@@ -23,6 +23,20 @@ const orderRoutes = [
         children: []
     },
     {
+        path: '/orders/dashboard',
+        name: "orders.dashboard",
+        component: () => ({
+            component: import("../components/OrderDashboardComponent" /* webpackChunkName: "js/async/order-dashboard-component" */),
+            loading: VueLoading,
+            //error: ErrorComponent,
+            delay: 200,
+            timeout: 3000
+        }),
+        meta: {
+            auth: true
+        }
+    },
+    {
         path: '/orders/create',
         name: "orders.create",
         component: () => ({

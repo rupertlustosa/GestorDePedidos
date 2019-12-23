@@ -6,16 +6,16 @@
                 <li class="breadcrumb-item">
                     <router-link to="/">Painel</router-link>
                 </li>
-                <li v-if="this.$router.currentRoute.name == 'order_points.list'" class="breadcrumb-item active">
+                <li class="breadcrumb-item active" v-if="this.$router.currentRoute.name == 'order_points.list'">
                     <strong>Listagem</strong>
                 </li>
-                <li v-if="this.$router.currentRoute.name !== 'order_points.list'" class="breadcrumb-item">
+                <li class="breadcrumb-item" v-if="this.$router.currentRoute.name !== 'order_points.list'">
                     <router-link :to="{ name: 'order_points.list' }">Listagem</router-link>
                 </li>
-                <li v-if="this.$router.currentRoute.name === 'order_points.create'" class="breadcrumb-item active">
+                <li class="breadcrumb-item active" v-if="this.$router.currentRoute.name === 'order_points.create'">
                     <strong>Novo</strong>
                 </li>
-                <li v-if="this.$router.currentRoute.name === 'order_points.edit'" class="breadcrumb-item active">
+                <li class="breadcrumb-item active" v-if="this.$router.currentRoute.name === 'order_points.edit'">
                     <strong>Edição</strong>
                 </li>
             </ol>
@@ -23,8 +23,8 @@
         <div class="col-sm-4">
             <div class="title-action">
                 <router-link
-                    v-if="this.$router.currentRoute.name !== 'order_points.list'" class="btn btn-white"
-                    :to="{ name: 'order_points.list'}">
+                    :to="{ name: 'order_points.list'}" class="btn btn-white"
+                    v-if="this.$router.currentRoute.name !== 'order_points.list'">
                     <i class="fa fa-pencil"></i> Listar
                 </router-link>&nbsp;
                 <router-link

@@ -1,11 +1,16 @@
-import OrderStatusListComponent from "../components/OrderStatusListComponent";
-import OrderStatusFormComponent from "../components/OrderStatusFormComponent";
+import VueLoading from "vuejs-loading-plugin";
 
 const orderStatusRoutes = [
     {
         path: "/order_statuses",
         name: "order_statuses.list",
-        component: OrderStatusListComponent,
+        component: () => ({
+            component: import("../components/OrderStatusListComponent" /* webpackChunkName: "js/async/order-status-list-component" */),
+            loading: VueLoading,
+            //error: ErrorComponent,
+            delay: 200,
+            timeout: 3000
+        }),
         meta: {
             auth: true
         },
@@ -14,7 +19,13 @@ const orderStatusRoutes = [
     {
         path: '/order_statuses/create',
         name: "order_statuses.create",
-        component: OrderStatusFormComponent,
+        component: () => ({
+            component: import("../components/OrderStatusFormComponent" /* webpackChunkName: "js/async/order-status-form-component" */),
+            loading: VueLoading,
+            //error: ErrorComponent,
+            delay: 200,
+            timeout: 3000
+        }),
         meta: {
             auth: true
         }
@@ -22,7 +33,13 @@ const orderStatusRoutes = [
     {
         path: '/order_statuses/:id/edit',
         name: "order_statuses.edit",
-        component: OrderStatusFormComponent,
+        component: () => ({
+            component: import("../components/OrderStatusFormComponent" /* webpackChunkName: "js/async/order-status-form-component" */),
+            loading: VueLoading,
+            //error: ErrorComponent,
+            delay: 200,
+            timeout: 3000
+        }),
         meta: {
             auth: true
         }

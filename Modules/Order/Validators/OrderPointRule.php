@@ -12,9 +12,9 @@ class OrderPointRule
      *
      * @var array
      */
-	protected static $rules = [
-	    //'id' => 'required|integer|exists:order_points,id,deleted_at,NULL',
-	    'name' => 'required|max:255',
+    protected static $rules = [
+        //'id' => 'required|integer|exists:order_points,id,deleted_at,NULL',
+        'name' => 'required|max:255',
     ];
 
     /**

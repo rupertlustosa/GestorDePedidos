@@ -1,11 +1,16 @@
-import CategoryListComponent from "../components/CategoryListComponent";
-import CategoryFormComponent from "../components/CategoryFormComponent";
+import VueLoading from "vuejs-loading-plugin";
 
 const categoryRoutes = [
     {
         path: "/categories",
         name: "categories.list",
-        component: CategoryListComponent,
+        component: () => ({
+            component: import("../components/CategoryListComponent" /* webpackChunkName: "js/async/category-list-component" */),
+            loading: VueLoading,
+            //error: ErrorComponent,
+            delay: 200,
+            timeout: 3000
+        }),
         meta: {
             auth: true
         },
@@ -14,7 +19,13 @@ const categoryRoutes = [
     {
         path: '/categories/create',
         name: "categories.create",
-        component: CategoryFormComponent,
+        component: () => ({
+            component: import("../components/CategoryFormComponent" /* webpackChunkName: "js/async/category-form-component" */),
+            loading: VueLoading,
+            //error: ErrorComponent,
+            delay: 200,
+            timeout: 3000
+        }),
         meta: {
             auth: true
         }
@@ -22,7 +33,13 @@ const categoryRoutes = [
     {
         path: '/categories/:id/edit',
         name: "categories.edit",
-        component: CategoryFormComponent,
+        component: () => ({
+            component: import("../components/CategoryFormComponent" /* webpackChunkName: "js/async/category-form-component" */),
+            loading: VueLoading,
+            //error: ErrorComponent,
+            delay: 200,
+            timeout: 3000
+        }),
         meta: {
             auth: true
         }

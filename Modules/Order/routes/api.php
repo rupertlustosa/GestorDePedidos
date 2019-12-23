@@ -21,4 +21,9 @@ Route::middleware(['web'])
             'order_points' => 'OrderPointController',
             'orders' => 'OrderController',
         ]);
+
+        $api->get('orders/list-of-choices', 'OrderController@listOfChoices');
+        $api->apiResources([
+            'orders' => 'OrderController',
+        ]);
     });

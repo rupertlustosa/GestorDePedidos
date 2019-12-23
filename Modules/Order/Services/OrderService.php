@@ -78,8 +78,10 @@ class OrderService
     public function listOfChoices(): array
     {
 
-        return Order::orderBy('name')
-            ->pluck('name', 'id')
+        return Order::select('id', 'name as label')
+            ->orderBy('name')
+            ->get()
             ->toArray();
+
     }
 }

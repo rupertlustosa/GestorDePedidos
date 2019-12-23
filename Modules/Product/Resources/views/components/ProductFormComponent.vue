@@ -95,7 +95,7 @@
                                                                    v-model="form.variations[index]['available']">
                                                         </span>
                                                     </div>
-                                                    <input type="text" class="form-control"
+                                                    <input class="form-control" type="text"
                                                            v-model="form.variations[index]['name']">
                                                 </div>
                                                 <form-error-component :errors="errors"
@@ -116,8 +116,8 @@
 
                                             <div class="form-group col-md-12 col-lg-2">
                                                 <label>Valor</label>
-                                                <money v-model="form.variations[index]['price']" v-bind="money"
-                                                       class="form-control"></money>
+                                                <money class="form-control" v-bind="money"
+                                                       v-model="form.variations[index]['price']"></money>
                                                 <form-error-component :errors="errors"
                                                                       v-if="errors['variations.'+index+'.price']">
                                                     {{ errors['variations.'+index+'.price'] }}
@@ -138,7 +138,7 @@
                                     </template>
                                     <div class="form-row">
                                         <div class="form-group col-12 text-right">
-                                            <button type="button" class="btn btn-outline btn-rounded btn-primary"
+                                            <button class="btn btn-outline btn-rounded btn-primary" type="button"
                                                     v-on:click="addVariation">
                                                 Adicionar variação
                                             </button>

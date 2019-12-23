@@ -1,11 +1,16 @@
-import ProductListComponent from "../components/ProductListComponent";
-import ProductFormComponent from "../components/ProductFormComponent";
+import VueLoading from "vuejs-loading-plugin";
 
 const productRoutes = [
     {
         path: "/products",
         name: "products.list",
-        component: ProductListComponent,
+        component: () => ({
+            component: import("../components/ProductListComponent" /* webpackChunkName: "js/async/product-list-component" */),
+            loading: VueLoading,
+            //error: ErrorComponent,
+            delay: 200,
+            timeout: 3000
+        }),
         meta: {
             auth: true
         },
@@ -14,7 +19,13 @@ const productRoutes = [
     {
         path: '/products/create',
         name: "products.create",
-        component: ProductFormComponent,
+        component: () => ({
+            component: import("../components/ProductFormComponent" /* webpackChunkName: "js/async/product-form-component" */),
+            loading: VueLoading,
+            //error: ErrorComponent,
+            delay: 200,
+            timeout: 3000
+        }),
         meta: {
             auth: true
         }
@@ -22,7 +33,13 @@ const productRoutes = [
     {
         path: '/products/:id/edit',
         name: "products.edit",
-        component: ProductFormComponent,
+        component: () => ({
+            component: import("../components/ProductFormComponent" /* webpackChunkName: "js/async/product-form-component" */),
+            loading: VueLoading,
+            //error: ErrorComponent,
+            delay: 200,
+            timeout: 3000
+        }),
         meta: {
             auth: true
         }

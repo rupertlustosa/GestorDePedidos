@@ -18,7 +18,16 @@ class Order extends Model
      * @var array
      */
     protected $fillable = [
-//DummyFillable
+        'attendant_id',
+        'client_id',
+        'deliveryman_id',
+        'order_type_id',
+        'order_status_id',
+        'order_point_id',
+        'notes',
+        'start_date',
+        'output_to_delivery_date',
+        'end_date',
     ];
 
     # Accessors & Mutators

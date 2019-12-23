@@ -7,6 +7,8 @@ import CategoryRoutes from "../../Modules/Product/Resources/views/js/categoryRou
 import ProductRoutes from "../../Modules/Product/Resources/views/js/productRouter";
 import orderTypeRoutes from "../../Modules/Order/Resources/views/js/orderTypeRouter";
 import orderStatusRoutes from "../../Modules/Order/Resources/views/js/orderStatusRouter";
+import orderPointRoutes from "../../Modules/Order/Resources/views/js/orderPointRouter";
+import orderRoutes from "../../Modules/Order/Resources/views/js/orderRouter";
 
 Vue.use(VueRouter);
 
@@ -23,8 +25,10 @@ const router = new VueRouter({
         },
         ...CategoryRoutes,
         ...ProductRoutes,
+        ...orderPointRoutes,
         ...orderTypeRoutes,
         ...orderStatusRoutes,
+        ...orderRoutes,
         {
             name: 'login',
             path: '/login',

@@ -18,7 +18,7 @@ class OrderPoint extends Model
      * @var array
      */
     protected $fillable = [
-//DummyFillable
+'name',
     ];
 
     # Accessors & Mutators

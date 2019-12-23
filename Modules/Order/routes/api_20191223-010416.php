@@ -14,11 +14,19 @@
 Route::middleware(['web'])
     ->group(function ($api) {
 
-        $api->apiResources([
-            'order_statuses' => 'OrderStatusController',
-            'order_items' => 'OrderItemController',
-            'order_types' => 'OrderTypeController',
-            'order_points' => 'OrderPointController',
-            'orders' => 'OrderController',
+        $api->resource('order_statuses', 'OrderStatusController')->except([
+            'create', 'edit'
+        ]);
+
+        $api->resource('order_items', 'OrderItemController')->except([
+            'create', 'edit'
+        ]);
+
+        $api->resource('orders', 'OrderController')->except([
+            'create', 'edit'
+        ]);
+
+        $api->resource('order_types', 'OrderTypeController')->except([
+            'create', 'edit'
         ]);
     });

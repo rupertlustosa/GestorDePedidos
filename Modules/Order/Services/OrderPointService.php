@@ -28,9 +28,9 @@ class OrderPointService
             return $query->whereId($id);
         });
 
-        $query->when(request('search'), function ($query, $search) {
+        $query->when(request('name'), function ($query, $search) {
 
-            return $query->where('id', 'LIKE', '%' . $search . '%');
+            return $query->where('name', 'LIKE', '%' . $search . '%');
         });
 
         return $query;
@@ -78,8 +78,10 @@ class OrderPointService
     public function listOfChoices(): array
     {
 
-        return OrderPoint::orderBy('name')
-            ->pluck('name', 'id')
+        return OrderPoint::select('id', 'name as label')
+            ->orderBy('name')
+            ->get()
             ->toArray();
+
     }
 }

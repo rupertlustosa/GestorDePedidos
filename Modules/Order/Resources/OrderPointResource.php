@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Modules\Order\Resources;
 
-use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class OrderPointResource extends JsonResource
@@ -13,13 +12,15 @@ class OrderPointResource extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param Request $request
+     * @param \Illuminate\Http\Request $request
      * @return array
      */
     public function toArray($request)
     {
         return [
-//DummyResourceToArray
+            
+            'id' => $this->id,
+            'name' => $this->name,
         ];
     }
 }

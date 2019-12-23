@@ -31,7 +31,22 @@
                         </ul>
                         <div class="step-content">
                             <div class="step-tab-panel" id="step1">
-                                ...
+                                <div class="form-row">
+                                    <div class="form-group col-md-12 col-lg-12">
+                                        <label>Categoria</label>
+                                        <v-select :options="categoryOptions"
+                                                  :reduce="option => option.id"
+                                                  id="id"
+                                                  label="label"
+                                                  placeholder="Escolha uma categoria"
+                                                  v-model="form.category_id">
+                                        </v-select>
+                                        <form-error-component :errors="errors" v-if="errors.category_id">
+                                            {{ errors.category_id[0] }}
+                                        </form-error-component>
+                                    </div>
+
+                                </div>
                             </div>
                             <div class="step-tab-panel" id="step2">
                                 ...
@@ -59,16 +74,50 @@
 
     import 'jquery.steps/dist/jquery-steps.css';
     import 'jquery.steps/dist/jquery-steps';
+    import vSelect from 'vue-select';
+    import 'vue-select/dist/vue-select.css';
 
     $(document).ready(function () {
 
         $('#demo').steps({
-            onFinish: function () { alert('complete'); }
+            onFinish: function () {
+                alert('complete');
+            }
         });
     });
 
     export default {
-        name: "NewAttendanceComponent"
+        name: "NewAttendanceComponent",
+        components: {vSelect},
+        data() {
+            return {
+                form: {
+                    category_id: null,
+                },
+                errors: {},
+                categoryOptions: [],
+            }
+        },
+        methods: {
+            getCategoryOptions() {
+
+                axios.get('/api/categories/list-of-choices')
+                    .then(response => {
+
+                        this.categoryOptions = response.data;
+                        console.log(this.categoryOptions);
+                    })
+                    .catch(error => {
+
+                        let message = 'Erro ao carregar categorias!';
+                        this.$awn.alert(message);
+                        console.log(error);
+                    });
+            },
+        },
+        mounted() {
+            this.getCategoryOptions();
+        }
     }
 </script>
 

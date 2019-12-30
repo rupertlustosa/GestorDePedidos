@@ -15,6 +15,7 @@ Route::middleware(['web'])
     ->group(function ($api) {
 
         $api->get('order_types/list-of-choices', 'OrderTypeController@listOfChoices');
+        $api->get('order_points/list-of-choices', 'OrderPointController@listOfChoices');
         $api->apiResources([
             'order_statuses' => 'OrderStatusController',
             'order_items' => 'OrderItemController',

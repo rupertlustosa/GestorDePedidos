@@ -30,13 +30,13 @@
                         </p>
                         <div class="custom-radio">
                             <div class="form-row mt-2">
-                                <template v-for="(orderType, orderTypeId) in orderTypesOptions">
+                                <template v-for="orderType in orderTypesOptions">
                                     <div class="custom-radio-success col-sm-12 col-md-3">
-                                        <input type="radio" name="radio" :id="'radio'+orderTypeId"
-                                               :checked="order.order_type_id == orderTypeId"
-                                               :value="orderTypeId"
+                                        <input type="radio" name="radio" :id="'radio'+orderType.id"
+                                               :checked="order.order_type_id == orderType.id"
+                                               :value="orderType.id"
                                                v-model="order.order_type_id"/>
-                                        <label :for="'radio'+orderTypeId">{{ orderType }}</label>
+                                        <label :for="'radio'+orderType.id">{{ orderType.label }}</label>
                                     </div>
                                 </template>
                             </div>
@@ -45,7 +45,13 @@
                         <div class="form-row mt-2" v-if="order.order_type_id == 1 || order.order_type_id == 2">
                             <div class="form-group col-md-12 col-lg-12">
                                 <label class="font-bold">Qual o atendente? *</label>
-                                <input class="form-control" type="text" v-model="order.attendant_id">
+                                <v-select :options="attendantsOptions"
+                                          :reduce="option => option.id"
+                                          id="id"
+                                          label="label"
+                                          placeholder="Escolha o atendente"
+                                          v-model="order.attendant_id">
+                                </v-select>
                                 <form-error-component :errors="errors" v-if="errors.attendant_id">
                                     {{ errors.attendant_id[0] }}
                                 </form-error-component>
@@ -55,7 +61,13 @@
                         <div class="form-row mt-2" v-if="order.order_type_id == 1">
                             <div class="form-group col-md-12 col-lg-12">
                                 <label class="font-bold">Qual a mesa? *</label>
-                                <input class="form-control" type="text" v-model="order.order_point_id">
+                                <v-select :options="orderPointOptions"
+                                          :reduce="option => option.id"
+                                          id="id"
+                                          label="label"
+                                          placeholder="Escolha a mesa"
+                                          v-model="order.order_point_id">
+                                </v-select>
                                 <form-error-component :errors="errors" v-if="errors.order_point_id">
                                     {{ errors.order_point_id[0] }}
                                 </form-error-component>
@@ -65,7 +77,13 @@
                         <div class="form-row mt-2" v-if="order.order_type_id == 3 || order.order_type_id == 4">
                             <div class="form-group col-md-12 col-lg-12">
                                 <label class="font-bold">Qual o cliente?</label>
-                                <input class="form-control" type="text" v-model="order.client_id">
+                                <v-select :options="clientOptions"
+                                          :reduce="option => option.id"
+                                          id="id"
+                                          label="label"
+                                          placeholder="Escolha o cliente"
+                                          v-model="order.client_id">
+                                </v-select>
                                 <form-error-component :errors="errors" v-if="errors.client_id">
                                     {{ errors.client_id[0] }}
                                 </form-error-component>
@@ -134,6 +152,9 @@
                 errors: {},
                 orderTypesOptions: [],
                 categoryOptions: [],
+                attendantsOptions: [],
+                orderPointOptions: [],
+                clientOptions: [],
                 order: new OrderModel(),
                 message: 'Aaaaaaa',
             }
@@ -169,6 +190,48 @@
                         console.log(error);
                     });
             },
+            getAttendantsOptions() {
+
+                axios.get('/api/attendants/list-of-choices')
+                    .then(response => {
+
+                        this.attendantsOptions = response.data;
+                    })
+                    .catch(error => {
+
+                        let message = 'Erro ao carregar os atendentes!';
+                        this.$awn.alert(message);
+                        console.log(error);
+                    });
+            },
+            getClientOptions() {
+
+                axios.get('/api/clients/list-of-choices')
+                    .then(response => {
+
+                        this.clientOptions = response.data;
+                    })
+                    .catch(error => {
+
+                        let message = 'Erro ao carregar os clientes!';
+                        this.$awn.alert(message);
+                        console.log(error);
+                    });
+            },
+            getOrderPointOptions() {
+
+                axios.get('/api/order_points/list-of-choices')
+                    .then(response => {
+
+                        this.orderPointOptions = response.data;
+                    })
+                    .catch(error => {
+
+                        let message = 'Erro ao carregar as mesas!';
+                        this.$awn.alert(message);
+                        console.log(error);
+                    });
+            },
             setOrderType(orderTypeId) {
 
                 this.order.order_type_id = orderTypeId;
@@ -180,6 +243,9 @@
         mounted() {
             this.getCategoryOptions();
             this.getOrderTypesOptions();
+            this.getAttendantsOptions();
+            this.getClientOptions();
+            this.getOrderPointOptions();
         }
     }
 </script>

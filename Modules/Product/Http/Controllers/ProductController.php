@@ -84,7 +84,7 @@ class ProductController extends ApiController
 
         try {
 
-            $data = $this->categoryService->listOfChoices();
+            $data = $this->productService->listOfChoices();
 
             return $this->sendSimpleJson($data);
 

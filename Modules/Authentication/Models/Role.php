@@ -12,6 +12,12 @@ class Role extends Model
 
     use SoftDeletes;
 
+    const ADMINISTRATOR = 1;
+    const ATTENDANT = 2;
+    const WAITER = 3;
+    const DELIVERYMAN = 4;
+    const CLIENT = 5;
+
     /**
      * The attributes that are mass assignable.
      *

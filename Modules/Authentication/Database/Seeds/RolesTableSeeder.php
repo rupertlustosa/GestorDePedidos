@@ -26,11 +26,15 @@ class RolesTableSeeder extends Seeder
             ),
             array(
                 "id" => 3,
-                "name" => "Garçon",
+                "name" => "Garçom",
             ),
             array(
                 "id" => 4,
                 "name" => "Entregador",
+            ),
+            array(
+                "id" => 4,
+                "name" => "Cliente",
             ),
         );
 

@@ -84,7 +84,7 @@ class OrderStatusController extends ApiController
 
         try {
 
-            $data = $this->categoryService->listOfChoices();
+            $data = $this->orderStatusService->listOfChoices();
 
             return $this->sendSimpleJson($data);
 

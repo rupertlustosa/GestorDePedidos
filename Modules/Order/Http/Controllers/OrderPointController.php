@@ -84,7 +84,7 @@ class OrderPointController extends ApiController
 
         try {
 
-            $data = $this->categoryService->listOfChoices();
+            $data = $this->orderPointService->listOfChoices();
 
             return $this->sendSimpleJson($data);
 

@@ -84,7 +84,7 @@ class OrderItemController extends ApiController
 
         try {
 
-            $data = $this->categoryService->listOfChoices();
+            $data = $this->orderItemService->listOfChoices();
 
             return $this->sendSimpleJson($data);
 

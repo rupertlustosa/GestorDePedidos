@@ -14,6 +14,8 @@
 Route::middleware(['web'])
     ->group(function ($api) {
 
+        $api->get('attendants/list-of-choices', 'UserController@listOfAttendantChoices');
+        $api->get('clients/list-of-choices', 'UserController@listOfClientChoices');
         $api->get('roles/list-of-choices', 'RoleController@listOfChoices');
         $api->apiResources([
             'roles' => 'RoleController',

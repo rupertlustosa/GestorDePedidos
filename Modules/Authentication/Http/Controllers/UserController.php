@@ -84,7 +84,47 @@ class UserController extends ApiController
 
         try {
 
-            $data = $this->categoryService->listOfChoices();
+            $data = $this->userService->listOfChoices();
+
+            return $this->sendSimpleJson($data);
+
+        } catch (Exception $exception) {
+
+            return $this->sendError('Server Error.', $exception);
+        }
+    }
+
+    /**
+     * Display a listing of choices.
+     *
+     * @return JsonResponse
+     */
+    public function listOfAttendantChoices(): JsonResponse
+    {
+
+        try {
+
+            $data = $this->userService->listOfAttendantChoices();
+
+            return $this->sendSimpleJson($data);
+
+        } catch (Exception $exception) {
+
+            return $this->sendError('Server Error.', $exception);
+        }
+    }
+
+    /**
+     * Display a listing of choices.
+     *
+     * @return JsonResponse
+     */
+    public function listOfClientChoices(): JsonResponse
+    {
+
+        try {
+
+            $data = $this->userService->listOfClientChoices();
 
             return $this->sendSimpleJson($data);
 

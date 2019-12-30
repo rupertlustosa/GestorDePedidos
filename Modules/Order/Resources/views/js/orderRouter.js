@@ -6,7 +6,7 @@ const orderRoutes = [
         name: "orders.list",
         component: () => ({
             // O componente a carregar (deve ser uma Promise)
-            component: import("../components/OrderListComponent" /* webpackChunkName: "js/async/order-list-component" */),
+            component: import("../components/OrderListComponent" /* webpackChunkName: "js/async/order-list" */),
             // Um componente para usar enquanto o assíncrono é carregado
             loading: VueLoading,
             // Um componente para usar se o carregamento falhar
@@ -26,7 +26,7 @@ const orderRoutes = [
         path: '/orders/dashboard',
         name: "orders.dashboard",
         component: () => ({
-            component: import("../components/OrderDashboardComponent" /* webpackChunkName: "js/async/order-dashboard-component" */),
+            component: import("../components/OrderDashboardComponent" /* webpackChunkName: "js/async/order-dashboard" */),
             loading: VueLoading,
             //error: ErrorComponent,
             delay: 200,
@@ -40,7 +40,7 @@ const orderRoutes = [
         path: '/orders/create',
         name: "orders.create",
         component: () => ({
-            component: import("../components/OrderFormComponent" /* webpackChunkName: "js/async/order-form-component" */),
+            component: import("../components/OrderFormComponent" /* webpackChunkName: "js/async/order-form" */),
             loading: VueLoading,
             //error: ErrorComponent,
             delay: 200,
@@ -54,7 +54,7 @@ const orderRoutes = [
         path: '/orders/:id/edit',
         name: "orders.edit",
         component: () => ({
-            component: import("../components/OrderFormComponent" /* webpackChunkName: "js/async/order-form-component" */),
+            component: import("../components/OrderFormComponent" /* webpackChunkName: "js/async/order-form" */),
             loading: VueLoading,
             //error: ErrorComponent,
             delay: 200,

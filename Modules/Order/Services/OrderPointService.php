@@ -7,6 +7,8 @@ namespace Modules\Order\Services;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Cache;
+use Modules\Authentication\Services\CacheService;
 use Modules\Order\Models\OrderPoint;
 
 class OrderPointService
@@ -51,6 +53,8 @@ class OrderPointService
     public function create(array $data): OrderPoint
     {
 
+        CacheService::clearOrderPoint();
+
         $orderPoint = new OrderPoint();
         $orderPoint->fill($data);
         $orderPoint->save();
@@ -62,6 +66,8 @@ class OrderPointService
 
     public function update(array $data, OrderPoint $orderPoint): OrderPoint
     {
+
+        CacheService::clearOrderPoint();
 
         $orderPoint->fill($data);
         $orderPoint->save();
@@ -78,10 +84,14 @@ class OrderPointService
     public function listOfChoices(): array
     {
 
-        return OrderPoint::select('id', 'name as label')
-            ->orderBy('name')
-            ->get()
-            ->toArray();
+        $minutes = 24 * 60;
+        return Cache::remember('listOfChoices', $minutes, function () {
+
+            return OrderPoint::select('id', 'name as label')
+                ->orderBy('name')
+                ->get()
+                ->toArray();
+        });
 
     }
 }

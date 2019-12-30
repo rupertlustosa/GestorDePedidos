@@ -7,7 +7,9 @@ namespace Modules\Authentication\Services;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
+use Modules\Authentication\Models\Role;
 use Modules\Authentication\Models\User;
 
 class UserService
@@ -57,6 +59,7 @@ class UserService
     public function create(array $data): User
     {
 
+        CacheService::clearUsers();
 
         return DB::transaction(function () use ($data) {
 
@@ -73,6 +76,8 @@ class UserService
 
     public function update(array $data, User $user): User
     {
+
+        CacheService::clearUsers();
 
         return DB::transaction(function () use ($data, $user) {
 
@@ -93,8 +98,42 @@ class UserService
     public function listOfChoices(): array
     {
 
-        return User::orderBy('name')
-            ->pluck('name', 'id')
+        return User::select('id', 'name as label')
+            ->orderBy('name')
+            ->get()
             ->toArray();
+
+    }
+
+    public function listOfAttendantChoices(): array
+    {
+        //CacheService::clearUsers();
+        $minutes = 24 * 60;
+        return Cache::remember('usersListOfAttendantChoices', $minutes, function () {
+
+            return User::select('users.id', 'users.name as label')
+                ->join('role_user', 'role_user.user_id', '=', 'users.id')
+                ->whereNotIn('role_user.role_id', [Role::DELIVERYMAN, Role::CLIENT])
+                ->orderBy('users.name')
+                ->distinct()
+                ->get()
+                ->toArray();
+        });
+    }
+
+    public function listOfClientChoices(): array
+    {
+
+        $minutes = 24 * 60;
+        return Cache::remember('usersListOfClientChoices', $minutes, function () {
+
+            return User::select('users.id', 'users.name as label')
+                //->join('role_user', 'role_user.user_id', '=', 'users.id')
+                //->whereNotIn('role_user.role_id', [Role::DELIVERYMAN, Role::CLIENT])
+                ->orderBy('users.name')
+                ->distinct()
+                ->get()
+                ->toArray();
+        });
     }
 }

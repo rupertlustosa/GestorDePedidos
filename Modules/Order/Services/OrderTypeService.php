@@ -78,8 +78,9 @@ class OrderTypeService
     public function listOfChoices(): array
     {
 
-        return OrderType::orderBy('name')
-            ->pluck('name', 'id')
+        return OrderType::select('id', 'name as label')
+            ->orderBy('name')
+            ->get()
             ->toArray();
     }
 }

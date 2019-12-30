@@ -55,11 +55,6 @@
                     </a>
                     <ul class="nav nav-second-level collapse">
                         <li>
-                            <router-link :to="{ name: 'roles.list'}">
-                                <i class="fa fa-th-large"></i> <span class="nav-label">Papéis</span>
-                            </router-link>
-                        </li>
-                        <li>
                             <router-link :to="{ name: 'order_types.list'}">
                                 <i class="fa fa-th-large"></i> <span class="nav-label">Tipos de pedidos</span>
                             </router-link>

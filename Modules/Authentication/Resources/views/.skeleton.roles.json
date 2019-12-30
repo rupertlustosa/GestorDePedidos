@@ -1,0 +1,34 @@
+{
+    "names": [
+        {
+            "id": "id",
+            "label": "ID"
+        },
+        {
+            "id": "name",
+            "label": "Nome"
+        }
+    ],
+    "fill": [
+        "name"
+    ],
+    "rules": {
+        "definition": [
+            "'id' => 'required|integer|exists:roles,id,deleted_at,NULL',",
+            "'name' => 'required|max:255',"
+        ],
+        "this": [
+            "'id' => self::$rules['id'],",
+            "'name' => self::$rules['name'],"
+        ]
+    },
+    "search": [
+        "name"
+    ],
+    "listing": [
+        "name"
+    ],
+    "form": [
+        "name"
+    ]
+}

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Modules\User\Models;
+namespace Modules\Authentication\Models;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -45,4 +45,11 @@ class User extends Authenticatable
     # Accessors & Mutators
 
     # Relationships
+    /**
+     * The users that belong to the role.
+     */
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class)->using(RoleUser::class);
+    }
 }

@@ -189,6 +189,8 @@
     import vSelect from 'vue-select';
     import 'vue-select/dist/vue-select.css';
     import {Money} from 'v-money';
+    import ProductModel from '../js/Models/ProductModel';
+    import VariationModel from '../js/Models/VariationModel';
 
     export default {
         name: "ProductFormComponent",
@@ -198,13 +200,7 @@
                 routeToSave: "/api/products",
                 routeNameToRedirect: "products.list",
                 method: 'post',
-                form: {
-                    category_id: null,
-                    name: null,
-                    image: null,
-                    notes: null,
-                    variations: []
-                },
+                form: new ProductModel(),
                 errors: {},
                 isCreateMode: true,
                 categoryOptions: [],
@@ -232,7 +228,14 @@
                         this.form = response.data.data;
                         for (const [key, value] of Object.entries(this.form.variations)) {
 
-                            this.form.variations[key] = new Variation(value.id, value.code, value.name, value.price, value.available);
+                            let variation = new VariationModel();
+                            variation.id = value.id;
+                            variation.code = value.code;
+                            variation.name = value.name;
+                            variation.price = value.price;
+                            variation.available = value.available;
+
+                            this.form.variations[key] = variation;
                         }
                     })
                     .catch(error => {
@@ -259,7 +262,7 @@
                     .then(response => {
 
                         this.categoryOptions = response.data;
-                        console.log(this.categoryOptions);
+                        //console.log(this.categoryOptions);
                     })
                     .catch(error => {
 
@@ -278,7 +281,7 @@
                 this.$loading(true);
 
                 this.errors = {};
-                console.log(this.form.variations);
+
                 axios.request(this.routeToSave, {
                     method: this.method,
                     params: this.form,
@@ -290,7 +293,9 @@
                             })
                             .then(() => {
 
-                                this.form = {};
+                                console.log('A', this.form);
+                                this.form = new ProductModel();
+                                console.log('B', this.form);
                                 this.routeNameToRedirect = "products.list";
                             });
 
@@ -316,13 +321,13 @@
                     });
             },
             removeVariation(variation) {
-                if (variation instanceof Variation) {
+                if (variation instanceof VariationModel) {
                     console.log(variation);
                     this.form.variations = this.form.variations.filter((x) => x !== variation);
                 }
             },
             addVariation() {
-                let variation = new Variation();
+                let variation = new VariationModel();
                 variation.available = true;
                 this.form.variations.push(variation);
             }
@@ -335,36 +340,9 @@
                 this.routeToSave = "/api/products/" + this.$route.params.id;
                 this.method = 'put';
                 this.getData();
-            } else {
-
-                this.addVariation();
             }
 
             this.getCategoryOptions();
-        }
-    }
-
-    class Product {
-
-        constructor(id, category_id, name, image, notes, variations) {
-            this.id = id;
-            this.category_id = category_id;
-            this.name = name;
-            this.image = image;
-            this.notes = notes;
-            this.variations = variations;
-        }
-    }
-
-    class Variation {
-
-        constructor(id, code, name, price, available) {
-            this.id = id;
-            //this.product_id = product_id;
-            this.code = code;
-            this.name = name;
-            this.price = price;
-            this.available = available;
         }
     }
 </script>

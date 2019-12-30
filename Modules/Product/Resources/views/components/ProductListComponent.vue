@@ -16,21 +16,20 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="col-form-label">Categoria</label>
-                                            <input class="form-control" type="text" v-model="form.category_id">
+                                            <v-select :options="categoryOptions"
+                                                      :reduce="option => option.id"
+                                                      id="id"
+                                                      label="label"
+                                                      placeholder="Escolha uma categoria"
+                                                      v-model="form.category_id">
+                                            </v-select>
                                         </div>
                                     </div>
 
-                                    <div class="col-md-4">
+                                    <div class="col-md-8">
                                         <div class="form-group">
                                             <label class="col-form-label">Nome</label>
                                             <input class="form-control" type="text" v-model="form.name">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label class="col-form-label">Observações</label>
-                                            <input class="form-control" type="text" v-model="form.notes">
                                         </div>
                                     </div>
 
@@ -56,19 +55,19 @@
                                 <table class="table table-striped table-hover table-bordered">
                                     <thead>
                                     <tr>
-                                        <th>Categoria</th>
                                         <th>Nome</th>
-                                        <th>Imagem</th>
-                                        <th class="text-right">
+                                        <th>Categoria</th>
+                                        <!--<th>Imagem</th>-->
+                                        <th class="text-right" style="width: 110px">
                                             Ações
                                         </th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <tr v-for="item in items">
-                                        <td>{{ item.category_id }}</td>
                                         <td>{{ item.name }}</td>
-                                        <td>{{ item.image }}</td>
+                                        <td>{{ item.category }}</td>
+                                        <!--<td>{{ item.image }}</td>-->
                                         <td class="text-right">
 
                                             <div class="dropdown">
@@ -114,17 +113,20 @@
 
 <script>
     import ProductNavBarComponent from "./ProductNavBarComponent";
+    import vSelect from "vue-select";
+    import 'vue-select/dist/vue-select.css';
 
     export default {
         name: "ProductListComponent",
-        components: {ProductNavBarComponent},
+        components: {ProductNavBarComponent, vSelect},
         data() {
             return {
                 items: [],
                 form: {
                     page: null
                 },
-                pageCount: 1
+                pageCount: 1,
+                categoryOptions: [],
             }
         },
         methods: {
@@ -167,11 +169,26 @@
 
                         this.$loading(false);
                     });
-            }
+            },
+            getCategoryOptions() {
+
+                axios.get('/api/categories/list-of-choices')
+                    .then(response => {
+
+                        this.categoryOptions = response.data;
+                    })
+                    .catch(error => {
+
+                        let message = 'Erro ao carregar categorias!';
+                        this.$awn.alert(message);
+                        console.log(error);
+                    });
+            },
         },
         mounted() {
 
             this.getData(1);
+            this.getCategoryOptions();
         }
     }
 </script>

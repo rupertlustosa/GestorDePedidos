@@ -32,7 +32,20 @@ class CategoriesTableSeeder extends Seeder
                 "id" => 4,
                 "name" => "Bebidas",
             ),
+            array(
+                "id" => 5,
+                "name" => "Sucos (500 ml)",
+            ),
+            array(
+                "id" => 6,
+                "name" => "Cerveja (600 ml)",
+            ),
+            array(
+                "id" => 7,
+                "name" => "Refrigerantes",
+            ),
         );
+
 
         foreach ($categories as $item) {
 

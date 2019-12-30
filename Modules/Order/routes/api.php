@@ -14,16 +14,12 @@
 Route::middleware(['web'])
     ->group(function ($api) {
 
+        $api->get('order_types/list-of-choices', 'OrderTypeController@listOfChoices');
         $api->apiResources([
             'order_statuses' => 'OrderStatusController',
             'order_items' => 'OrderItemController',
             'order_types' => 'OrderTypeController',
             'order_points' => 'OrderPointController',
-            'orders' => 'OrderController',
-        ]);
-
-        $api->get('orders/list-of-choices', 'OrderController@listOfChoices');
-        $api->apiResources([
             'orders' => 'OrderController',
         ]);
     });

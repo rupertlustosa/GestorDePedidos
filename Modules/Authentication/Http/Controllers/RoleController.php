@@ -2,34 +2,35 @@
 
 declare(strict_types=1);
 
-namespace Modules\Order\Http\Controllers;
+namespace Modules\Authentication\Http\Controllers;
 
 use Exception;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Modules\Authentication\Models\Role;
+use Modules\Authentication\Resources\RoleCollection;
+use Modules\Authentication\Resources\RoleResource;
+use Modules\Authentication\Services\RoleService;
+use Modules\Authentication\Validators\RoleStoreRequest;
+use Modules\Authentication\Validators\RoleUpdateRequest;
 use Modules\Http\Controllers\ApiController;
-use Modules\Order\Models\OrderType;
-use Modules\Order\Resources\OrderTypeCollection;
-use Modules\Order\Resources\OrderTypeResource;
-use Modules\Order\Services\OrderTypeService;
-use Modules\Order\Validators\OrderTypeStoreRequest;
-use Modules\Order\Validators\OrderTypeUpdateRequest;
 
-class OrderTypeController extends ApiController
+class RoleController extends ApiController
 {
 
-    private $orderTypeService;
+    private $roleService;
 
     /**
      * Create a new controller instance.
      *
-     * @param OrderTypeService $orderTypeService
+     * @param RoleService $roleService
      */
-    public function __construct(OrderTypeService $orderTypeService)
+    public function __construct(RoleService $roleService)
     {
 
         //$this->middleware('api');
-        $this->orderTypeService = $orderTypeService;
+        $this->roleService = $roleService;
     }
 
     /**
@@ -43,9 +44,9 @@ class OrderTypeController extends ApiController
         try {
 
             $limit = (int)(request('limit') ?? 20);
-            $data = $this->orderTypeService->paginate($limit);
+            $data = $this->roleService->paginate($limit);
 
-            return $this->sendPaginate(new OrderTypeCollection($data));
+            return $this->sendPaginate(new RoleCollection($data));
 
         } catch (Exception $exception) {
 
@@ -64,9 +65,9 @@ class OrderTypeController extends ApiController
 
         try {
 
-            $data = $this->orderTypeService->all();
+            $data = $this->roleService->all();
 
-            return $this->sendResource(OrderTypeResource::collection($data));
+            return $this->sendResource(RoleResource::collection($data));
 
         } catch (Exception $exception) {
 
@@ -84,7 +85,7 @@ class OrderTypeController extends ApiController
 
         try {
 
-            $data = $this->orderTypeService->listOfChoices();
+            $data = $this->roleService->listOfChoices();
 
             return $this->sendSimpleJson($data);
 
@@ -104,7 +105,7 @@ class OrderTypeController extends ApiController
 
         try {
 
-            $storeRequest = new OrderTypeStoreRequest();
+            $storeRequest = new RoleStoreRequest();
             $validator = Validator::make(request()->all(), $storeRequest->rules());
 
             if ($validator->fails()) {
@@ -112,7 +113,7 @@ class OrderTypeController extends ApiController
                 return $this->sendBadRequest('Validation Error.', $validator->errors()->toArray());
             }
 
-            $item = $this->orderTypeService->create(request()->all());
+            $item = $this->roleService->create(request()->all());
 
             return $this->sendResponse($item->toArray());
 
@@ -126,14 +127,14 @@ class OrderTypeController extends ApiController
     /**
      * Update the specified resource in storage.
      *
-     * @param OrderType $orderType
+     * @param Role $role
      * @return JsonResponse
      */
-    public function update(OrderType $orderType)
+    public function update(Role $role)
     {
         try {
 
-            $updateRequest = new OrderTypeUpdateRequest();
+            $updateRequest = new RoleUpdateRequest();
             $validator = Validator::make(request()->all(), $updateRequest->rules());
 
             if ($validator->fails()) {
@@ -141,7 +142,7 @@ class OrderTypeController extends ApiController
                 return $this->sendBadRequest('Validation Error.', $validator->errors()->toArray());
             }
 
-            $item = $this->orderTypeService->update(request()->all(), $orderType);
+            $item = $this->roleService->update(request()->all(), $role);
 
             return $this->sendResponse($item->toArray());
 
@@ -155,15 +156,15 @@ class OrderTypeController extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param OrderType $orderType
+     * @param Role $role
      * @return JsonResponse
      */
-    public function show(OrderType $orderType): JsonResponse
+    public function show(Role $role): JsonResponse
     {
 
         try {
 
-            return $this->sendResource(new OrderTypeResource($orderType));
+            return $this->sendResource(new RoleResource($role));
 
         } catch (Exception $exception) {
 
@@ -175,17 +176,17 @@ class OrderTypeController extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param OrderType $orderType
+     * @param Role $role
      * @return JsonResponse
      */
-    public function delete(OrderType $orderType): JsonResponse
+    public function delete(Role $role): JsonResponse
     {
 
         try {
 
-            $item = $this->orderTypeService->find($orderType);
+            $item = $this->roleService->find($role);
 
-            return $this->sendResource(new OrderTypeResource($item));
+            return $this->sendResource(new RoleResource($item));
 
         } catch (Exception $exception) {
 

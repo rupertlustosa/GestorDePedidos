@@ -25,14 +25,14 @@ class ProductService
 
         $query = Product::query();
 
-        $query->when(request('id'), function ($query, $id) {
+        $query->when(request('category_id'), function ($query, $category_id) {
 
-            return $query->whereId($id);
+            return $query->whereCategoryId($category_id);
         });
 
-        $query->when(request('search'), function ($query, $search) {
+        $query->when(request('name'), function ($query, $search) {
 
-            return $query->where('id', 'LIKE', '%' . $search . '%');
+            return $query->where('name', 'LIKE', '%' . $search . '%');
         });
 
         return $query;

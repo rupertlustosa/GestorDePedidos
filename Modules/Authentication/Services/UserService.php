@@ -7,6 +7,7 @@ namespace Modules\Authentication\Services;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\DB;
 use Modules\Authentication\Models\User;
 
 class UserService
@@ -28,9 +29,14 @@ class UserService
             return $query->whereId($id);
         });
 
-        $query->when(request('search'), function ($query, $search) {
+        $query->when(request('name'), function ($query, $search) {
 
-            return $query->where('id', 'LIKE', '%' . $search . '%');
+            return $query->where('name', 'LIKE', '%' . $search . '%');
+        });
+
+        $query->when(request('email'), function ($query, $search) {
+
+            return $query->where('email', 'LIKE', '%' . $search . '%');
         });
 
         return $query;
@@ -51,22 +57,31 @@ class UserService
     public function create(array $data): User
     {
 
-        $user = new User();
-        $user->fill($data);
-        $user->save();
 
-        return $user;
-        //return DB::transaction(function () use ($data) {
-        //});
+        return DB::transaction(function () use ($data) {
+
+            $user = new User();
+            $user->fill($data);
+            $user->password = bcrypt($data['password']);
+            $user->save();
+
+            $user->roles()->sync($data['roles']);
+
+            return $user;
+        });
     }
 
     public function update(array $data, User $user): User
     {
 
-        $user->fill($data);
-        $user->save();
+        return DB::transaction(function () use ($data, $user) {
 
-        return $user;
+            $user->fill($data);
+            $user->save();
+
+            $user->roles()->sync($data['roles']);
+            return $user;
+        });
     }
 
     public function delete(User $user): ?bool

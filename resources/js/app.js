@@ -6,21 +6,6 @@
 
 require('./bootstrap');
 
-//window.Vue = require('vue');
-
-/**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
- */
-
-// const files = require.context('./', true, /\.vue$/i)
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
-
-//Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -36,11 +21,6 @@ import VueFilterDateFormat from 'vue-filter-date-format';
 import VueFilterDateParse from 'vue-filter-date-parse'
 //https://f3oall.github.io/awesome-notifications/docs/customization/
 import VueAWN from "vue-awesome-notifications"
-
-/*import BootstrapVue from 'bootstrap-vue';
-Vue.use(BootstrapVue);*/
-// using default options
-//Vue.use(VueLoading);
 
 // overwrite defaults
 Vue.use(VueLoading, {
@@ -74,8 +54,7 @@ Vue.use(VueFilterDateParse);
 
 Vue.component('paginate-component', PaginateComponent);
 
-// Your custom options
-let options = {
+let optionsVueAWN = {
     position: "top-right",
     clean: true,
     labels: {
@@ -93,17 +72,19 @@ let options = {
     //durations: {success: 0}
 };
 
-Vue.use(VueAWN, options);
+Vue.use(VueAWN, optionsVueAWN);
 
 Vue.filter('capitalize', function (value) {
     if (!value) return '';
     value = value.toString();
     return value.charAt(0).toUpperCase() + value.slice(1) + '.....';
 });
+
 Vue.filter('currencydecimal', function (value) {
     if (!value) return '-';
     return value.toFixed(2)
 });
+
 Vue.filter('fromBoolean', function (value) {
     if (!value) return '-';
     return value == 1 ? 'Sim' : 'Não';
@@ -112,14 +93,5 @@ Vue.filter('fromBoolean', function (value) {
 const app = new Vue({
     el: '#app',
     router: Routes,
-    /*filters: {
-        currencydecimal(value) {
-            return value.toFixed(2)
-        },
-        fromBoolean(value) {
-
-            return value == 1 ? 'Sim' : 'Não';
-        }
-    },*/
     render: h => h(App)
 });

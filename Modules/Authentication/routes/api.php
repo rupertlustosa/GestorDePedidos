@@ -14,7 +14,14 @@
 Route::middleware(['web'])
     ->group(function ($api) {
 
-        $api->resource('users', 'UserController')->except([
-            'create', 'edit'
+        $api->get('roles/list-of-choices', 'RoleController@listOfChoices');
+        $api->apiResources([
+            'roles' => 'RoleController',
+            'users' => 'UserController',
         ]);
+
+        /*$api->get('user_roles/list-of-choices', 'UserRoleController@listOfChoices');
+        $api->apiResources([
+            'user_roles' => 'UserRoleController',
+        ]);*/
     });

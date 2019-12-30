@@ -6,7 +6,7 @@ namespace Modules\Authentication\Validators;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserUpdateRequest extends FormRequest
+class RoleUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,10 +27,7 @@ class UserUpdateRequest extends FormRequest
     public function rules()
     {
 
-        $rules = UserRule::rules();
-        $rules['email'] = 'required|email|max:255|unique:users,email,'.request('user')->id;
-        $rules['password'] = str_replace('required', 'nullable', $rules['password']);
-        return $rules;
+        return RoleRule::rules();
     }
 
     /**
@@ -41,6 +38,6 @@ class UserUpdateRequest extends FormRequest
     public function messages()
     {
 
-        return UserRule::messages();
+        return RoleRule::messages();
     }
 }

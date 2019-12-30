@@ -22,43 +22,81 @@
                     Novo atendimento
                 </h2>
 
-                <div id="demo" class="mt-3">
-                    <div class="step-app">
-                        <ul class="step-steps">
-                            <li><a href="#step1">Qual o tipo desse atendimento?</a></li>
-                            <li><a href="#step2">Detalhes do pedido</a></li>
-                            <li><a href="#step3">Resumo do pedido</a></li>
-                        </ul>
-                        <div class="step-content">
-                            <div class="step-tab-panel" id="step1">
-                                <div class="form-row">
-                                    <div class="form-group col-md-12 col-lg-12">
-                                        <label>Categoria</label>
-                                        <v-select :options="categoryOptions"
-                                                  :reduce="option => option.id"
-                                                  id="id"
-                                                  label="label"
-                                                  placeholder="Escolha uma categoria"
-                                                  v-model="form.category_id">
-                                        </v-select>
-                                        <form-error-component :errors="errors" v-if="errors.category_id">
-                                            {{ errors.category_id[0] }}
-                                        </form-error-component>
-                                    </div>
+                <div class="ibox">
+                    <div class="ibox-content">
 
-                                </div>
-                            </div>
-                            <div class="step-tab-panel" id="step2">
-                                ...
-                            </div>
-                            <div class="step-tab-panel" id="step3">
-                                ...
+                        <p class="font-bold">
+                            Selecione a forma de atendimento
+                        </p>
+                        <div class="custom-radio">
+                            <div class="form-row mt-2">
+                                <template v-for="(orderType, orderTypeId) in orderTypesOptions">
+                                    <div class="custom-radio-success col-sm-12 col-md-3">
+                                        <input type="radio" name="radio" :id="'radio'+orderTypeId"
+                                               :checked="order.order_type_id == orderTypeId"
+                                               :value="orderTypeId"
+                                               v-model="order.order_type_id"/>
+                                        <label :for="'radio'+orderTypeId">{{ orderType }}</label>
+                                    </div>
+                                </template>
                             </div>
                         </div>
-                        <div class="step-footer">
-                            <button data-direction="prev" class="btn btn-default m-r-sm">Anterior</button>
-                            <button data-direction="next" class="btn btn-default m-r-sm">Avançar</button>
-                            <button data-direction="finish" class="btn btn-default m-r-sm">Finalizar</button>
+
+                        <div class="form-row mt-2" v-if="order.order_type_id == 1 || order.order_type_id == 2">
+                            <div class="form-group col-md-12 col-lg-12">
+                                <label class="font-bold">Qual o atendente? *</label>
+                                <input class="form-control" type="text" v-model="order.attendant_id">
+                                <form-error-component :errors="errors" v-if="errors.attendant_id">
+                                    {{ errors.attendant_id[0] }}
+                                </form-error-component>
+                            </div>
+                        </div>
+
+                        <div class="form-row mt-2" v-if="order.order_type_id == 1">
+                            <div class="form-group col-md-12 col-lg-12">
+                                <label class="font-bold">Qual a mesa? *</label>
+                                <input class="form-control" type="text" v-model="order.order_point_id">
+                                <form-error-component :errors="errors" v-if="errors.order_point_id">
+                                    {{ errors.order_point_id[0] }}
+                                </form-error-component>
+                            </div>
+                        </div>
+
+                        <div class="form-row mt-2" v-if="order.order_type_id == 3 || order.order_type_id == 4">
+                            <div class="form-group col-md-12 col-lg-12">
+                                <label class="font-bold">Qual o cliente?</label>
+                                <input class="form-control" type="text" v-model="order.client_id">
+                                <form-error-component :errors="errors" v-if="errors.client_id">
+                                    {{ errors.client_id[0] }}
+                                </form-error-component>
+                            </div>
+                        </div>
+
+                        <div class="form-row mt-2" v-if="order.order_type_id == 3 || order.order_type_id == 4">
+                            <div class="form-group col-md-12 col-lg-12">
+                                <div class="ibox-content">
+                                    <p>
+                                        Selecione os produtos do pedido:
+                                    </p>
+
+                                    <form id="form" action="#" class="wizard-big">
+                                        <select class="form-control dual_select" multiple>
+                                            <option value="United States">United States</option>
+                                            <option value="United Kingdom">United Kingdom</option>
+                                            <option value="Australia">Australia</option>
+                                            <option selected value="Austria">Austria</option>
+                                            <option selected value="Bahamas">Bahamas</option>
+                                            <option value="Barbados">Barbados</option>
+                                            <option value="Belgium">Belgium</option>
+                                            <option value="Bermuda">Bermuda</option>
+                                            <option value="Brazil">Brazil</option>
+                                            <option value="Bulgaria">Bulgaria</option>
+                                            <option value="Cameroon">Cameroon</option>
+                                            <option value="Canada">Canada</option>
+                                        </select>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -76,6 +114,8 @@
     import 'jquery.steps/dist/jquery-steps';
     import vSelect from 'vue-select';
     import 'vue-select/dist/vue-select.css';
+    import OrderModel from '../../js/OrderModel';
+    import FormErrorComponent from "../../../../../../resources/js/components/layout/bootstrap/FormErrorComponent";
 
     $(document).ready(function () {
 
@@ -88,14 +128,14 @@
 
     export default {
         name: "NewAttendanceComponent",
-        components: {vSelect},
+        components: {FormErrorComponent, vSelect},
         data() {
             return {
-                form: {
-                    category_id: null,
-                },
                 errors: {},
+                orderTypesOptions: [],
                 categoryOptions: [],
+                order: new OrderModel(),
+                message: 'Aaaaaaa',
             }
         },
         methods: {
@@ -105,7 +145,7 @@
                     .then(response => {
 
                         this.categoryOptions = response.data;
-                        console.log(this.categoryOptions);
+                        //console.log(this.categoryOptions);
                     })
                     .catch(error => {
 
@@ -114,343 +154,36 @@
                         console.log(error);
                     });
             },
+            getOrderTypesOptions() {
+
+                axios.get('/api/order_types/list-of-choices')
+                    .then(response => {
+
+                        this.orderTypesOptions = response.data;
+                        //console.log(this.orderTypesOptions);
+                    })
+                    .catch(error => {
+
+                        let message = 'Erro ao carregar tipos de atendimento!';
+                        this.$awn.alert(message);
+                        console.log(error);
+                    });
+            },
+            setOrderType(orderTypeId) {
+
+                this.order.order_type_id = orderTypeId;
+                this.test = orderTypeId;
+                console.log(this.order);
+                //console.log(this.order.order_type_id);
+            }
         },
         mounted() {
             this.getCategoryOptions();
+            this.getOrderTypesOptions();
         }
     }
 </script>
 
 <style scoped>
-    /*
-        Common
-    */
 
-    .wizard,
-    .tabcontrol {
-        display: block;
-        width: 100%;
-        overflow: hidden;
-    }
-
-    .wizard a,
-    .tabcontrol a {
-        outline: 0;
-    }
-
-    .wizard ul,
-    .tabcontrol ul {
-        list-style: none !important;
-        padding: 0;
-        margin: 0;
-    }
-
-    .wizard ul > li,
-    .tabcontrol ul > li {
-        display: block;
-        padding: 0;
-    }
-
-    /* Accessibility */
-    .wizard > .steps .current-info,
-    .tabcontrol > .steps .current-info {
-        position: absolute;
-        left: -999em;
-    }
-
-    .wizard > .content > .title,
-    .tabcontrol > .content > .title {
-        position: absolute;
-        left: -999em;
-    }
-
-
-    /*
-        Wizard
-    */
-
-    .wizard > .steps {
-        position: relative;
-        display: block;
-        width: 100%;
-    }
-
-    .wizard.vertical > .steps {
-        display: inline;
-        float: left;
-        width: 30%;
-    }
-
-    .wizard > .steps > ul > li {
-        width: 25%;
-    }
-
-    .wizard > .steps > ul > li,
-    .wizard > .actions > ul > li {
-        float: left;
-    }
-
-    .wizard.vertical > .steps > ul > li {
-        float: none;
-        width: 100%;
-    }
-
-    .wizard > .steps a,
-    .wizard > .steps a:hover,
-    .wizard > .steps a:active {
-        display: block;
-        width: auto;
-        margin: 0 0.5em 0.5em;
-        padding: 8px;
-        text-decoration: none;
-
-        -webkit-border-radius: 5px;
-        -moz-border-radius: 5px;
-        border-radius: 5px;
-    }
-
-    .wizard > .steps .disabled a,
-    .wizard > .steps .disabled a:hover,
-    .wizard > .steps .disabled a:active {
-        background: #eee;
-        color: #aaa;
-        cursor: default;
-    }
-
-    .wizard > .steps .current a,
-    .wizard > .steps .current a:hover,
-    .wizard > .steps .current a:active {
-        background: #1AB394;
-        color: #fff;
-        cursor: default;
-    }
-
-    .wizard > .steps .done a,
-    .wizard > .steps .done a:hover,
-    .wizard > .steps .done a:active {
-        background: #6fd1bd;
-        color: #fff;
-    }
-
-    .wizard > .steps .error a,
-    .wizard > .steps .error a:hover,
-    .wizard > .steps .error a:active {
-        background: #ED5565;
-        color: #fff;
-    }
-
-    .wizard > .content {
-        background: #eee;
-        display: block;
-        margin: 5px 5px 10px 5px;
-        min-height: 120px;
-        overflow: hidden;
-        position: relative;
-        width: auto;
-
-        -webkit-border-radius: 5px;
-        -moz-border-radius: 5px;
-        border-radius: 5px;
-    }
-
-    .wizard-big.wizard > .content {
-        min-height: 320px;
-    }
-
-    .wizard.vertical > .content {
-        display: inline;
-        float: left;
-        margin: 0 2.5% 0.5em 2.5%;
-        width: 65%;
-    }
-
-    .wizard > .content > .body {
-        float: left;
-        position: absolute;
-        width: 95%;
-        height: 95%;
-        padding: 2.5%;
-    }
-
-    .wizard > .content > .body ul {
-        list-style: disc !important;
-    }
-
-    .wizard > .content > .body ul > li {
-        display: list-item;
-    }
-
-    .wizard > .content > .body > iframe {
-        border: 0 none;
-        width: 100%;
-        height: 100%;
-    }
-
-    .wizard > .content > .body input {
-        display: block;
-        border: 1px solid #ccc;
-    }
-
-    .wizard > .content > .body input[type="checkbox"] {
-        display: inline-block;
-    }
-
-    .wizard > .content > .body input.error {
-        background: rgb(251, 227, 228);
-        border: 1px solid #fbc2c4;
-        color: #8a1f11;
-    }
-
-    .wizard > .content > .body label {
-        display: inline-block;
-        margin-bottom: 0.5em;
-    }
-
-    .wizard > .content > .body label.error {
-        color: #8a1f11;
-        display: inline-block;
-        margin-left: 1.5em;
-    }
-
-    .wizard > .actions {
-        position: relative;
-        display: block;
-        text-align: right;
-        width: 100%;
-    }
-
-    .wizard.vertical > .actions {
-        display: inline;
-        float: right;
-        margin: 0 2.5%;
-        width: 95%;
-    }
-
-    .wizard > .actions > ul {
-        display: inline-block;
-        text-align: right;
-    }
-
-    .wizard > .actions > ul > li {
-        margin: 0 0.5em;
-    }
-
-    .wizard.vertical > .actions > ul > li {
-        margin: 0 0 0 1em;
-    }
-
-    .wizard > .actions a,
-    .wizard > .actions a:hover,
-    .wizard > .actions a:active {
-        background: #1AB394;
-        color: #fff;
-        display: block;
-        padding: 0.5em 1em;
-        text-decoration: none;
-
-        -webkit-border-radius: 5px;
-        -moz-border-radius: 5px;
-        border-radius: 5px;
-    }
-
-    .wizard > .actions .disabled a,
-    .wizard > .actions .disabled a:hover,
-    .wizard > .actions .disabled a:active {
-        background: #eee;
-        color: #aaa;
-    }
-
-    .wizard > .loading {
-    }
-
-    .wizard > .loading .spinner {
-    }
-
-
-    /*
-        Tabcontrol
-    */
-
-    .tabcontrol > .steps {
-        position: relative;
-        display: block;
-        width: 100%;
-    }
-
-    .tabcontrol > .steps > ul {
-        position: relative;
-        margin: 6px 0 0 0;
-        top: 1px;
-        z-index: 1;
-    }
-
-    .tabcontrol > .steps > ul > li {
-        float: left;
-        margin: 5px 2px 0 0;
-        padding: 1px;
-
-        -webkit-border-top-left-radius: 5px;
-        -webkit-border-top-right-radius: 5px;
-        -moz-border-radius-topleft: 5px;
-        -moz-border-radius-topright: 5px;
-        border-top-left-radius: 5px;
-        border-top-right-radius: 5px;
-    }
-
-    .tabcontrol > .steps > ul > li:hover {
-        background: #edecec;
-        border: 1px solid #bbb;
-        padding: 0;
-    }
-
-    .tabcontrol > .steps > ul > li.current {
-        background: #fff;
-        border: 1px solid #bbb;
-        border-bottom: 0 none;
-        padding: 0 0 1px 0;
-        margin-top: 0;
-    }
-
-    .tabcontrol > .steps > ul > li > a {
-        color: #5f5f5f;
-        display: inline-block;
-        border: 0 none;
-        margin: 0;
-        padding: 10px 30px;
-        text-decoration: none;
-    }
-
-    .tabcontrol > .steps > ul > li > a:hover {
-        text-decoration: none;
-    }
-
-    .tabcontrol > .steps > ul > li.current > a {
-        padding: 15px 30px 10px 30px;
-    }
-
-    .tabcontrol > .content {
-        position: relative;
-        display: inline-block;
-        width: 100%;
-        height: 35em;
-        overflow: hidden;
-        border-top: 1px solid #bbb;
-        padding-top: 20px;
-    }
-
-    .tabcontrol > .content > .body {
-        float: left;
-        position: absolute;
-        width: 95%;
-        height: 95%;
-        padding: 2.5%;
-    }
-
-    .tabcontrol > .content > .body ul {
-        list-style: disc !important;
-    }
-
-    .tabcontrol > .content > .body ul > li {
-        display: list-item;
-    }
 </style>

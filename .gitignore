@@ -12,3 +12,7 @@ npm-debug.log
 yarn-error.log
 .idea/*
 composer.lock
+public/vendors~js/*
+public/js/*
+public/css/*
+package-lock.json
